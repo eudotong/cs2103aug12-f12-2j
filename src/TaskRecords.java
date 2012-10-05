@@ -1,6 +1,6 @@
 import java.util.Vector;
 
-public class TextFile {
+public class TaskRecords {
 	private Vector<Task> currentListOfTasks;
 	public Vector<Task> getCurrentListOfTasks(){
 		return currentListOfTasks;
