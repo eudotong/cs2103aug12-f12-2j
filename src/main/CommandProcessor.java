@@ -1,3 +1,8 @@
+package main;
+
+import exceptions.NothingToRedoException;
+import exceptions.NothingToUndoException;
+
 public class CommandProcessor {
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
 	private static final String MESSAGE_ERROR_UNABLE_TO_UNDO = "There are no commands to undo";
@@ -12,7 +17,7 @@ public class CommandProcessor {
 	}
 	
 	public String processCommand(String command){
-		EnumCommandType commandType = commandDictionary.getCommandType(command);
+		CommandType commandType = commandDictionary.getCommandType(command);
 		switch (commandType){
 		case ADD:
 			processAdd();
@@ -36,19 +41,21 @@ public class CommandProcessor {
 	public void processEdit(){}
 	public void processMark(){}
 	public String processUndo(){
-		Command commandToProcess = changeRecord.undo();
-		if(commandToProcess == null){
-			return MESSAGE_ERROR_UNABLE_TO_UNDO;
+		try{
+			Command commandToProcess = changeRecord.undo();
+			commandToProcess.processCommand();
+			return "";
+		}catch(NothingToUndoException e){
+			return e.getMessage();
 		}
-		commandToProcess.processCommand();
-		return "";
 	}
 	public String processRedo(){
-		Command commandToProcess = changeRecord.redo();
-		if(commandToProcess == null){
-			return MESSAGE_ERROR_UNABLE_TO_REDO;
+		try{
+			Command commandToProcess = changeRecord.redo();
+			commandToProcess.processCommand();
+			return "";
+		}catch(NothingToRedoException e){
+			return e.getMessage();
 		}
-		commandToProcess.processCommand();
-		return "";
 	}
 }

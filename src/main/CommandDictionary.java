@@ -1,3 +1,4 @@
+package main;
 public class CommandDictionary {
 	private static final String [] LIST_ADD_SYNONYMS = {"add", "insert"};
 	private static final String [] LIST_MARK_SYNONYMS = {"mark", "delete", "del"};
@@ -5,32 +6,32 @@ public class CommandDictionary {
 	private static final String [] LIST_REDO_SYNONYMS = {"redo"};
 	private static final String [] LIST_UNDO_SYNONYMS = {"undo"};
 	
-	public EnumCommandType getCommandType(String command){
+	public CommandType getCommandType(String command){
 		for(String entry : LIST_ADD_SYNONYMS){
 			if(command.contains(entry)){
-				return EnumCommandType.ADD;
+				return CommandType.ADD;
 			}
 		}
 		for(String entry :  LIST_EDIT_SYNONYMS){
 			if(command.contains(entry)){
-				return EnumCommandType.EDIT;
+				return CommandType.EDIT;
 			}
 		}
 		for(String entry :  LIST_MARK_SYNONYMS){
 			if(command.contains(entry)){
-				return EnumCommandType.MARK;
+				return CommandType.MARK;
 			}
 		}
 		for(String entry :  LIST_UNDO_SYNONYMS){
 			if(command.contains(entry)){
-				return EnumCommandType.UNDO;
+				return CommandType.UNDO;
 			}
 		}
 		for(String entry :  LIST_REDO_SYNONYMS){
 			if(command.contains(entry)){
-				return EnumCommandType.REDO;
+				return CommandType.REDO;
 			}
 		}
-		return EnumCommandType.NO_SUCH_COMMAND;
+		return CommandType.NO_SUCH_COMMAND;
 	}
 }

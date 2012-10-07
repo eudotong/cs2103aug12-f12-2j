@@ -1,7 +1,7 @@
+package main;
 
 public class CommandEdit implements Command{
-	
-	@Override
+	private static final boolean isReversible = true;
 	public Command reverseCommand() {
 		//the reverse command is edit
 		return null;
@@ -12,5 +12,10 @@ public class CommandEdit implements Command{
 		// TODO Auto-generated method stub
 		
 	}
-
+	public boolean isReversible(){
+		return isReversible;
+	}
+	public CommandType getCommandType(){
+		return CommandType.EDIT;
+	}
 }

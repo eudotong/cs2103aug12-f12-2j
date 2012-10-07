@@ -1,3 +1,4 @@
+package main;
 import java.util.Date;
 public class Task {
 	private String taskName;
@@ -5,6 +6,7 @@ public class Task {
 	private String category;
 	private boolean isImportant;
 	private int lineNumber;
+	
 	public Task(String taskName, Date taskDate, String category, boolean isImportant, int lineNumber) {
 		super();
 		this.taskName = taskName;
