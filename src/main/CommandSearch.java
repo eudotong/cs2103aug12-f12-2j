@@ -1,11 +1,11 @@
 package main;
 
 public class CommandSearch implements Command{
-	private static final boolean isReversible = true;
+	private static final boolean isReversible = false;
 	@Override
-	public void processCommand() {
+	public boolean processCommand() {
 		// TODO Auto-generated method stub
-		
+		return true;
 	}
 	@Override
 	public Command reverseCommand() {
@@ -19,5 +19,4 @@ public class CommandSearch implements Command{
 	public boolean isReversible(){
 		return isReversible;
 	}
-
 }

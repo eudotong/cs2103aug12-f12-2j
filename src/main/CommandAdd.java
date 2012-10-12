@@ -1,12 +1,15 @@
 package main;
 public class CommandAdd implements Command{
 	private static final boolean isReversible = true;
+	private Task taskToBeAdded;
+	public CommandAdd(String command){
+		
+	}
 	public Command reverseCommand(){
 		return null;
 	}
-	public void processCommand() {
-		// TODO Auto-generated method stub
-		
+	public boolean processCommand() {
+		return true;
 	}
 	public CommandType getCommandType(){
 		return CommandType.ADD;
