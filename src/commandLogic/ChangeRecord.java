@@ -1,5 +1,7 @@
-package main;
+package commandLogic;
 import java.util.Stack;
+
+import utility.Command;
 
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
