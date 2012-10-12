@@ -1,48 +1,85 @@
 package main;
-import java.util.Date;
-public class Task {
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+public class Task implements Comparable<Task>{
 	private String taskName;
-	private Date taskDate;
-	private String category;
+	private DateTime startTime;
+	private DateTime endTime;
 	private boolean isImportant;
-	private int lineNumber;
-	
-	public Task(String taskName, Date taskDate, String category, boolean isImportant, int lineNumber) {
-		super();
-		this.taskName = taskName;
-		this.taskDate = taskDate;
-		this.category = category;
-		this.isImportant = isImportant;
-		this.lineNumber = lineNumber;
+	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormat
+			.forPattern("dd/MM/yyyy hh:mma");
+
+	public Task(DateTime startTime){
+		this.startTime = startTime;
 	}
+	public Task(String taskName, DateTime startTime, DateTime endTime,
+			boolean isImportant) {
+		this.taskName = taskName;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.isImportant = isImportant;
+	}
+	
+	public Task(String taskName, DateTime startTime, boolean isImportant) {
+		this.taskName = taskName;
+		this.startTime = startTime;
+		this.endTime = null;
+		this.isImportant = isImportant;
+	}
+
+	public String toString() {
+		if(endTime == null){
+			return startTime.toString(DATE_FORMAT) + "||" + taskName + "|" + isImportant + "\r\n";
+		}
+		return startTime.toString(DATE_FORMAT) + "|"
+				+ endTime.toString(DATE_FORMAT) + "|" + taskName + "|" + isImportant + "\r\n";
+	}
+	
+	public boolean isMatch(String query){
+		return taskName.contains(query);
+	}
+
 	public String getTaskName() {
 		return taskName;
 	}
+
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}
-	public Date getTaskDate() {
-		return taskDate;
+
+	public DateTime getStartTime() {
+		return startTime;
 	}
-	public void setTaskDate(Date taskDate) {
-		this.taskDate = taskDate;
+
+	public void setStartTime(DateTime startTime) {
+		this.startTime = startTime;
 	}
-	public String getCategory() {
-		return category;
+
+	public DateTime getEndTime() {
+		return endTime;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+
+	public void setEndTime(DateTime endTime) {
+		this.endTime = endTime;
 	}
+
 	public boolean isImportant() {
 		return isImportant;
 	}
+
 	public void setImportant(boolean isImportant) {
 		this.isImportant = isImportant;
 	}
-	public int getLineNumber() {
-		return lineNumber;
-	}
-	public void setLineNumber(int lineNumber) {
-		this.lineNumber = lineNumber;
+	
+	@Override
+	public int compareTo(Task otherTask) {
+		int compareResult = startTime.compareTo(otherTask.getStartTime());
+		if(compareResult != 0){
+			return compareResult;
+		}
+		return taskName.compareTo(otherTask.getTaskName());
 	}
 }
