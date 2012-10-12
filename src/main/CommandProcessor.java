@@ -1,5 +1,12 @@
 package main;
 
+import java.io.IOException;
+
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
+import org.joda.time.format.DateTimeParser;
+
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
 
@@ -10,10 +17,21 @@ public class CommandProcessor {
 	
 	private CommandDictionary commandDictionary;
 	private ChangeRecord changeRecord;
+	private TaskRecords taskRecords;
+	private DateTimeFormatter dateFormatter;
 	
-	public CommandProcessor(){
+	public CommandProcessor() throws IOException{
 		changeRecord = new ChangeRecord();
 		commandDictionary = new CommandDictionary();
+		taskRecords = new TaskRecords();
+	}
+	
+	public void initialiseDateFormatter(){
+		DateTimeParser [] dateParsers = {
+				DateTimeFormat.forPattern("d/M/yyyy").getParser(),
+				DateTimeFormat.forPattern("d/M/yyyy").getParser()
+				};
+		//dateFormatter = new DateTimeFormatterBuilder().
 	}
 	
 	public String processCommand(String command){
@@ -42,20 +60,18 @@ public class CommandProcessor {
 	public void processMark(){}
 	public String processUndo(){
 		try{
-			Command commandToProcess = changeRecord.undo();
-			commandToProcess.processCommand();
+			changeRecord.undo();
 			return "";
 		}catch(NothingToUndoException e){
-			return e.getMessage();
+			return MESSAGE_ERROR_UNABLE_TO_UNDO;
 		}
 	}
 	public String processRedo(){
 		try{
-			Command commandToProcess = changeRecord.redo();
-			commandToProcess.processCommand();
+			changeRecord.redo();
 			return "";
 		}catch(NothingToRedoException e){
-			return e.getMessage();
+			return MESSAGE_ERROR_UNABLE_TO_REDO;
 		}
 	}
 }

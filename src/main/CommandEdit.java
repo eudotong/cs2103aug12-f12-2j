@@ -8,8 +8,8 @@ public class CommandEdit implements Command{
 	}
 
 	@Override
-	public void processCommand() {
-		// TODO Auto-generated method stub
+	public boolean processCommand() {
+		return true;
 		
 	}
 	public boolean isReversible(){
