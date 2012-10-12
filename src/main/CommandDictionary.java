@@ -37,6 +37,8 @@ public class CommandDictionary {
 		if (dictionary.containsKey(wordsInCommand[0])) {
 			return dictionary.get(wordsInCommand[0]);
 		}
+		
+		//TODO What if it's not first word? Can this split be reused?
 		return CommandType.NO_SUCH_COMMAND;
 	}
 }
