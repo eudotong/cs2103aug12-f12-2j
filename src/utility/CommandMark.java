@@ -1,4 +1,5 @@
-package main;
+package utility;
+
 
 public class CommandMark implements Command{
 	private static final boolean isReversible = true;

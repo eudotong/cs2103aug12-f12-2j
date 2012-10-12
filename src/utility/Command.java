@@ -1,6 +1,5 @@
-package main;
+package utility;
 
-//should this be interface/abstract/parent?
 public interface Command {
 	public boolean processCommand();
 	public Command reverseCommand();

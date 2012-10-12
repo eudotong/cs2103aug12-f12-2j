@@ -1,4 +1,5 @@
-package main;
+package utility;
+
 
 public class CommandSearch implements Command{
 	private static final boolean isReversible = false;

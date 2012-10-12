@@ -1,4 +1,4 @@
-package main;
+package commandLogic;
 
 import java.io.IOException;
 
@@ -6,6 +6,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 import org.joda.time.format.DateTimeParser;
+
+import storage.TaskRecords;
+import utility.CommandType;
 
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
@@ -18,20 +21,11 @@ public class CommandProcessor {
 	private CommandDictionary commandDictionary;
 	private ChangeRecord changeRecord;
 	private TaskRecords taskRecords;
-	private DateTimeFormatter dateFormatter;
 	
 	public CommandProcessor() throws IOException{
 		changeRecord = new ChangeRecord();
 		commandDictionary = new CommandDictionary();
 		taskRecords = new TaskRecords();
-	}
-	
-	public void initialiseDateFormatter(){
-		DateTimeParser [] dateParsers = {
-				DateTimeFormat.forPattern("d/M/yyyy").getParser(),
-				DateTimeFormat.forPattern("d/M/yyyy").getParser()
-				};
-		//dateFormatter = new DateTimeFormatterBuilder().
 	}
 	
 	public String processCommand(String command){

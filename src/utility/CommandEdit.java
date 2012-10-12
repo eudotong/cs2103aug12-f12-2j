@@ -1,4 +1,5 @@
-package main;
+package utility;
+
 
 public class CommandEdit implements Command{
 	private static final boolean isReversible = true;

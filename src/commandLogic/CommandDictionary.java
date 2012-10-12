@@ -1,6 +1,9 @@
-package main;
+package commandLogic;
 
 import java.util.HashMap;
+
+import utility.CommandType;
+
 
 public class CommandDictionary {
 	private static final String [] LIST_ADD_SYNONYMS = {"add", "insert", "create", "new"};

@@ -1,7 +1,15 @@
-package main;
+package utility;
+
+
 public class CommandAdd implements Command{
 	private static final boolean isReversible = true;
+	
 	private Task taskToBeAdded;
+	
+	public CommandAdd(Task taskToBeAdded){
+		this.taskToBeAdded = taskToBeAdded;
+	}
+	
 	public CommandAdd(String command){
 		
 	}
