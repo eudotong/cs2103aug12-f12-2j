@@ -1,36 +1,41 @@
 package main;
+
+import java.util.HashMap;
+
 public class CommandDictionary {
-	private static final String [] LIST_ADD_SYNONYMS = {"add", "insert"};
-	private static final String [] LIST_MARK_SYNONYMS = {"mark", "delete", "del"};
-	private static final String [] LIST_EDIT_SYNONYMS = {"update", "edit", "change"};
+	private static final String [] LIST_ADD_SYNONYMS = {"add", "insert", "create", "new"};
+	private static final String [] LIST_MARK_SYNONYMS = {"mark", "delete", "del", "remove", "discard", "erase", "drop"};
+	private static final String [] LIST_EDIT_SYNONYMS = {"update", "edit", "change", "alter", "modify"};
 	private static final String [] LIST_REDO_SYNONYMS = {"redo"};
 	private static final String [] LIST_UNDO_SYNONYMS = {"undo"};
+	private HashMap<String, CommandType> dictionary;
 	
-	public CommandType getCommandType(String command){
+	public CommandDictionary(){
+		initialiseDictionary();
+	}
+	private void initialiseDictionary() {
+		dictionary = new HashMap<String, CommandType>();
 		for(String entry : LIST_ADD_SYNONYMS){
-			if(command.contains(entry)){
-				return CommandType.ADD;
-			}
+			dictionary.put(entry, CommandType.ADD);
 		}
 		for(String entry :  LIST_EDIT_SYNONYMS){
-			if(command.contains(entry)){
-				return CommandType.EDIT;
-			}
+			dictionary.put(entry, CommandType.EDIT);
 		}
 		for(String entry :  LIST_MARK_SYNONYMS){
-			if(command.contains(entry)){
-				return CommandType.MARK;
-			}
+			dictionary.put(entry, CommandType.MARK);
 		}
 		for(String entry :  LIST_UNDO_SYNONYMS){
-			if(command.contains(entry)){
-				return CommandType.UNDO;
-			}
+			dictionary.put(entry, CommandType.UNDO);
 		}
 		for(String entry :  LIST_REDO_SYNONYMS){
-			if(command.contains(entry)){
-				return CommandType.REDO;
-			}
+			dictionary.put(entry, CommandType.REDO);
+		}
+	}
+	
+	public CommandType getCommandType(String command){
+		String [] wordsInCommand = command.split("\\W");
+		if (dictionary.containsKey(wordsInCommand[0])) {
+			return dictionary.get(wordsInCommand[0]);
 		}
 		return CommandType.NO_SUCH_COMMAND;
 	}
