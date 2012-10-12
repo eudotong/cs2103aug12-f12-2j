@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeSet;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -36,17 +37,39 @@ public class TaskRecords {
 		for (Task t : tasks) {
 			System.out.print(t.toString());
 		}
-		System.out.println("-------");
+		System.out.println("-Search day b4------");
 		DateTimeFormatter formatter = DateTimeFormat
 				.forPattern("d/M/yyyy h:mma");
-		DateTime date = formatter.parseDateTime("11/10/2012 11:22PM");
+		DateTime date = formatter.parseDateTime("12/10/2012 10:21PM");
+		/*
+		//Test delete and replace
 		tr.deleteTask(new Task("c", date, true));
-		tr.replaceTask(new Task("hello", date, true), new Task("c", date, true));
+		tr.replaceTask(new Task("erqe", date, true), new Task("c", date, true));
 		tr = new TaskRecords();
 		tasks = tr.getCurrentListOfTasks();
 		for (Task t : tasks) {
 			System.out.print(t.toString());
 		}
+		*/
+		//test search
+		tr.setCurrentListOfTasks(new DateTime().minusDays(1));
+		tasks = tr.getCurrentListOfTasks();
+		for (Task t : tasks) {
+			System.out.print(t.toString());
+		}
+		System.out.println("-search btw ytd tmr------");
+		tr.setCurrentListOfTasks(new DateTime().minusDays(1), new DateTime().plusDays(1));
+		tasks = tr.getCurrentListOfTasks();
+		for (Task t : tasks) {
+			System.out.print(t.toString());
+		}
+		System.out.println("-search hel ytd------");
+		tr.setCurrentListOfTasks("hel", new DateTime().minusDays(1));
+		tasks = tr.getCurrentListOfTasks();
+		for (Task t : tasks) {
+			System.out.print(t.toString());
+		}
+		System.out.println("-------");
 	}
 
 	/**
@@ -103,7 +126,11 @@ public class TaskRecords {
 	public Task[] getCurrentListOfTasks() {
 		return currentListOfTasks;
 	}
-
+	
+	public Task getTaskByIndex(int index) throws ArrayIndexOutOfBoundsException{
+		return currentListOfTasks[index];
+	}
+  
 	private void rewriteFile() throws IOException {
 		FileWriter myFileWriter = new FileWriter(myFile, false);
 		Iterator<Task> recordsIterator = allTaskRecords.iterator();
@@ -184,15 +211,7 @@ public class TaskRecords {
 	}
 
 	public void setCurrentListOfTasks(String query) {
-		Iterator<Task> recordsIterator = allTaskRecords.iterator();
-		ArrayList<Task> listOfTaskMatches = new ArrayList<Task>();
-		while (recordsIterator.hasNext()) {
-			Task currentTask = recordsIterator.next();
-			if (currentTask.isMatch(query)) {
-				listOfTaskMatches.add(currentTask);
-			}
-		}
-		currentListOfTasks = (Task[]) listOfTaskMatches.toArray();
+		currentListOfTasks = findMatchesFromSetOfTasks(allTaskRecords, query);
 	}
 
 	public void setCurrentListOfTasks(DateTime fromDate, DateTime toDate) throws IllegalArgumentException{
@@ -211,5 +230,35 @@ public class TaskRecords {
 		Task toTask = new Task(toDate);
 		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
 				new Task[1]);
+	}
+	
+	public void setCurrentListOfTasks(String query, DateTime fromDate, DateTime toDate){
+		// dummy tasks to facilitate searching in TreeSet
+		Task fromTask = new Task(fromDate);
+		Task toTask = new Task(toDate);
+		Set <Task> listOfTasksFromSpecifiedDates = allTaskRecords.subSet(fromTask, toTask);
+		currentListOfTasks = findMatchesFromSetOfTasks(listOfTasksFromSpecifiedDates, query);
+	}
+	
+	public void setCurrentListOfTasks(String query, DateTime fromDate){
+		DateTime toDate = fromDate.plusDays(1).toLocalDate()
+				.toDateTimeAtStartOfDay();
+		// dummy tasks to facilitate searching in TreeSet
+				Task fromTask = new Task(fromDate);
+				Task toTask = new Task(toDate);
+		Set <Task> listOfTasksFromSpecifiedDates = allTaskRecords.subSet(fromTask, toTask);
+		currentListOfTasks = findMatchesFromSetOfTasks(listOfTasksFromSpecifiedDates, query);
+	}
+	
+	private Task [] findMatchesFromSetOfTasks(Set<Task> setOfTasks, String query){
+		Iterator<Task> setIterator = setOfTasks.iterator();
+		ArrayList<Task> listOfTaskMatches = new ArrayList<Task>();
+		while (setIterator.hasNext()) {
+			Task currentTask = setIterator.next();
+			if (currentTask.isMatch(query)) {
+				listOfTaskMatches.add(currentTask);
+			}
+		}
+		return listOfTaskMatches.toArray(new Task [1]);
 	}
 }
