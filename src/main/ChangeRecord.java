@@ -20,23 +20,23 @@ public class ChangeRecord {
 		}
 	}
 	
-	public Command undo() throws NothingToUndoException{
+	public boolean undo() throws NothingToUndoException{
 		if(toUndoStack.isEmpty()){
 			throw new NothingToUndoException();
 		}
 		Command commandToUndo = toUndoStack.pop();
 		Command reverseCommand = commandToUndo.reverseCommand();
 		toRedoStack.push(commandToUndo);
-		return reverseCommand;
+		reverseCommand.processCommand();
+		return true;
 	}
 	
-	public Command redo() throws NothingToRedoException{
+	public boolean redo() throws NothingToRedoException{
 		if(toRedoStack.isEmpty()){
 			throw new NothingToRedoException();
 		}
 		Command commandToRedo = toRedoStack.pop();
-		Command reverseCommand = commandToRedo.reverseCommand();
-		toUndoStack.push(reverseCommand);
-		return commandToRedo;
+		toUndoStack.push(commandToRedo);
+		return true;
 	}
 }
