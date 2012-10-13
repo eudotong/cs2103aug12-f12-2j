@@ -1,18 +1,20 @@
-package utility;
+package utilities;
+
+import storage.TaskRecords;
 
 
 public class CommandEdit implements Command{
 	private static final boolean isReversible = true;
+	
+	@Override
+	public boolean processCommand(TaskRecords taskRecords) {
+		return true;
+	}
+	
 	public Command reverseCommand() {
-		//the reverse command is edit
 		return null;
 	}
 
-	@Override
-	public boolean processCommand() {
-		return true;
-		
-	}
 	public boolean isReversible(){
 		return isReversible;
 	}

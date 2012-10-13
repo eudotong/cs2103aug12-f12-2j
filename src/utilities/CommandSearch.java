@@ -1,16 +1,29 @@
-package utility;
+package utilities;
+
+import org.joda.time.DateTime;
+
+import storage.TaskRecords;
 
 
 public class CommandSearch implements Command{
 	private static final boolean isReversible = false;
+	private DateTime startTime;
+	private DateTime endTime;
+	private String query;
+	
+	public CommandSearch(DateTime startTime, DateTime endTime, String query){
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.query = query;
+	}
+	
 	@Override
-	public boolean processCommand() {
+	public boolean processCommand(TaskRecords taskRecords) {
 		// TODO Auto-generated method stub
 		return true;
 	}
 	@Override
 	public Command reverseCommand() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override

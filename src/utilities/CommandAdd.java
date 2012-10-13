@@ -1,4 +1,6 @@
-package utility;
+package utilities;
+
+import storage.TaskRecords;
 
 
 public class CommandAdd implements Command{
@@ -9,15 +11,11 @@ public class CommandAdd implements Command{
 	public CommandAdd(Task taskToBeAdded){
 		this.taskToBeAdded = taskToBeAdded;
 	}
-	
-	public CommandAdd(String command){
-		
-	}
 	public Command reverseCommand(){
-		return null;
+		return new CommandMark(taskToBeAdded);
 	}
-	public boolean processCommand() {
-		return true;
+	public boolean processCommand(TaskRecords taskRecords) {
+		return taskRecords.appendTask(taskToBeAdded);
 	}
 	public CommandType getCommandType(){
 		return CommandType.ADD;

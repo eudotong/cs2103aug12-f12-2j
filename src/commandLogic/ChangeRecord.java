@@ -1,7 +1,7 @@
 package commandLogic;
 import java.util.Stack;
 
-import utility.Command;
+import utilities.Command;
 
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
@@ -22,23 +22,22 @@ public class ChangeRecord {
 		}
 	}
 	
-	public boolean undo() throws NothingToUndoException{
+	public Command undo() throws NothingToUndoException{
 		if(toUndoStack.isEmpty()){
 			throw new NothingToUndoException();
 		}
 		Command commandToUndo = toUndoStack.pop();
 		Command reverseCommand = commandToUndo.reverseCommand();
 		toRedoStack.push(commandToUndo);
-		reverseCommand.processCommand();
-		return true;
+		return reverseCommand;
 	}
 	
-	public boolean redo() throws NothingToRedoException{
+	public Command redo() throws NothingToRedoException{
 		if(toRedoStack.isEmpty()){
 			throw new NothingToRedoException();
 		}
 		Command commandToRedo = toRedoStack.pop();
 		toUndoStack.push(commandToRedo);
-		return true;
+		return commandToRedo;
 	}
 }

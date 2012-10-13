@@ -1,15 +1,22 @@
-package utility;
+package utilities;
+
+import storage.TaskRecords;
 
 
 public class CommandMark implements Command{
 	private static final boolean isReversible = true;
+	private Task taskToBeDeleted;
+	
+	public CommandMark(Task taskToBeDeleted){
+		this.taskToBeDeleted = taskToBeDeleted;
+	}
+	
 	@Override
-	public boolean processCommand() {
+	public boolean processCommand(TaskRecords taskRecords) {
 		return true;
 	}
 	public Command reverseCommand() {
-		//the reverse command is add
-		return null;
+		return new CommandAdd(taskToBeDeleted);
 	}
 	public CommandType getCommandType(){
 		return CommandType.MARK;
