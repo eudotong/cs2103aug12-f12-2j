@@ -4,9 +4,8 @@ import storage.TaskRecords;
 
 
 public class CommandEdit implements Command{
-	private static final boolean isReversible = true;
+	private static final boolean IS_REVERSIBLE = true;
 	
-	@Override
 	public boolean processCommand(TaskRecords taskRecords) {
 		return true;
 	}
@@ -16,7 +15,7 @@ public class CommandEdit implements Command{
 	}
 
 	public boolean isReversible(){
-		return isReversible;
+		return IS_REVERSIBLE;
 	}
 	public CommandType getCommandType(){
 		return CommandType.EDIT;

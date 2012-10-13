@@ -2,9 +2,8 @@ package utilities;
 
 import storage.TaskRecords;
 
-
 public class CommandAdd implements Command{
-	private static final boolean isReversible = true;
+	private static final boolean IS_REVERSIBLE = true;
 	
 	private Task taskToBeAdded;
 	
@@ -21,6 +20,6 @@ public class CommandAdd implements Command{
 		return CommandType.ADD;
 	}
 	public boolean isReversible(){
-		return isReversible;
+		return IS_REVERSIBLE;
 	}
 }
