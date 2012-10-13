@@ -4,16 +4,15 @@ import storage.TaskRecords;
 
 
 public class CommandMark implements Command{
-	private static final boolean isReversible = true;
+	private static final boolean IS_REVERSIBLE = true;
 	private Task taskToBeDeleted;
 	
 	public CommandMark(Task taskToBeDeleted){
 		this.taskToBeDeleted = taskToBeDeleted;
 	}
 	
-	@Override
 	public boolean processCommand(TaskRecords taskRecords) {
-		return true;
+		return taskRecords.deleteTask(taskToBeDeleted);
 	}
 	public Command reverseCommand() {
 		return new CommandAdd(taskToBeDeleted);
@@ -22,6 +21,6 @@ public class CommandMark implements Command{
 		return CommandType.MARK;
 	}
 	public boolean isReversible(){
-		return isReversible;
+		return IS_REVERSIBLE;
 	}
 }

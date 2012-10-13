@@ -14,12 +14,19 @@ public class Task implements Comparable<Task>{
 
 	public Task(DateTime startTime){
 		this.startTime = startTime;
+		taskName = "";
+		isImportant = false;
 	}
 	public Task(String taskName, DateTime startTime, DateTime endTime,
 			boolean isImportant) {
+		if(startTime.isAfter(endTime)){
+			this.startTime = endTime;
+			this.endTime = startTime;
+		}else{
+			this.startTime = startTime;
+			this.endTime = endTime;
+		}
 		this.taskName = taskName;
-		this.startTime = startTime;
-		this.endTime = endTime;
 		this.isImportant = isImportant;
 	}
 	

@@ -17,7 +17,6 @@ public class CommandSearch implements Command{
 		this.query = query;
 	}
 	
-	@Override
 	public boolean processCommand(TaskRecords taskRecords) {
 		// TODO Auto-generated method stub
 		return true;
