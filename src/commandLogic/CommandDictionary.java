@@ -2,7 +2,7 @@ package commandLogic;
 
 import java.util.HashMap;
 
-import utility.CommandType;
+import utilities.CommandType;
 
 
 public class CommandDictionary {
