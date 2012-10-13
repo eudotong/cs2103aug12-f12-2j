@@ -70,7 +70,7 @@ public class inputText extends JPanel implements ActionListener {
 		return controls;
 	}
 
-    /** Returns an ImageIcon, or null if the path was invalid. */
+    /** Returns an ImageIcon, or null if the path was invalid. 
     protected static ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = CopyOfLayeredPaneDemo.class.getResource(path);
         if (imgURL != null) {
@@ -79,7 +79,7 @@ public class inputText extends JPanel implements ActionListener {
             System.err.println("Couldn't find file: " + path);
             return null;
         }
-    }
+    }*/
     
 	public void actionPerformed(ActionEvent evt) {
 		String text = textField.getText();
