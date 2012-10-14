@@ -159,7 +159,7 @@ public class TaskRecords {
 		FileWriter myFileWriter = new FileWriter(myFile, false);
 		Iterator<Task> recordsIterator = allTaskRecords.iterator();
 		while (recordsIterator.hasNext()) {
-			myFileWriter.write(recordsIterator.next().toString());
+			myFileWriter.write(recordsIterator.next().toString() + "\r\n");
 		}
 		myFileWriter.flush();
 		myFileWriter.close();
