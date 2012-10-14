@@ -1,6 +1,7 @@
 package commandLogic;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -30,7 +31,7 @@ public class CommandProcessor {
 	}
 	
 	public String processCommand(String command){
-		return "";
+		return "command processed";
 	}
 	private String processSearch(Command command){
 		return "";
