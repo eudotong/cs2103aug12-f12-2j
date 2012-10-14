@@ -30,52 +30,6 @@ public class TaskRecords {
 	private TreeSet<Task> allTaskRecords;
 	private File myFile;
 
-	// Tester please delete later
-	public static void main(String[] args) throws IOException {
-		TaskRecords tr = new TaskRecords();
-		DateTime dt = new DateTime().plusHours(1);
-		tr.appendTask(new Task("hello", dt, true));
-		tr = new TaskRecords();
-		Task[] tasks = tr.getCurrentListOfTasks();
-		for (Task t : tasks) {
-			System.out.println(t.toString());
-		}
-		System.out.println("-Search day b4------");
-		DateTimeFormatter formatter = DateTimeFormat
-				.forPattern("d/M/yyyy h:mma");
-		DateTime date = formatter.parseDateTime("12/10/2012 10:21PM");
-		/*
-		//Test delete and replace
-		tr.deleteTask(new Task("c", date, true));
-		tr.replaceTask(new Task("erqe", date, true), new Task("c", date, true));
-		tr = new TaskRecords();
-		tasks = tr.getCurrentListOfTasks();
-		for (Task t : tasks) {
-			System.out.print(t.toString());
-		}
-		*/
-		//test search
-		tr.setCurrentListOfTasks(new DateTime().minusDays(1));
-		tasks = tr.getCurrentListOfTasks();
-		System.out.println(tasks == null);
-		for (Task t : tasks) {
-			System.out.print(t.toString());
-		}
-		System.out.println("-search btw ytd tmr------");
-		tr.setCurrentListOfTasks(new DateTime().minusDays(1), new DateTime().plusDays(1));
-		tasks = tr.getCurrentListOfTasks();
-		for (Task t : tasks) {
-			System.out.print(t.toString());
-		}
-		System.out.println("-search hel ytd------");
-		tr.setCurrentListOfTasks("hel", new DateTime().minusDays(1));
-		tasks = tr.getCurrentListOfTasks();
-		for (Task t : tasks) {
-			System.out.print(t.toString());
-		}
-		System.out.println("-------");
-	}
-
 	/**
 	 * Default constructor for TaskRecords. Initializes all task records in text
 	 * file to a treeset. Initializes the current list of tasks with today's
