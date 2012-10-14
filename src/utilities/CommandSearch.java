@@ -7,6 +7,7 @@ import storage.TaskRecords;
 
 public class CommandSearch implements Command{
 	private static final boolean IS_REVERSIBLE = false;
+	private static final String MESSAGE_SUCCESS = "Searched.";
 	private DateTime fromDate;
 	private DateTime toDate;
 	private String query;

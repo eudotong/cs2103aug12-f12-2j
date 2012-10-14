@@ -15,6 +15,7 @@ public class GUI extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	protected JTextArea textArea;
 	protected JTextField textField;
+	protected JLabel commandOutputLabel;
 	private JLayeredPane layeredPane;
 	private CommandProcessor commandProcessor;
 	private final static String NEW_LINE = "\n";
@@ -27,22 +28,30 @@ public class GUI extends JPanel implements ActionListener {
 		// Create and set up the layered pane.
 		JPanel forgroundPanel = new JPanel(new GridBagLayout());
         forgroundPanel.setOpaque(false);
-       
-        textField = new JTextField(30);
-        textField.addActionListener(this);
-        
-        forgroundPanel.add(textField);
         forgroundPanel.setSize(bgLabel.getPreferredSize());
 
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(bgLabel.getPreferredSize());
         layeredPane.add(bgLabel, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
+        
+         textField = new JTextField(30);
+         textField.addActionListener(this);
+         
+         GridBagConstraints gbc_textField = new GridBagConstraints();
+         gbc_textField.insets = new Insets(0, 0, 5, 0);
+         gbc_textField.gridx = 0;
+         gbc_textField.gridy = 0;
+         forgroundPanel.add(textField, gbc_textField);
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         
         add(createControlPanel());
 		add(Box.createRigidArea(new Dimension(0, 10)));
+        
+        commandOutputLabel = new JLabel("");
+        commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(commandOutputLabel);
         add(layeredPane);
 		//add(bgLabel);
 		//add(textField);
@@ -57,7 +66,7 @@ public class GUI extends JPanel implements ActionListener {
 	}
 
 	private Component createControlPanel() {
-		textArea = new JTextArea(7, 35);
+		textArea = new JTextArea(7, 40);
 		textArea.setEditable(false);
 		textArea.setText(WELCOME_MESSAGE);
 		JScrollPane scrollPane = new JScrollPane(textArea);
@@ -83,12 +92,14 @@ public class GUI extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent evt) {
 		String command = textField.getText();
 		String output = commandProcessor.processCommand(command);
-		textArea.append(NEW_LINE + output);
+		commandOutputLabel.setText(output);
+		textArea.setText(commandProcessor.getCurrentListOfTasks());
 		textField.selectAll();
 
 		// Make sure the new text is visible, even if there
 		// was a selection in the text area.
 		textArea.setCaretPosition(textArea.getDocument().getLength());
+		textField.setText("");
 	}
 
 	/**
