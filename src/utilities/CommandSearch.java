@@ -11,7 +11,7 @@ public class CommandSearch implements Command{
 	private DateTime toDate;
 	private String query;
 	
-	public CommandSearch(DateTime fromDate, DateTime toDate, String query){
+	public CommandSearch(String query, DateTime fromDate, DateTime toDate){
 		if(fromDate != null && toDate != null && fromDate.isAfter(toDate)){
 			this.fromDate = toDate;
 			this.toDate = fromDate;
