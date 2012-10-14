@@ -36,6 +36,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+
 import commandLogic.CommandProcessor;
 
 public class GUI extends JPanel implements ActionListener {
@@ -43,39 +44,39 @@ public class GUI extends JPanel implements ActionListener {
 	private static final String WELCOME_MESSAGE = "Welcome to Jimi, your friendly neighbourhood task manager.";
 	private static final long serialVersionUID = 1L;
 	protected JTextArea textArea;
-	protected JTextField textField = new JTextField(30);
+	protected JTextField textField;
+	private JLayeredPane layeredPane;
 	private CommandProcessor commandProcessor;
 	private final static String NEW_LINE = "\n";
 
 	public GUI() {
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
-		// Create and set up the layered pane.
-		textField.addActionListener(this);
-		JPanel layeredPane1 = new JPanel();
-		layeredPane1.setBorder(BorderFactory.createTitledBorder("input"));
-		layeredPane1.add(textField);
-		layeredPane1.setOpaque(true);
-
-		JPanel layeredPane = new JPanel();
-		JLabel bgLabel = new JLabel();
 		ImageIcon icon = createImageIcon("images/bg.gif");
+		JLabel bgLabel = new JLabel(icon);
+		bgLabel.setSize(bgLabel.getPreferredSize());
+		
+		// Create and set up the layered pane.
+		JPanel forgroundPanel = new JPanel(new GridBagLayout());
+        forgroundPanel.setOpaque(false);
+       
+        textField = new JTextField(30);
+        textField.addActionListener(this);
+        
+        forgroundPanel.add(textField);
+        forgroundPanel.setSize(bgLabel.getPreferredSize());
 
-		// Create and add the Duke label to the layered pane.
-		bgLabel = new JLabel(icon);
-		if (icon == null) {
-			System.err.println("Picture not found; using white rectangle instead.");
-			bgLabel.setOpaque(true);
-			bgLabel.setBackground(Color.cyan);
-		}
-		layeredPane.add(bgLabel);
-		// layeredPane.moveToBack(bgLabel);
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(bgLabel.getPreferredSize());
+        layeredPane.add(bgLabel, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
 
-		// Add control pane and layered pane to this JPanel.
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        
+        add(createControlPanel());
 		add(Box.createRigidArea(new Dimension(0, 10)));
-		add(createControlPanel());
-		add(layeredPane1);
-		add(layeredPane);
+        add(layeredPane);
+		//add(bgLabel);
+		//add(textField);
+		
 		try{
 			commandProcessor = new CommandProcessor();
 		}catch(IOException e){
@@ -124,15 +125,14 @@ public class GUI extends JPanel implements ActionListener {
 	 * invoked from the event dispatch thread.
 	 */
 	private static void createAndShowGUI() {
-
 		// Create and set up the window.
 		JFrame frame = new JFrame("Jimi");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Add contents to the window.
+		//Create and set up the content pane.
 		frame.getContentPane().add(new GUI());
-
-		// Display the window.
+		
+        // Display the window.
 		frame.pack();
 		frame.setVisible(true);
 	}
