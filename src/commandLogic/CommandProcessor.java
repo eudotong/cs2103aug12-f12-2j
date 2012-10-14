@@ -32,10 +32,13 @@ public class CommandProcessor {
 	public String processCommand(String command){
 		return "";
 	}
-	public void processAdd(){}
-	public void processEdit(){}
-	public void processMark(){}
-	public String processUndo(){
+	private String processSearch(Command command){
+		return "";
+	}
+	private String processAdd(Command command){return "";}
+	private String processEdit(Command command){return "";}
+	private String processMark(Command command){return "";}
+	private String processUndo(){
 		try{
 			Command commandToUndo = changeRecord.undo();
 			boolean isUndone = commandToUndo.processCommand(taskRecords);
@@ -47,7 +50,7 @@ public class CommandProcessor {
 			return MESSAGE_ERROR_UNABLE_TO_UNDO;
 		}
 	}
-	public String processRedo(){
+	private String processRedo(){
 		try{
 			Command commandToRedo = changeRecord.redo();
 			boolean isRedone = commandToRedo.processCommand(taskRecords);
