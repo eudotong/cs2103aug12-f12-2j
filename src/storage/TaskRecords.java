@@ -13,7 +13,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import utility.Task;
+import utilities.Task;
 
 /**
  * @author a0088278
@@ -25,6 +25,7 @@ public class TaskRecords {
 	private static final String DATE_FORMAT = "d/M/yyyy h:mma";
 	private static final String FILE_NAME = "taskrecords.txt";
 	private static final String FILE_DELIMITER = "[|]|\r\n";
+	private static final Task[] TASK_ARRAY_TYPE = new Task[0];
 	private Task[] currentListOfTasks;
 	private TreeSet<Task> allTaskRecords;
 	private File myFile;
@@ -37,27 +38,31 @@ public class TaskRecords {
 		tr = new TaskRecords();
 		Task[] tasks = tr.getCurrentListOfTasks();
 		for (Task t : tasks) {
-			System.out.print(t.toString());
+			System.out.println(t.toString());
 		}
 		System.out.println("-Search day b4------");
 		DateTimeFormatter formatter = DateTimeFormat
 				.forPattern("d/M/yyyy h:mma");
 		DateTime date = formatter.parseDateTime("12/10/2012 10:21PM");
 		/*
-		 * //Test delete and replace tr.deleteTask(new Task("c", date, true));
-		 * tr.replaceTask(new Task("erqe", date, true), new Task("c", date,
-		 * true)); tr = new TaskRecords(); tasks = tr.getCurrentListOfTasks();
-		 * for (Task t : tasks) { System.out.print(t.toString()); }
-		 */
-		// test search
-		tr.setCurrentListOfTasks(new DateTime().minusDays(1));
+		//Test delete and replace
+		tr.deleteTask(new Task("c", date, true));
+		tr.replaceTask(new Task("erqe", date, true), new Task("c", date, true));
+		tr = new TaskRecords();
 		tasks = tr.getCurrentListOfTasks();
 		for (Task t : tasks) {
 			System.out.print(t.toString());
 		}
+		*/
+		//test search
+		tr.setCurrentListOfTasks(new DateTime().minusDays(1));
+		tasks = tr.getCurrentListOfTasks();
+		System.out.println(tasks == null);
+		for (Task t : tasks) {
+			System.out.print(t.toString());
+		}
 		System.out.println("-search btw ytd tmr------");
-		tr.setCurrentListOfTasks(new DateTime().minusDays(1),
-				new DateTime().plusDays(1));
+		tr.setCurrentListOfTasks(new DateTime().minusDays(1), new DateTime().plusDays(1));
 		tasks = tr.getCurrentListOfTasks();
 		for (Task t : tasks) {
 			System.out.print(t.toString());
@@ -86,12 +91,20 @@ public class TaskRecords {
 		initialiseAllTaskRecords();
 		initialiseCurrentListOfTasks();
 	}
+	
+	public TaskRecords(String fileName) throws IOException{
+		myFile = new File(fileName);
+		if (!myFile.exists()) {
+			myFile.createNewFile();
+		}
+		initialiseAllTaskRecords();
+		initialiseCurrentListOfTasks();
+	}
 
 	private void initialiseCurrentListOfTasks() {
 		DateTime now = new DateTime();
-		DateTime startOfTomorrow = now.plusDays(1).toLocalDate()
-				.toDateTimeAtStartOfDay();
-		setCurrentListOfTasks(now, startOfTomorrow);
+		DateTime twentyFourHoursLater = now.plusDays(1);
+		setCurrentListOfTasks(now, twentyFourHoursLater);
 	}
 
 	private void initialiseAllTaskRecords() throws FileNotFoundException {
@@ -125,11 +138,23 @@ public class TaskRecords {
 	public Task[] getCurrentListOfTasks() {
 		return currentListOfTasks;
 	}
-
-	public Task getTaskByIndex(int index) throws ArrayIndexOutOfBoundsException {
+	
+	public Task getTaskByIndex(int index){
+		index--;	//Change to zero-based indexing
+		if(index < 0 || index >= currentListOfTasks.length){
+			return null;
+		}
 		return currentListOfTasks[index];
 	}
-
+	
+	public Task getTaskByName(String taskName){
+		Task [] taskMatches = findMatchesFromSetOfTasks(allTaskRecords, taskName);
+		if(taskMatches.length == 0){
+			return null;
+		}
+		return taskMatches[0];
+	}
+  
 	private void rewriteFile() throws IOException {
 		FileWriter myFileWriter = new FileWriter(myFile, false);
 		Iterator<Task> recordsIterator = allTaskRecords.iterator();
@@ -152,7 +177,7 @@ public class TaskRecords {
 		if (isSuccessfullyAdded) {
 			try {
 				myFileWriter = new FileWriter(myFile, true);
-				myFileWriter.write(taskToBeAdded.toString());
+				myFileWriter.write(taskToBeAdded.toString() + "\r\n");
 				myFileWriter.flush();
 				myFileWriter.close();
 			} catch (IOException e) {
@@ -182,6 +207,15 @@ public class TaskRecords {
 		return isSuccessfullyDeleted;
 	}
 
+	public boolean clearAllTasks(){
+		try {
+			allTaskRecords.clear();
+			rewriteFile();
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
+	}
 	/**
 	 * Replaces the task specified with the second task specified in the text
 	 * file.
@@ -213,13 +247,17 @@ public class TaskRecords {
 		currentListOfTasks = findMatchesFromSetOfTasks(allTaskRecords, query);
 	}
 
-	public void setCurrentListOfTasks(DateTime fromDate, DateTime toDate)
-			throws IllegalArgumentException {
+	public void setCurrentListOfTasks(DateTime fromDate, DateTime toDate) throws IllegalArgumentException{
+		if(fromDate.isAfter(toDate)){
+			DateTime tempDate = fromDate;
+			fromDate = toDate;
+			toDate = tempDate;
+		}
 		// dummy tasks to facilitate searching in TreeSet
 		Task fromTask = new Task(fromDate);
 		Task toTask = new Task(toDate);
 		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
-				new Task[1]);
+				TASK_ARRAY_TYPE);
 	}
 
 	public void setCurrentListOfTasks(DateTime fromDate) {
@@ -229,21 +267,23 @@ public class TaskRecords {
 		Task fromTask = new Task(fromDate);
 		Task toTask = new Task(toDate);
 		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
-				new Task[1]);
+				TASK_ARRAY_TYPE);
 	}
-
-	public void setCurrentListOfTasks(String query, DateTime fromDate,
-			DateTime toDate) {
+	
+	public void setCurrentListOfTasks(String query, DateTime fromDate, DateTime toDate){
+		if(fromDate.isAfter(toDate)){
+			DateTime tempDate = fromDate;
+			fromDate = toDate;
+			toDate = tempDate;
+		}
 		// dummy tasks to facilitate searching in TreeSet
 		Task fromTask = new Task(fromDate);
 		Task toTask = new Task(toDate);
-		Set<Task> listOfTasksFromSpecifiedDates = allTaskRecords.subSet(
-				fromTask, toTask);
-		currentListOfTasks = findMatchesFromSetOfTasks(
-				listOfTasksFromSpecifiedDates, query);
+		Set <Task> listOfTasksFromSpecifiedDates = allTaskRecords.subSet(fromTask, toTask);
+		currentListOfTasks = findMatchesFromSetOfTasks(listOfTasksFromSpecifiedDates, query);
 	}
-
-	public void setCurrentListOfTasks(String query, DateTime fromDate) {
+	
+	public void setCurrentListOfTasks(String query, DateTime fromDate){
 		DateTime toDate = fromDate.plusDays(1).toLocalDate()
 				.toDateTimeAtStartOfDay();
 		// dummy tasks to facilitate searching in TreeSet
@@ -251,11 +291,10 @@ public class TaskRecords {
 		Task toTask = new Task(toDate);
 		Set<Task> listOfTasksFromSpecifiedDates = allTaskRecords.subSet(
 				fromTask, toTask);
-		currentListOfTasks = findMatchesFromSetOfTasks(
-				listOfTasksFromSpecifiedDates, query);
+		currentListOfTasks = findMatchesFromSetOfTasks(listOfTasksFromSpecifiedDates, query);
 	}
-
-	private Task[] findMatchesFromSetOfTasks(Set<Task> setOfTasks, String query) {
+	
+	private Task [] findMatchesFromSetOfTasks(Set<Task> setOfTasks, String query){
 		Iterator<Task> setIterator = setOfTasks.iterator();
 		ArrayList<Task> listOfTaskMatches = new ArrayList<Task>();
 		while (setIterator.hasNext()) {
@@ -264,6 +303,6 @@ public class TaskRecords {
 				listOfTaskMatches.add(currentTask);
 			}
 		}
-		return listOfTaskMatches.toArray(new Task[1]);
+		return listOfTaskMatches.toArray(TASK_ARRAY_TYPE);
 	}
 }

@@ -8,7 +8,8 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 import org.joda.time.format.DateTimeParser;
 
 import storage.TaskRecords;
-import utility.CommandType;
+import utilities.Command;
+import utilities.CommandType;
 
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
@@ -29,40 +30,33 @@ public class CommandProcessor {
 	}
 	
 	public String processCommand(String command){
-		CommandType commandType = commandDictionary.getCommandType(command);
-		switch (commandType){
-		case ADD:
-			processAdd();
-			break;
-		case EDIT:
-			processEdit();
-			break;
-		case MARK:
-			processMark();
-			break;
-		case UNDO:
-			return processUndo();
-		case REDO:
-			return processRedo();
-		default:
-			return MESSAGE_ERROR_UNRECOGNISED_COMMAND;
-		}
 		return "";
 	}
-	public void processAdd(){}
-	public void processEdit(){}
-	public void processMark(){}
-	public String processUndo(){
+	private String processSearch(Command command){
+		return "";
+	}
+	private String processAdd(Command command){return "";}
+	private String processEdit(Command command){return "";}
+	private String processMark(Command command){return "";}
+	private String processUndo(){
 		try{
-			changeRecord.undo();
+			Command commandToUndo = changeRecord.undo();
+			boolean isUndone = commandToUndo.processCommand(taskRecords);
+			if(isUndone){
+				return "";
+			}
 			return "";
 		}catch(NothingToUndoException e){
 			return MESSAGE_ERROR_UNABLE_TO_UNDO;
 		}
 	}
-	public String processRedo(){
+	private String processRedo(){
 		try{
-			changeRecord.redo();
+			Command commandToRedo = changeRecord.redo();
+			boolean isRedone = commandToRedo.processCommand(taskRecords);
+			if(isRedone){
+				return "";
+			}
 			return "";
 		}catch(NothingToRedoException e){
 			return MESSAGE_ERROR_UNABLE_TO_REDO;
