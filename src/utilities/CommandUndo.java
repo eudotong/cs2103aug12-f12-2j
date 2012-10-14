@@ -20,8 +20,8 @@ public class CommandUndo implements Command{
 	}
 
 	@Override
-	public boolean processCommand(TaskRecords taskRecords) {
-		return true;
+	public String processCommand(TaskRecords taskRecords) {
+		return "";
 	}
 
 }

@@ -6,8 +6,8 @@ public class CommandRedo implements Command{
 	private static final boolean IS_REVERSIBLE = false;
 	
 	@Override
-	public boolean processCommand(TaskRecords taskRecords) {
-		return true;
+	public String processCommand(TaskRecords taskRecords) {
+		return "";
 	}
 
 	@Override

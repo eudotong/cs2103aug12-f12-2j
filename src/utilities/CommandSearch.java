@@ -6,7 +6,7 @@ import storage.TaskRecords;
 
 
 public class CommandSearch implements Command{
-	private static final boolean isReversible = false;
+	private static final boolean IS_REVERSIBLE = false;
 	private DateTime startTime;
 	private DateTime endTime;
 	private String query;
@@ -17,9 +17,8 @@ public class CommandSearch implements Command{
 		this.query = query;
 	}
 	
-	public boolean processCommand(TaskRecords taskRecords) {
-		// TODO Auto-generated method stub
-		return true;
+	public String processCommand(TaskRecords taskRecords) {
+		return "";
 	}
 	@Override
 	public Command reverseCommand() {
@@ -30,6 +29,6 @@ public class CommandSearch implements Command{
 		return CommandType.SEARCH;
 	}
 	public boolean isReversible(){
-		return isReversible;
+		return IS_REVERSIBLE;
 	}
 }

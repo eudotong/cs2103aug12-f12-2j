@@ -41,7 +41,8 @@ public class CommandDictionary {
 			return dictionary.get(wordsInCommand[0]);
 		}
 		
-		//TODO What if it's not first word? Can this split be reused?
-		return CommandType.NO_SUCH_COMMAND;
+		//TODO Please change so that it throws an exception inside
+				//throw CommandCouldNotBeParsed
+		return CommandType.ADD;
 	}
 }

@@ -4,12 +4,13 @@ import storage.TaskRecords;
 
 
 public class CommandEdit implements Command{
-	private static final boolean IS_REVERSIBLE = true;
+	private boolean isReversible = true;
+	private String originalCommand;
 	private Task taskToBeReplaced;
 	private Task newTask;
 	
-	public boolean processCommand(TaskRecords taskRecords) {
-		return true;
+	public String processCommand(TaskRecords taskRecords) {
+		return "";
 	}
 	
 	public Command reverseCommand() {
@@ -17,7 +18,7 @@ public class CommandEdit implements Command{
 	}
 
 	public boolean isReversible(){
-		return IS_REVERSIBLE;
+		return isReversible;
 	}
 	public CommandType getCommandType(){
 		return CommandType.EDIT;
