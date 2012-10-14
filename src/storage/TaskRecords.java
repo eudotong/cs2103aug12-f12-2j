@@ -149,16 +149,20 @@ public class TaskRecords {
 	 * @return boolean
 	 */
 	public boolean deleteTask(Task taskToBeDeleted) {
-		boolean isSuccessfullyDeleted = allTaskRecords.remove(taskToBeDeleted);
-		if (isSuccessfullyDeleted) {
-			try {
-				rewriteFile();
-			} catch (IOException e) {
-				isSuccessfullyDeleted = false;
-				allTaskRecords.add(taskToBeDeleted);
+		try{
+			boolean isSuccessfullyDeleted = allTaskRecords.remove(taskToBeDeleted);
+			if (isSuccessfullyDeleted) {
+				try {
+					rewriteFile();
+				} catch (IOException e) {
+					isSuccessfullyDeleted = false;
+					allTaskRecords.add(taskToBeDeleted);
+				}
 			}
+			return isSuccessfullyDeleted;
+		}catch(NullPointerException e){
+			return false;
 		}
-		return isSuccessfullyDeleted;
 	}
 
 	public boolean clearAllTasks(){

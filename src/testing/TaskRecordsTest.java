@@ -70,6 +70,7 @@ public class TaskRecordsTest {
 		taskRecordsTest.setCurrentListOfTasks(date);
 		taskByIndex = taskRecordsTest.getTaskByIndex(1);
 		assertEquals(tasksToTest.get(6), taskByIndex);
+		assertFalse(taskRecordsTest.deleteTask(null));
 	}
 
 	@Test
