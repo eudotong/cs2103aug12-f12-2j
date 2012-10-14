@@ -7,10 +7,9 @@ public class CommandMark implements Command{
 	private static final String MESSAGE_ERROR_CANNOT_DELETE = "Task could not be added.";
 	private static final String MESSAGE_SUCCESS = "%s was deleted";	
 	private boolean isReversible = true;
-	private String originalCommand;
 	private Task taskToBeDeleted;
 	
-	public CommandMark(String originalCommand, Task taskToBeDeleted){
+	public CommandMark(Task taskToBeDeleted){
 		this.taskToBeDeleted = taskToBeDeleted;
 	}
 	
@@ -23,7 +22,7 @@ public class CommandMark implements Command{
 		return MESSAGE_ERROR_CANNOT_DELETE;
 	}
 	public Command reverseCommand() {
-		return new CommandAdd(originalCommand, taskToBeDeleted);
+		return new CommandAdd(taskToBeDeleted);
 	}
 	public CommandType getCommandType(){
 		return CommandType.MARK;

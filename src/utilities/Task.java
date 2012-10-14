@@ -5,13 +5,13 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class Task implements Comparable<Task>{
+	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormat
+			.forPattern("d/M/yyyy hh:mma");
 	private String taskName;
 	private DateTime startTime;
 	private DateTime endTime;
 	private boolean isImportant;
-	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormat
-			.forPattern("d/M/yyyy hh:mma");
-
+	
 	public Task(DateTime startTime){
 		this.startTime = startTime;
 		taskName = "";

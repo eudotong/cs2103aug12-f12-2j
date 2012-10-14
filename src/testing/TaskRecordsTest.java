@@ -42,8 +42,7 @@ public class TaskRecordsTest {
 	public void testGetTaskByIndex() {
 		taskRecordsTest.setCurrentListOfTasks(date, date.plusDays(1));
 		Task taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		//assertEquals(tasksToTest.get(8), taskByIndex);
-		Task [] tasks = taskRecordsTest.getCurrentListOfTasks();
+		assertEquals(tasksToTest.get(8), taskByIndex);
 		taskByIndex = taskRecordsTest.getTaskByIndex(3);
 		assertEquals(tasksToTest.get(9), taskByIndex);
 		taskByIndex = taskRecordsTest.getTaskByIndex(10);
