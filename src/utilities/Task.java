@@ -10,7 +10,7 @@ public class Task implements Comparable<Task>{
 	private DateTime endTime;
 	private boolean isImportant;
 	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormat
-			.forPattern("dd/MM/yyyy hh:mma");
+			.forPattern("d/M/yyyy hh:mma");
 
 	public Task(DateTime startTime){
 		this.startTime = startTime;
@@ -19,10 +19,10 @@ public class Task implements Comparable<Task>{
 	}
 	public Task(String taskName, DateTime startTime, DateTime endTime,
 			boolean isImportant) {
-		if(startTime.isAfter(endTime)){
+		if (endTime != null && startTime.isAfter(endTime)) {
 			this.startTime = endTime;
 			this.endTime = startTime;
-		}else{
+		} else {
 			this.startTime = startTime;
 			this.endTime = endTime;
 		}
@@ -39,14 +39,14 @@ public class Task implements Comparable<Task>{
 
 	public String toString() {
 		if(endTime == null){
-			return startTime.toString(DATE_FORMAT) + "||" + taskName + "|" + isImportant + "\r\n";
+			return startTime.toString(DATE_FORMAT) + "||" + taskName + "|" + isImportant;
 		}
 		return startTime.toString(DATE_FORMAT) + "|"
-				+ endTime.toString(DATE_FORMAT) + "|" + taskName + "|" + isImportant + "\r\n";
+				+ endTime.toString(DATE_FORMAT) + "|" + taskName + "|" + isImportant;
 	}
 	
 	public boolean isMatch(String query){
-		return taskName.contains(query);
+		return taskName.toLowerCase().contains(query.toLowerCase());
 	}
 
 	public String getTaskName() {

@@ -5,6 +5,8 @@ import storage.TaskRecords;
 
 public class CommandEdit implements Command{
 	private static final boolean IS_REVERSIBLE = true;
+	private Task taskToBeReplaced;
+	private Task newTask;
 	
 	public boolean processCommand(TaskRecords taskRecords) {
 		return true;
