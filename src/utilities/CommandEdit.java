@@ -5,7 +5,7 @@ import storage.TaskRecords;
 
 public class CommandEdit implements Command{
 	private static final String MESSAGE_ERROR_CANNOT_EDIT = "Task could not be edited.";
-	private static final String MESSAGE_SUCCESS = "%s was replaced with %s";	
+	private static final String MESSAGE_SUCCESS = "Replaced with %s";	
 	private static final String MESSAGE_ERROR_CANNOT_FIND_TASK = "Could not find the task specified.";
 	private boolean isReversible = true;
 	private Task newTask;
@@ -32,7 +32,7 @@ public class CommandEdit implements Command{
 		}
 		boolean isSuccessful = taskRecords.replaceTask(taskToBeReplaced, newTask);
 		if(isSuccessful){
-			return String.format(MESSAGE_SUCCESS, taskToBeReplaced.toString(), newTask.toString());
+			return String.format(MESSAGE_SUCCESS, newTask.toString());
 		}
 		return MESSAGE_ERROR_CANNOT_EDIT;
 	}

@@ -56,8 +56,7 @@ public class CommandProcessor {
 	}
 
 	private String processSearch(Command command) {
-		command.processCommand(taskRecords);
-		return getCurrentListOfTasks();
+		return command.processCommand(taskRecords);
 	}
 
 	private String processAdd(Command command) {
