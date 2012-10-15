@@ -16,18 +16,17 @@ public class CommandProcessor {
 	private ChangeRecord changeRecord;
 	private TaskRecords taskRecords;
 	private CommandParser commandParser;
-	private CommandParserSimple commandParserSimple;
 
 	public CommandProcessor() throws IOException {
 		changeRecord = new ChangeRecord();
-		commandParserSimple = new CommandParserSimple();
+		commandParser = new CommandParser();
 		taskRecords = new TaskRecords();
 	}
 
 	public String processCommand(String command) {
 		try {
 			String outputMessage = "";
-			Command commandIssued = commandParserSimple.parseCommand(command);
+			Command commandIssued = commandParser.parseCommand(command);
 			switch (commandIssued.getCommandType()) {
 			case ADD:
 				outputMessage = processAdd(commandIssued);
