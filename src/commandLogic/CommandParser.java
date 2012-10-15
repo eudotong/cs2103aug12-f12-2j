@@ -22,6 +22,11 @@ import utilities.Task;
 import exceptions.CommandCouldNotBeParsedException;
 
 public class CommandParser {
+	private static final String EMPTY_STRING = "";
+	private static final char WHITE_SPACE_CHAR = ' ';
+	private static final String MULTIPLE_WHITE_SPACES = "\\s+";
+	private static final String WHITE_SPACE = " ";
+	private static final int INDEX_OF_FIRST_WORD = 0;
 	private static final String[] LIST_ADD_SYNONYMS = { "add", "insert",
 			"create", "new", "put" };
 	private static final String[] LIST_MARK_SYNONYMS = { "mark", "delete",
@@ -32,7 +37,7 @@ public class CommandParser {
 			"search", "show" };
 	private static final String[] LIST_REDO_SYNONYMS = { "redo" };
 	private static final String[] LIST_UNDO_SYNONYMS = { "undo" };
-	private static final String PATTERN_DATE = "\\d{1,2}[, - / .]\\d{1,2}[, - / .]\\d{4} \\d{1,2}[:]\\d{2}";
+	private static final String PATTERN_DATE = "\\d{1,2}[/]\\d{1,2}[/]\\d{4} \\d{1,2}[:]\\d{2}";
 	private static final String PATTERN_ANY_NUMBER = "\\d";
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("d/M/yyyy H:mm");
@@ -41,7 +46,7 @@ public class CommandParser {
 	public CommandParser() {
 		initialiseDictionary();
 	}
-	
+
 	private void initialiseDictionary() {
 		dictionary = new HashMap<String, CommandType>();
 		for (String entry : LIST_ADD_SYNONYMS) {
@@ -68,12 +73,9 @@ public class CommandParser {
 			throws CommandCouldNotBeParsedException {
 		try {
 			command = removeExtraWhiteSpaces(command);
-			String[] wordsInCommand = command.split(" ");
-			System.out.println(command);
-			CommandType commandType = getCommandType(wordsInCommand[0]);
+			String[] wordsInCommand = command.split(WHITE_SPACE);
+			CommandType commandType = getCommandType(wordsInCommand[INDEX_OF_FIRST_WORD]);
 			command = removeFirstWord(command);
-			System.out.println(command);
-			System.out.println(commandType);
 			Command parsedCommand = null;
 			switch (commandType) {
 			case ADD:
@@ -103,38 +105,50 @@ public class CommandParser {
 	}
 
 	private String removeFirstWord(String command) {
-		return command.substring(command.indexOf(" ") + 1);
+		return command.substring(command.indexOf(WHITE_SPACE) + 1);
 	}
 
 	private String removeExtraWhiteSpaces(String command) {
-		command = command.replaceAll("\\s+", " ");
-		if (command.length() != 0
-				&& command.charAt(command.length() - 1) == ' ') {
-			command = command.substring(0, command.length() - 1);
-		}
-		if (command.length() != 0 && command.charAt(0) == ' ') {
+		command = command.replaceAll(MULTIPLE_WHITE_SPACES, WHITE_SPACE);
+		command = removeLeadingWhiteSpace(command);
+		command = removeTrailingWhiteSpace(command);
+		return command;
+	}
+
+	private String removeTrailingWhiteSpace(String command) {
+		if (command.length() != 0 && command.charAt(0) == WHITE_SPACE_CHAR) {
 			command = command.substring(1);
 		}
 		return command;
 	}
 
-	private CommandAdd parseAdd(String command) throws CommandCouldNotBeParsedException{
+	private String removeLeadingWhiteSpace(String command) {
+		if (command.length() != 0
+				&& command.charAt(command.length() - 1) == WHITE_SPACE_CHAR) {
+			command = command.substring(0, command.length() - 1);
+		}
+		return command;
+	}
+
+	private CommandAdd parseAdd(String command)
+			throws CommandCouldNotBeParsedException {
 		DateTime startTime = new DateTime();
 		DateTime endTime = null;
-		String taskName = "";
+		String taskName = EMPTY_STRING;
 		Pattern datePattern = Pattern.compile(PATTERN_DATE);
 		Matcher patternMatcher = datePattern.matcher(command);
-		try{
+		try {
 			if (patternMatcher.find()) {
-				startTime = DATE_FORMATTER.parseDateTime(patternMatcher.group(0));
-				command = command.replaceAll(patternMatcher.group(0), "");
+				startTime = DATE_FORMATTER.parseDateTime(patternMatcher
+						.group(0));
+				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
 			}
 			patternMatcher = datePattern.matcher(command);
 			if (patternMatcher.find()) {
 				endTime = DATE_FORMATTER.parseDateTime(patternMatcher.group(0));
-				command = command.replaceAll(patternMatcher.group(0), "");
+				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
 			}
-		}catch(IllegalFieldValueException e){
+		} catch (IllegalFieldValueException e) {
 			throw new CommandCouldNotBeParsedException();
 		}
 		taskName = removeExtraWhiteSpaces(command);
@@ -151,27 +165,31 @@ public class CommandParser {
 		Pattern datePattern = Pattern.compile(PATTERN_DATE);
 		Pattern anyNumberPattern = Pattern.compile(PATTERN_ANY_NUMBER);
 		Matcher patternMatcher = datePattern.matcher(command);
-		try{
+		try {
 			if (patternMatcher.find()) {
-				startTime = DATE_FORMATTER.parseDateTime(patternMatcher.group(0));
-				command = command.replaceAll(patternMatcher.group(0), "");
+				startTime = DATE_FORMATTER.parseDateTime(patternMatcher
+						.group(0));
+				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
 			}
 			patternMatcher = datePattern.matcher(command);
 			if (patternMatcher.find()) {
 				endTime = DATE_FORMATTER.parseDateTime(patternMatcher.group(0));
-				command = command.replaceAll(patternMatcher.group(0), "");
+				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
 			}
-		}catch(IllegalFieldValueException e){
+		} catch (IllegalFieldValueException e) {
 			throw new CommandCouldNotBeParsedException();
 		}
 		patternMatcher = anyNumberPattern.matcher(command);
 		if (patternMatcher.find()) {
 			taskIndex = Integer.parseInt(patternMatcher.group(0));
-			command = command.replaceAll(PATTERN_ANY_NUMBER, "");
+			command = command.replaceAll(PATTERN_ANY_NUMBER, EMPTY_STRING);
 		} else {
 			throw new CommandCouldNotBeParsedException();
 		}
 		taskName = removeExtraWhiteSpaces(command);
+		if(taskName.length() == 0){
+			taskName = null;
+		}
 		Task newTask = new Task(taskName, startTime, endTime, false);
 		return new CommandEdit(taskIndex, newTask);
 	}
@@ -186,29 +204,31 @@ public class CommandParser {
 		throw new CommandCouldNotBeParsedException();
 	}
 
-	private CommandSearch parseSearch(String command) throws CommandCouldNotBeParsedException{
+	private CommandSearch parseSearch(String command)
+			throws CommandCouldNotBeParsedException {
 		DateTime startTime = null;
 		DateTime endTime = null;
 		String taskName = null;
 		Pattern datePattern = Pattern.compile(PATTERN_DATE);
 		Matcher patternMatcher = datePattern.matcher(command);
-		try{
+		try {
 			if (patternMatcher.find()) {
-				startTime = DATE_FORMATTER.parseDateTime(patternMatcher.group(0));
-				command = command.replaceAll(patternMatcher.group(0), "");
+				startTime = DATE_FORMATTER.parseDateTime(patternMatcher
+						.group(0));
+				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
 				System.out.println(startTime);
 			}
 			patternMatcher = datePattern.matcher(command);
 			if (patternMatcher.find()) {
 				endTime = DATE_FORMATTER.parseDateTime(patternMatcher.group(0));
-				command = command.replaceAll(patternMatcher.group(0), "");
+				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
 				System.out.println(endTime);
 			}
-		}catch(IllegalFieldValueException e){
+		} catch (IllegalFieldValueException e) {
 			throw new CommandCouldNotBeParsedException();
 		}
 		taskName = removeExtraWhiteSpaces(command);
-		if(taskName.length() == 0){
+		if (taskName.length() == 0) {
 			taskName = null;
 		}
 		return new CommandSearch(taskName, startTime, endTime);

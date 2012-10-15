@@ -1,27 +1,43 @@
 package ui;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 
 import commandLogic.CommandProcessor;
 
 public class GUI extends JPanel implements ActionListener {
+	private static final String BORDER_TITLE = "Jimi - Task Manager";
+	private static final String FRAME_NAME = "Jimi";
+	private static final String BACKGROUND_IMG = "images/bg.gif";
 	private static final String ERROR_COULD_NOT_ACCESS_STORAGE = "Error: Could not access storage.";
-	private static final String WELCOME_MESSAGE = "Welcome to Jimi, your friendly neighbourhood task manager.\n";
 	private static final long serialVersionUID = 1L;
 	protected JTextArea textArea;
 	protected JTextField textField;
 	protected JLabel commandOutputLabel;
-	private JLayeredPane layeredPane;
 	private CommandProcessor commandProcessor;
 	private final static String NEW_LINE = "\n";
 
 	public GUI() {
-		ImageIcon icon = createImageIcon("images/bg.gif");
+		ImageIcon icon = createImageIcon(BACKGROUND_IMG);
 		JLabel bgLabel = new JLabel(icon);
 		bgLabel.setSize(bgLabel.getPreferredSize());
 		
@@ -53,8 +69,6 @@ public class GUI extends JPanel implements ActionListener {
         commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(commandOutputLabel);
         add(layeredPane);
-		//add(bgLabel);
-		//add(textField);
 		
 		try{
 			commandProcessor = new CommandProcessor();
@@ -68,13 +82,13 @@ public class GUI extends JPanel implements ActionListener {
 	private Component createControlPanel() {
 		textArea = new JTextArea(7, 40);
 		textArea.setEditable(false);
-		textArea.setText(WELCOME_MESSAGE);
+		textArea.setText("");
 		JScrollPane scrollPane = new JScrollPane(textArea);
 
 		JPanel controls = new JPanel();
 		controls.add(scrollPane);
 
-		controls.setBorder(BorderFactory.createTitledBorder("Jimi - Task Manager"));
+		controls.setBorder(BorderFactory.createTitledBorder(BORDER_TITLE));
 		return controls;
 	}
 
@@ -108,7 +122,7 @@ public class GUI extends JPanel implements ActionListener {
 	 */
 	private static void createAndShowGUI() {
 		// Create and set up the window.
-		JFrame frame = new JFrame("Jimi");
+		JFrame frame = new JFrame(FRAME_NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//Create and set up the content pane.
