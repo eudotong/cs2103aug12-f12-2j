@@ -104,30 +104,30 @@ public class CommandParser {
 
 	}
 
-	private String removeFirstWord(String command) {
-		return command.substring(command.indexOf(WHITE_SPACE) + 1);
+	private String removeFirstWord(String inputString) {
+		return inputString.substring(inputString.indexOf(WHITE_SPACE) + 1);
 	}
 
-	private String removeExtraWhiteSpaces(String command) {
-		command = command.replaceAll(MULTIPLE_WHITE_SPACES, WHITE_SPACE);
-		command = removeLeadingWhiteSpace(command);
-		command = removeTrailingWhiteSpace(command);
-		return command;
+	private String removeExtraWhiteSpaces(String inputString) {
+		inputString = inputString.replaceAll(MULTIPLE_WHITE_SPACES, WHITE_SPACE);
+		inputString = removeLeadingWhiteSpace(inputString);
+		inputString = removeTrailingWhiteSpace(inputString);
+		return inputString;
 	}
 
-	private String removeTrailingWhiteSpace(String command) {
-		if (command.length() != 0 && command.charAt(0) == WHITE_SPACE_CHAR) {
-			command = command.substring(1);
+	private String removeTrailingWhiteSpace(String inputString) {
+		if (inputString.length() != 0 && inputString.charAt(0) == WHITE_SPACE_CHAR) {
+			inputString = inputString.substring(1);
 		}
-		return command;
+		return inputString;
 	}
 
-	private String removeLeadingWhiteSpace(String command) {
-		if (command.length() != 0
-				&& command.charAt(command.length() - 1) == WHITE_SPACE_CHAR) {
-			command = command.substring(0, command.length() - 1);
+	private String removeLeadingWhiteSpace(String inputString) {
+		if (inputString.length() != 0
+				&& inputString.charAt(inputString.length() - 1) == WHITE_SPACE_CHAR) {
+			inputString = inputString.substring(0, inputString.length() - 1);
 		}
-		return command;
+		return inputString;
 	}
 
 	private CommandAdd parseAdd(String command)
@@ -234,10 +234,11 @@ public class CommandParser {
 		return new CommandSearch(taskName, startTime, endTime);
 	}
 
-	public CommandType getCommandType(String command)
+	private CommandType getCommandType(String command)
 			throws CommandCouldNotBeParsedException {
-		if (dictionary.containsKey(command)) {
-			return dictionary.get(command);
+		String commandInLowerCase = command.toLowerCase();
+		if (dictionary.containsKey(commandInLowerCase)) {
+			return dictionary.get(commandInLowerCase);
 		}
 		throw new CommandCouldNotBeParsedException();
 	}
