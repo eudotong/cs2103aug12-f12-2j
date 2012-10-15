@@ -34,7 +34,7 @@ public class CommandSearch implements Command{
 		}else if (query == null && fromDate != null && toDate == null){
 			taskRecords.setCurrentListOfTasks(query, fromDate, toDate);
 		}
-		return "";
+		return MESSAGE_SUCCESS;
 	}
 	@Override
 	public Command reverseCommand() {

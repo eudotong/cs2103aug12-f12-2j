@@ -9,6 +9,8 @@ import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
 
 public class CommandProcessor {
+	private static final String EMPTY_STRING = "";
+	private static final String NEW_LINE = "\n";
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
 	private static final String MESSAGE_ERROR_UNABLE_TO_UNDO = "There are no commands to undo";
 	private static final String MESSAGE_ERROR_UNABLE_TO_REDO = "There are no commands to redo";
@@ -25,7 +27,7 @@ public class CommandProcessor {
 
 	public String processCommand(String command) {
 		try {
-			String outputMessage = "";
+			String outputMessage = EMPTY_STRING;
 			Command commandIssued = commandParser.parseCommand(command);
 			switch (commandIssued.getCommandType()) {
 			case ADD:
@@ -87,15 +89,17 @@ public class CommandProcessor {
 			return MESSAGE_ERROR_UNABLE_TO_REDO;
 		}
 	}
-	
-	public String getCurrentListOfTasks(){
-		Task [] currentListOfTasks = taskRecords.getCurrentListOfTasks();
-		String output = "";
-		for(int i = 0; i < currentListOfTasks.length; i++){
-			if(i == currentListOfTasks.length - 1){
-				output += (i+1) + ". " + currentListOfTasks[i];
-			}else{
-				output += (i+1) + ". " + currentListOfTasks[i] + "\n";
+
+	public String getCurrentListOfTasks() {
+		Task[] currentListOfTasks = taskRecords.getCurrentListOfTasks();
+		String output = EMPTY_STRING;
+		for (int indexOfTask = 0; indexOfTask < currentListOfTasks.length; indexOfTask++) {
+			if (indexOfTask == currentListOfTasks.length - 1) {
+				output += (indexOfTask + 1) + ". "
+						+ currentListOfTasks[indexOfTask];
+			} else {
+				output += (indexOfTask + 1) + ". "
+						+ currentListOfTasks[indexOfTask] + NEW_LINE;
 			}
 		}
 		return output;

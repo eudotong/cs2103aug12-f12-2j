@@ -22,6 +22,7 @@ import utilities.Task;
  *         storing task information.
  */
 public class TaskRecords {
+	private static final String NEW_LINE = "\r\n";
 	private static final String DATE_FORMAT = "d/M/yyyy h:mma";
 	private static final String FILE_NAME = "taskrecords.txt";
 	private static final String FILE_DELIMITER = "[|]|\r\n";
@@ -113,7 +114,7 @@ public class TaskRecords {
 		FileWriter myFileWriter = new FileWriter(myFile, false);
 		Iterator<Task> recordsIterator = allTaskRecords.iterator();
 		while (recordsIterator.hasNext()) {
-			myFileWriter.write(recordsIterator.next().toString() + "\r\n");
+			myFileWriter.write(recordsIterator.next().toString() + NEW_LINE);
 		}
 		myFileWriter.flush();
 		myFileWriter.close();
@@ -131,7 +132,7 @@ public class TaskRecords {
 		if (isSuccessfullyAdded) {
 			try {
 				myFileWriter = new FileWriter(myFile, true);
-				myFileWriter.write(taskToBeAdded.toString() + "\r\n");
+				myFileWriter.write(taskToBeAdded.toString() + NEW_LINE);
 				myFileWriter.flush();
 				myFileWriter.close();
 			} catch (IOException e) {

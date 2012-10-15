@@ -39,6 +39,7 @@ public class CommandEdit implements Command{
 			newTask.setEndTime(taskToBeReplaced.getEndTime());
 		}
 		boolean isSuccessful = taskRecords.replaceTask(taskToBeReplaced, newTask);
+		isReversible = isSuccessful;
 		if(isSuccessful){
 			return String.format(MESSAGE_SUCCESS, newTask.toString());
 		}
