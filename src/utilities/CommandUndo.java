@@ -2,8 +2,9 @@ package utilities;
 
 import storage.TaskRecords;
 
-public class CommandUndo implements Command{
+public class CommandUndo implements Command {
 	private static final boolean IS_REVERSIBLE = false;
+
 	@Override
 	public Command reverseCommand() {
 		return null;

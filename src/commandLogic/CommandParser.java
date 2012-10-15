@@ -27,6 +27,7 @@ public class CommandParser {
 	private static final String MULTIPLE_WHITE_SPACES = "\\s+";
 	private static final String WHITE_SPACE = " ";
 	private static final int INDEX_OF_FIRST_WORD = 0;
+	
 	private static final String[] LIST_ADD_SYNONYMS = { "add", "insert",
 			"create", "new", "put" };
 	private static final String[] LIST_MARK_SYNONYMS = { "mark", "delete",
@@ -37,10 +38,12 @@ public class CommandParser {
 			"search", "show" };
 	private static final String[] LIST_REDO_SYNONYMS = { "redo" };
 	private static final String[] LIST_UNDO_SYNONYMS = { "undo" };
+	
 	private static final String PATTERN_DATE = "\\d{1,2}[/]\\d{1,2}[/]\\d{4} \\d{1,2}[:]\\d{2}";
 	private static final String PATTERN_ANY_NUMBER = "\\d";
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("d/M/yyyy H:mm");
+	
 	private HashMap<String, CommandType> dictionary;
 
 	public CommandParser() {
@@ -109,14 +112,16 @@ public class CommandParser {
 	}
 
 	private String removeExtraWhiteSpaces(String inputString) {
-		inputString = inputString.replaceAll(MULTIPLE_WHITE_SPACES, WHITE_SPACE);
+		inputString = inputString
+				.replaceAll(MULTIPLE_WHITE_SPACES, WHITE_SPACE);
 		inputString = removeLeadingWhiteSpace(inputString);
 		inputString = removeTrailingWhiteSpace(inputString);
 		return inputString;
 	}
 
 	private String removeTrailingWhiteSpace(String inputString) {
-		if (inputString.length() != 0 && inputString.charAt(0) == WHITE_SPACE_CHAR) {
+		if (inputString.length() != 0
+				&& inputString.charAt(0) == WHITE_SPACE_CHAR) {
 			inputString = inputString.substring(1);
 		}
 		return inputString;
@@ -141,12 +146,14 @@ public class CommandParser {
 			if (patternMatcher.find()) {
 				startTime = DATE_FORMATTER.parseDateTime(patternMatcher
 						.group(0));
-				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
+				command = command.replaceAll(patternMatcher.group(0),
+						EMPTY_STRING);
 			}
 			patternMatcher = datePattern.matcher(command);
 			if (patternMatcher.find()) {
 				endTime = DATE_FORMATTER.parseDateTime(patternMatcher.group(0));
-				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
+				command = command.replaceAll(patternMatcher.group(0),
+						EMPTY_STRING);
 			}
 		} catch (IllegalFieldValueException e) {
 			throw new CommandCouldNotBeParsedException();
@@ -169,12 +176,14 @@ public class CommandParser {
 			if (patternMatcher.find()) {
 				startTime = DATE_FORMATTER.parseDateTime(patternMatcher
 						.group(0));
-				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
+				command = command.replaceAll(patternMatcher.group(0),
+						EMPTY_STRING);
 			}
 			patternMatcher = datePattern.matcher(command);
 			if (patternMatcher.find()) {
 				endTime = DATE_FORMATTER.parseDateTime(patternMatcher.group(0));
-				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
+				command = command.replaceAll(patternMatcher.group(0),
+						EMPTY_STRING);
 			}
 		} catch (IllegalFieldValueException e) {
 			throw new CommandCouldNotBeParsedException();
@@ -187,7 +196,7 @@ public class CommandParser {
 			throw new CommandCouldNotBeParsedException();
 		}
 		taskName = removeExtraWhiteSpaces(command);
-		if(taskName.length() == 0){
+		if (taskName.length() == 0) {
 			taskName = null;
 		}
 		Task newTask = new Task(taskName, startTime, endTime, false);
@@ -215,13 +224,15 @@ public class CommandParser {
 			if (patternMatcher.find()) {
 				startTime = DATE_FORMATTER.parseDateTime(patternMatcher
 						.group(0));
-				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
+				command = command.replaceAll(patternMatcher.group(0),
+						EMPTY_STRING);
 				System.out.println(startTime);
 			}
 			patternMatcher = datePattern.matcher(command);
 			if (patternMatcher.find()) {
 				endTime = DATE_FORMATTER.parseDateTime(patternMatcher.group(0));
-				command = command.replaceAll(patternMatcher.group(0), EMPTY_STRING);
+				command = command.replaceAll(patternMatcher.group(0),
+						EMPTY_STRING);
 				System.out.println(endTime);
 			}
 		} catch (IllegalFieldValueException e) {

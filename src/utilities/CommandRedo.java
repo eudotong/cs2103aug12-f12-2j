@@ -2,9 +2,9 @@ package utilities;
 
 import storage.TaskRecords;
 
-public class CommandRedo implements Command{
+public class CommandRedo implements Command {
 	private static final boolean IS_REVERSIBLE = false;
-	
+
 	@Override
 	public String processCommand(TaskRecords taskRecords) {
 		return "";
