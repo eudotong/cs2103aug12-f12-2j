@@ -71,8 +71,7 @@ public class TaskRecords {
 			DateTime startTime = convertStringToDate(fileReader.next());
 			DateTime endTime = convertStringToDate(fileReader.next());
 			String taskName = fileReader.next();
-			boolean isImportant = Boolean.parseBoolean(fileReader.next());
-			Task newTask = new Task(taskName, startTime, endTime, isImportant);
+			Task newTask = new Task(taskName, startTime, endTime);
 			allTaskRecords.add(newTask);
 		}
 		fileReader.close();

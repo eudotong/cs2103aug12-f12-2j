@@ -5,6 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="joda-time-2.1.jar"/>
 	<classpathentry kind="lib" path="natty-0.6.jar"/>
-	<classpathentry kind="lib" path="antlr-3.4-complete.jar"/>
+	<classpathentry kind="lib" path="antlr-3.2.jar"/>
+	<classpathentry kind="lib" path="jchronic-0.2.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

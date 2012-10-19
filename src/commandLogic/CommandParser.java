@@ -9,6 +9,8 @@ import org.joda.time.IllegalFieldValueException;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.joestelmach.natty.Parser;
+
 import utilities.Command;
 import utilities.CommandAdd;
 import utilities.CommandEdit;
@@ -137,7 +139,7 @@ public class CommandParser {
 
 	private CommandAdd parseAdd(String command)
 			throws CommandCouldNotBeParsedException {
-		DateTime startTime = new DateTime();
+		DateTime startTime = null;
 		DateTime endTime = null;
 		String taskName = EMPTY_STRING;
 		Pattern datePattern = Pattern.compile(PATTERN_DATE);
@@ -159,7 +161,7 @@ public class CommandParser {
 			throw new CommandCouldNotBeParsedException();
 		}
 		taskName = removeExtraWhiteSpaces(command);
-		Task newTask = new Task(taskName, startTime, endTime, false);
+		Task newTask = new Task(taskName, startTime, endTime);
 		return new CommandAdd(newTask);
 	}
 
@@ -199,7 +201,7 @@ public class CommandParser {
 		if (taskName.length() == 0) {
 			taskName = null;
 		}
-		Task newTask = new Task(taskName, startTime, endTime, false);
+		Task newTask = new Task(taskName, startTime, endTime);
 		return new CommandEdit(taskIndex, newTask);
 	}
 
