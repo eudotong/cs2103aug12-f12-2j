@@ -22,8 +22,10 @@ import utilities.Task;
  *         storing task information.
  */
 public class TaskRecords {
+	private static final String NULL_STRING = "null";
 	private static final String NEW_LINE = "\r\n";
-	private static final String DATE_FORMAT = "d/M/yyyy h:mma";
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
+			.forPattern("d/M/yyyy hh:mma");
 	private static final String FILE_NAME = "taskrecords.txt";
 	private static final String FILE_DELIMITER = "[|]|\r\n";
 	private static final Task[] TASK_ARRAY_TYPE = new Task[0];
@@ -78,11 +80,10 @@ public class TaskRecords {
 	}
 
 	private DateTime convertStringToDate(String stringDate) {
-		if (stringDate.isEmpty()) {
+		if (stringDate.isEmpty() || stringDate.equals(NULL_STRING)) {
 			return null;
 		}
-		DateTimeFormatter formatter = DateTimeFormat.forPattern(DATE_FORMAT);
-		return formatter.parseDateTime(stringDate);
+		return DATE_FORMATTER.parseDateTime(stringDate);
 	}
 
 	/**
