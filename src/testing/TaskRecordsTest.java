@@ -19,20 +19,20 @@ public class TaskRecordsTest {
 	public void setUp() throws Exception {
 		taskRecordsTest = new TaskRecords("testing.txt");
 		taskRecordsTest.clearAllTasks();
-		tasksToTest.add(new Task("AAA 2 days before", date.minusDays(2), true));
-		tasksToTest.add(new Task("AAA 1 days before", date.minusDays(1), true));
-		tasksToTest.add(new Task("BBB 1 day after", date.plusDays(1), true));
-		tasksToTest.add(new Task("CCC 3 hours later", date.minusHours(3), true));
-		tasksToTest.add(new Task("DDD 4 months later", date.plusMonths(4), true));
-		tasksToTest.add(new Task("EEE 5 months", date.plusWeeks(2), true));
-		tasksToTest.add(new Task("Aaa 1 hour later", date.plusHours(1), true));
-		tasksToTest.add(new Task("ABC 1 yr later", date.plusYears(1), true));
-		tasksToTest.add(new Task("CBA now", date, true));
-		tasksToTest.add(new Task("QWERTY 10 hours later", date.plusHours(10), true));
-		tasksToTest.add(new Task("abc 3 days", date.plusDays(3), true));
-		tasksToTest.add(new Task("ghj 3 days", date.plusDays(3), true));
-		tasksToTest.add(new Task("ghjasd 3 days", date.plusDays(3), true));
-		tasksToTest.add(new Task("gasdhj 3 days", date.plusDays(3), true));
+		tasksToTest.add(new Task("AAA 2 days before", date.minusDays(2)));
+		tasksToTest.add(new Task("AAA 1 days before", date.minusDays(1)));
+		tasksToTest.add(new Task("BBB 1 day after", date.plusDays(1)));
+		tasksToTest.add(new Task("CCC 3 hours later", date.minusHours(3)));
+		tasksToTest.add(new Task("DDD 4 months later", date.plusMonths(4)));
+		tasksToTest.add(new Task("EEE 5 months", date.plusWeeks(2)));
+		tasksToTest.add(new Task("Aaa 1 hour later", date.plusHours(1)));
+		tasksToTest.add(new Task("ABC 1 yr later", date.plusYears(1)));
+		tasksToTest.add(new Task("CBA now", date));
+		tasksToTest.add(new Task("QWERTY 10 hours later", date.plusHours(10)));
+		tasksToTest.add(new Task("abc 3 days", date.plusDays(3)));
+		tasksToTest.add(new Task("ghj 3 days", date.plusDays(3)));
+		tasksToTest.add(new Task("ghjasd 3 days", date.plusDays(3)));
+		tasksToTest.add(new Task("gasdhj 3 days", date.plusDays(3)));
 		for(Task t : tasksToTest){
 			taskRecordsTest.appendTask(t);
 		}
@@ -62,11 +62,11 @@ public class TaskRecordsTest {
 
 	@Test
 	public void testDeleteTask() {
-		taskRecordsTest.deleteTask(new Task("CBA now", date, true));
+		taskRecordsTest.deleteTask(new Task("CBA now", date));
 		taskRecordsTest.setCurrentListOfTasks(date);
 		Task taskByIndex = taskRecordsTest.getTaskByIndex(1);
 		assertEquals(tasksToTest.get(6), taskByIndex);
-		taskRecordsTest.deleteTask(new Task("CBA now", date, true));
+		taskRecordsTest.deleteTask(new Task("CBA now", date));
 		taskRecordsTest.setCurrentListOfTasks(date);
 		taskByIndex = taskRecordsTest.getTaskByIndex(1);
 		assertEquals(tasksToTest.get(6), taskByIndex);
@@ -75,13 +75,13 @@ public class TaskRecordsTest {
 
 	@Test
 	public void testReplaceTask() {
-		Task changeToTask =new Task("changed", date, true);
-		taskRecordsTest.replaceTask(new Task("CBA now", date, true), changeToTask);
+		Task changeToTask =new Task("changed", date);
+		taskRecordsTest.replaceTask(new Task("CBA now", date), changeToTask);
 		taskRecordsTest.setCurrentListOfTasks(date);
 		Task taskByIndex = taskRecordsTest.getTaskByIndex(1);
 		assertEquals(changeToTask, taskByIndex);
 		//Test case: Task does not exist
-		taskRecordsTest.replaceTask(new Task("CBA now", date, true), changeToTask);
+		taskRecordsTest.replaceTask(new Task("CBA now", date), changeToTask);
 		taskRecordsTest.setCurrentListOfTasks(date);
 		taskByIndex = taskRecordsTest.getTaskByIndex(1);
 		assertEquals(changeToTask, taskByIndex);
