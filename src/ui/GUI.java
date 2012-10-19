@@ -84,6 +84,8 @@ public class GUI extends JPanel implements ActionListener {
 		textArea = new JTextArea(7, 40);
 		textArea.setEditable(true);
 		textArea.setText("");
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setPreferredSize(new Dimension(400, 200));
 
