@@ -1,0 +1,14 @@
+13/10/2012 05:54AM||AAA 2 days before|true
+14/10/2012 05:54AM||AAA 1 days before|true
+16/10/2012 05:54AM||BBB 1 day after|true
+15/10/2012 02:54AM||CCC 3 hours later|true
+15/2/2013 05:54AM||DDD 4 months later|true
+29/10/2012 05:54AM||EEE 5 months|true
+15/10/2012 06:54AM||Aaa 1 hour later|true
+15/10/2013 05:54AM||ABC 1 yr later|true
+15/10/2012 05:54AM||CBA now|true
+15/10/2012 03:54PM||QWERTY 10 hours later|true
+18/10/2012 05:54AM||abc 3 days|true
+18/10/2012 05:54AM||ghj 3 days|true
+18/10/2012 05:54AM||ghjasd 3 days|true
+18/10/2012 05:54AM||gasdhj 3 days|true
