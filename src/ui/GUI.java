@@ -82,19 +82,23 @@ public class GUI extends JPanel implements ActionListener {
 
 	private Component createControlPanel() {
 		textArea = new JTextArea(7, 40);
-		textArea.setEditable(false);
+		textArea.setEditable(true);
 		textArea.setText("");
 		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setPreferredSize(new Dimension(400, 200));
 
 		ImageIcon hdr = createImageIcon(HDR_IMG);
 		JLabel hdrLabel = new JLabel(hdr);
-		hdrLabel.setSize(hdrLabel.getPreferredSize());
+		hdrLabel.setSize(150, 150);
+		
+		Box verticalBox = Box.createVerticalBox();
+	    verticalBox.add(hdrLabel);
+	    verticalBox.add(scrollPane);
+	    verticalBox.setPreferredSize(new Dimension(400, 200));
+
 		
 		JPanel controls = new JPanel();
-		controls.add(hdrLabel);
-		
-		controls.add(scrollPane);
-
+		controls.add(verticalBox);
 		controls.setBorder(BorderFactory.createTitledBorder(BORDER_TITLE));
 		
 		return controls;
