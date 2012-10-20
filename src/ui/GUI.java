@@ -28,6 +28,7 @@ public class GUI extends JPanel implements ActionListener {
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
 	private static final String FRAME_NAME = "Jimi";
 	private static final String BACKGROUND_IMG = "images/bg.gif";
+	private static final String HDR_IMG = "images/hdr.png";
 	private static final String ERROR_COULD_NOT_ACCESS_STORAGE = "Error: Could not access storage.";
 	private static final long serialVersionUID = 1L;
 	protected JTextArea textArea;
@@ -81,14 +82,27 @@ public class GUI extends JPanel implements ActionListener {
 
 	private Component createControlPanel() {
 		textArea = new JTextArea(7, 40);
-		textArea.setEditable(false);
+		textArea.setEditable(true);
 		textArea.setText("");
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setPreferredSize(new Dimension(400, 200));
 
+		ImageIcon hdr = createImageIcon(HDR_IMG);
+		JLabel hdrLabel = new JLabel(hdr);
+		hdrLabel.setSize(150, 150);
+		
+		Box verticalBox = Box.createVerticalBox();
+	    verticalBox.add(hdrLabel);
+	    verticalBox.add(scrollPane);
+	    verticalBox.setPreferredSize(new Dimension(400, 200));
+
+		
 		JPanel controls = new JPanel();
-		controls.add(scrollPane);
-
+		controls.add(verticalBox);
 		controls.setBorder(BorderFactory.createTitledBorder(BORDER_TITLE));
+		
 		return controls;
 	}
 
