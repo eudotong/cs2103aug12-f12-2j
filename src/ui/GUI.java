@@ -84,7 +84,7 @@ public class GUI extends JPanel implements ActionListener {
 
 	private Component createControlPanel() {
 		textArea = new JTextArea(7, 40);
-		textArea.setEditable(true);
+		textArea.setEditable(false);
 		textArea.setText("");
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
