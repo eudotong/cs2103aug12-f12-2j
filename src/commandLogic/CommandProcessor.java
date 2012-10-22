@@ -14,6 +14,7 @@ public class CommandProcessor {
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
 	private static final String MESSAGE_ERROR_UNABLE_TO_UNDO = "There are no commands to undo";
 	private static final String MESSAGE_ERROR_UNABLE_TO_REDO = "There are no commands to redo";
+	String window;
 
 	private ChangeRecord changeRecord;
 	private TaskRecords taskRecords;
@@ -32,6 +33,7 @@ public class CommandProcessor {
 			switch (commandIssued.getCommandType()) {
 			case ADD:
 				outputMessage = processAdd(commandIssued);
+				window = getCurrentListOfTasks();
 				break;
 			case EDIT:
 				outputMessage = processEdit(commandIssued);
