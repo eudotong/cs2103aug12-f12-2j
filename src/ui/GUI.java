@@ -44,11 +44,13 @@ public class GUI extends JPanel implements ActionListener {
 		ImageIcon icon = createImageIcon(BACKGROUND_IMG);
 		JLabel bgLabel = new JLabel(icon);
 		bgLabel.setSize(bgLabel.getPreferredSize());
+		
 
 		// Create and set up the layered pane.
 		JPanel forgroundPanel = new JPanel(new GridBagLayout());
 		forgroundPanel.setOpaque(false);
-		forgroundPanel.setSize(bgLabel.getPreferredSize());
+		forgroundPanel.setPreferredSize(new Dimension(400, 50));
+		
 
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setPreferredSize(bgLabel.getPreferredSize());
@@ -60,14 +62,16 @@ public class GUI extends JPanel implements ActionListener {
 		textField.addActionListener(this);
 
 		forgroundPanel.add(textField);
-		textField.setAlignmentX(Component.CENTER_ALIGNMENT);  //?
+		
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		
 		add(createControlPanel());
 		add(Box.createRigidArea(new Dimension(0, 10)));
+		add(forgroundPanel);
 
+		/*
 		JLabel commandOutputLabel = new JLabel("");
 		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(commandOutputLabel);
@@ -79,7 +83,7 @@ public class GUI extends JPanel implements ActionListener {
 		}catch(IOException e){
 			textArea.append(NEW_LINE + ERROR_COULD_NOT_ACCESS_STORAGE);
 		}
-
+*/
 	}
 
 	private Component createControlPanel(){
