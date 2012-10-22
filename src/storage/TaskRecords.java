@@ -22,11 +22,15 @@ import utilities.Task;
  *         storing task information.
  */
 public class TaskRecords {
+	private static final String NULL_STRING = "null";
 	private static final String NEW_LINE = "\r\n";
-	private static final String DATE_FORMAT = "d/M/yyyy h:mma";
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
+			.forPattern("d/M/yyyy hh:mma");
 	private static final String FILE_NAME = "taskrecords.txt";
 	private static final String FILE_DELIMITER = "[|]|\r\n";
 	private static final Task[] TASK_ARRAY_TYPE = new Task[0];
+	
+	private static TaskRecords instanceOfTaskRecords;
 	
 	private Task[] currentListOfTasks;
 	private TreeSet<Task> allTaskRecords;
@@ -39,7 +43,7 @@ public class TaskRecords {
 	 * 
 	 * @throws IOException
 	 */
-	public TaskRecords() throws IOException {
+	private TaskRecords() throws IOException {
 		myFile = new File(FILE_NAME);
 		if (!myFile.exists()) {
 			myFile.createNewFile();
@@ -48,13 +52,27 @@ public class TaskRecords {
 		initialiseCurrentListOfTasks();
 	}
 
-	public TaskRecords(String fileName) throws IOException {
+	private TaskRecords(String fileName) throws IOException {
 		myFile = new File(fileName);
 		if (!myFile.exists()) {
 			myFile.createNewFile();
 		}
 		initialiseAllTaskRecords();
 		initialiseCurrentListOfTasks();
+	}
+	
+	public static TaskRecords getInstance() throws IOException{
+		if(instanceOfTaskRecords == null){
+			instanceOfTaskRecords =  new TaskRecords();
+		}
+		return instanceOfTaskRecords;
+	}
+	
+	public static TaskRecords getInstance(String fileName) throws IOException{
+		if(instanceOfTaskRecords == null){
+			instanceOfTaskRecords = new TaskRecords(fileName);
+		}
+		return instanceOfTaskRecords;
 	}
 
 	private void initialiseCurrentListOfTasks() {
@@ -71,19 +89,17 @@ public class TaskRecords {
 			DateTime startTime = convertStringToDate(fileReader.next());
 			DateTime endTime = convertStringToDate(fileReader.next());
 			String taskName = fileReader.next();
-			boolean isImportant = Boolean.parseBoolean(fileReader.next());
-			Task newTask = new Task(taskName, startTime, endTime, isImportant);
+			Task newTask = new Task(taskName, startTime, endTime);
 			allTaskRecords.add(newTask);
 		}
 		fileReader.close();
 	}
 
 	private DateTime convertStringToDate(String stringDate) {
-		if (stringDate.isEmpty()) {
+		if (stringDate.isEmpty() || stringDate.equals(NULL_STRING)) {
 			return null;
 		}
-		DateTimeFormatter formatter = DateTimeFormat.forPattern(DATE_FORMAT);
-		return formatter.parseDateTime(stringDate);
+		return DATE_FORMATTER.parseDateTime(stringDate);
 	}
 
 	/**
