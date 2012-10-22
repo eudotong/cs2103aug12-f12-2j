@@ -22,7 +22,7 @@ public class CommandProcessor {
 	public CommandProcessor() throws IOException {
 		changeRecord = new ChangeRecord();
 		commandParser = new CommandParser();
-		taskRecords = new TaskRecords();
+		taskRecords = TaskRecords.getInstance();
 	}
 
 	public String processCommand(String command) {

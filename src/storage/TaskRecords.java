@@ -30,6 +30,8 @@ public class TaskRecords {
 	private static final String FILE_DELIMITER = "[|]|\r\n";
 	private static final Task[] TASK_ARRAY_TYPE = new Task[0];
 	
+	private static TaskRecords instanceOfTaskRecords;
+	
 	private Task[] currentListOfTasks;
 	private TreeSet<Task> allTaskRecords;
 	private File myFile;
@@ -41,7 +43,7 @@ public class TaskRecords {
 	 * 
 	 * @throws IOException
 	 */
-	public TaskRecords() throws IOException {
+	private TaskRecords() throws IOException {
 		myFile = new File(FILE_NAME);
 		if (!myFile.exists()) {
 			myFile.createNewFile();
@@ -50,13 +52,27 @@ public class TaskRecords {
 		initialiseCurrentListOfTasks();
 	}
 
-	public TaskRecords(String fileName) throws IOException {
+	private TaskRecords(String fileName) throws IOException {
 		myFile = new File(fileName);
 		if (!myFile.exists()) {
 			myFile.createNewFile();
 		}
 		initialiseAllTaskRecords();
 		initialiseCurrentListOfTasks();
+	}
+	
+	public static TaskRecords getInstance() throws IOException{
+		if(instanceOfTaskRecords == null){
+			instanceOfTaskRecords =  new TaskRecords();
+		}
+		return instanceOfTaskRecords;
+	}
+	
+	public static TaskRecords getInstance(String fileName) throws IOException{
+		if(instanceOfTaskRecords == null){
+			instanceOfTaskRecords = new TaskRecords(fileName);
+		}
+		return instanceOfTaskRecords;
 	}
 
 	private void initialiseCurrentListOfTasks() {

@@ -17,7 +17,7 @@ public class TaskRecordsTest {
 	ArrayList <Task> tasksToTest = new ArrayList<Task>();
 	@Before
 	public void setUp() throws Exception {
-		taskRecordsTest = new TaskRecords("testing.txt");
+		taskRecordsTest = TaskRecords.getInstance("testing.txt");
 		taskRecordsTest.clearAllTasks();
 		tasksToTest.add(new Task("AAA 2 days before", null, date.minusDays(2)));
 		tasksToTest.add(new Task("AAA 1 days before", null, date.minusDays(1)));
