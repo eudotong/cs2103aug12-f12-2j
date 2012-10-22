@@ -3,25 +3,33 @@ package ui;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import commandLogic.CommandProcessor;
 
@@ -44,7 +52,8 @@ public class GUI extends JPanel implements ActionListener {
 		ImageIcon icon = createImageIcon(BACKGROUND_IMG);
 		JLabel bgLabel = new JLabel(icon);
 		bgLabel.setSize(bgLabel.getPreferredSize());
-		
+
+        add( addTraversalKeys() );
 
 		// Create and set up the layered pane.
 		JPanel forgroundPanel = new JPanel(new GridBagLayout());
@@ -116,6 +125,81 @@ public class GUI extends JPanel implements ActionListener {
 		return controls;
 	}
 
+	 //  Add Tab and Shift-Tab KeyStrokes back as focus traversal keys.
+    //  Seems more complicated then just using null, but at least
+    //  it shows how to add a KeyStroke as a focus traversal key.
+
+    private JComponent addTraversalKeys()
+    {
+        JScrollPane scrollPane = new JScrollPane( textArea );
+        scrollPane.getVerticalScrollBar().setFocusable(false);
+
+        Set set = new HashSet( textArea.getFocusTraversalKeys(
+            KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS ) );
+        set.add( KeyStroke.getKeyStroke( "TAB" ) );
+        textArea.setFocusTraversalKeys(
+            KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set );
+
+        set = new HashSet( textArea.getFocusTraversalKeys(
+            KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS ) );
+        set.add( KeyStroke.getKeyStroke( "shift TAB" ) );
+        textArea.setFocusTraversalKeys(
+            KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, set );
+
+        return scrollPane;
+    }
+
+    class TabAction extends AbstractAction
+    {
+        private boolean forward;
+
+        public TabAction(boolean forward)
+        {
+            this.forward = forward;
+        }
+
+        public void actionPerformed(ActionEvent e)
+        {
+            if (forward)
+                tabForward();
+            else
+                tabBackward();
+        }
+
+        private void tabForward()
+        {
+            final KeyboardFocusManager manager =
+                KeyboardFocusManager.getCurrentKeyboardFocusManager();
+            manager.focusNextComponent();
+
+            SwingUtilities.invokeLater(new Runnable()
+            {
+                public void run()
+                {
+                    if (manager.getFocusOwner() instanceof JScrollBar)
+                        manager.focusNextComponent();
+                }
+            });
+        }
+
+        private void tabBackward()
+        {
+            final KeyboardFocusManager manager =
+                KeyboardFocusManager.getCurrentKeyboardFocusManager();
+            manager.focusPreviousComponent();
+
+            SwingUtilities.invokeLater(new Runnable()
+            {
+                public void run()
+                {
+                    if (manager.getFocusOwner() instanceof JScrollBar)
+                        manager.focusPreviousComponent();
+                }
+            });
+        }
+    }
+
+	
 	private void GUIdata(){
 		//parse file into a single string
 
