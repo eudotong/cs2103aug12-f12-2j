@@ -64,6 +64,7 @@ public class CommandProcessor {
 	}
 
 	private String processSearch(Command command) {
+		latestSearch = command;
 		return command.processCommand(taskRecords);
 	}
 
