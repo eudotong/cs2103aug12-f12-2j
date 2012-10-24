@@ -20,6 +20,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -43,7 +44,7 @@ public class GUI extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private final static String NEW_LINE = "\n";
 	private Border empty = BorderFactory.createEmptyBorder();
-	JTextArea textArea = new JTextArea(7, 40);
+	JEditorPane textArea = new JEditorPane();
 	JTextField textField = new JTextField(32);
 	CommandProcessor commandProcessor;
 	JLabel commandOutputLabel = null;
@@ -81,12 +82,15 @@ public class GUI extends JPanel implements ActionListener {
 		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(commandOutputLabel);
 		add(layeredPane);
+		
+		textArea.setContentType("text/html");
 
 		try {
 			commandProcessor = new CommandProcessor();
-			textArea.append(commandProcessor.getCurrentListOfTasks());
+			textArea.setText(commandProcessor.getCurrentListOfTasks());
+			//textArea.append(commandProcessor.getCurrentListOfTasks());
 		} catch (IOException e) {
-			textArea.append(NEW_LINE + ERROR_COULD_NOT_ACCESS_STORAGE);
+			//textArea.append(NEW_LINE + ERROR_COULD_NOT_ACCESS_STORAGE);
 		}
 
 	}
@@ -94,8 +98,8 @@ public class GUI extends JPanel implements ActionListener {
 	private Component createControlPanel() {
 
 		textArea.setEditable(false);
-		textArea.setLineWrap(true);
-		textArea.setWrapStyleWord(true);
+		//textArea.setLineWrap(true);
+		//textArea.setWrapStyleWord(true);
 		textArea.setText(EMPTY_STRING);
 
 		JScrollPane scrollPane = new JScrollPane(textArea);
