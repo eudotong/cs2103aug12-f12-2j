@@ -3,6 +3,8 @@ package commandLogic;
 import java.io.IOException;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import storage.TaskRecords;
 import utilities.Command;
@@ -14,11 +16,13 @@ import exceptions.NothingToUndoException;
 
 public class CommandProcessor {
 	private static final String EMPTY_STRING = "";
-	private static final String NEW_LINE = "\n";
+	private static final String NEW_LINE = "<br>";
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
 	private static final String MESSAGE_ERROR_UNABLE_TO_UNDO = "There are no commands to undo";
 	private static final String MESSAGE_ERROR_UNABLE_TO_REDO = "There are no commands to redo";
-
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
+			.forPattern("d/M");
+	
 	private ChangeRecord changeRecord;
 	private TaskRecords taskRecords;
 	private CommandParser commandParser;
@@ -102,7 +106,12 @@ public class CommandProcessor {
 		latestSearch.processCommand(taskRecords);
 		Task[] currentListOfTasks = taskRecords.getCurrentListOfTasks();
 		String output = EMPTY_STRING;
+		DateTime currentDateIteration = null;
 		for (int indexOfTask = 0; indexOfTask < currentListOfTasks.length; indexOfTask++) {
+			if(currentDateIteration != currentListOfTasks[indexOfTask].getStartTime()){
+				currentDateIteration = currentListOfTasks[indexOfTask].getStartTime();
+				output += currentDateIteration.toString(DATE_FORMATTER) + NEW_LINE;
+			}
 			if (indexOfTask == currentListOfTasks.length - 1) {
 				output += (indexOfTask + 1) + ". "
 						+ currentListOfTasks[indexOfTask];
