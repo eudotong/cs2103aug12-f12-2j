@@ -176,6 +176,24 @@ public class TaskRecords {
 			return false;
 		}
 	}
+	
+	public boolean clearAllOverDueTasks(){
+		Iterator <Task> taskIterator = allTaskRecords.iterator();
+		while (taskIterator.hasNext()){
+			Task task = taskIterator.next();
+			if(task.getStartTime() != null && task.getStartTime().isBeforeNow()){
+				taskIterator.remove();
+			}else if(task.getStartTime().isAfterNow()){
+				break;
+			}
+		}
+		try {
+			rewriteFile();
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
+	}
 
 	public boolean clearAllTasks() {
 		try {
@@ -216,7 +234,7 @@ public class TaskRecords {
 
 	public void setCurrentListOfTasks() {
 		DateTime toDate = new DateTime().plusDays(1);
-		Task fromTask =  new Task(EMPTY_STRING, null, null);
+		Task fromTask = new Task(EMPTY_STRING, null, null);
 		Task toTask = new Task(toDate);
 		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
 				TASK_ARRAY_TYPE);
