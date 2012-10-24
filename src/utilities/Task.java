@@ -1,5 +1,7 @@
 package utilities;
 
+import java.util.Comparator;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -25,7 +27,7 @@ public class Task implements Comparable<Task> {
 	}
 
 	public Task(String taskName, DateTime startTime, DateTime endTime) {
-		if (compareDate(startTime, endTime) >= POSITIVE_NUMBER) {
+		if (compareNullDatesLast(startTime, endTime) >= POSITIVE_NUMBER) {
 			this.startTime = endTime;
 			this.endTime = startTime;
 		} else {
@@ -34,9 +36,9 @@ public class Task implements Comparable<Task> {
 		}
 		this.taskName = changeToValidName(taskName);
 	}
-	
-	public String changeToValidName(String taskName){
-		if(taskName == null){
+
+	public String changeToValidName(String taskName) {
+		if (taskName == null) {
 			return EMPTY_STRING;
 		}
 		return taskName.replace(PIPE_STRING, EMPTY_STRING);
@@ -98,14 +100,27 @@ public class Task implements Comparable<Task> {
 	/**
 	 * returns a positive number if firstDate > secondDate. returns SAME_TIME
 	 * (the number 0) if firstDate is same as secondDate. returns a negative
-	 * number if firstDate < secondDate Note: A date that is null is larger
-	 * than a date that is not.
+	 * number if firstDate < secondDate Note: A date that is null is larger than
+	 * a date that is not.
 	 * 
 	 * @param firstDate
 	 * @param secondDate
 	 * @return int
 	 */
 	private int compareDate(DateTime firstDate, DateTime secondDate) {
+		if (firstDate == null && secondDate == null) {
+			return SAME_TIME;
+		}
+		if (firstDate == null && secondDate != null) {
+			return NEGATIVE_NUMBER;
+		}
+		if (firstDate != null && secondDate == null) {
+			return POSITIVE_NUMBER;
+		}
+		return firstDate.compareTo(secondDate);
+	}
+	
+	private int compareNullDatesLast(DateTime firstDate, DateTime secondDate){
 		if (firstDate == null && secondDate == null) {
 			return SAME_TIME;
 		}

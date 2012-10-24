@@ -23,15 +23,16 @@ import utilities.Task;
  */
 public class TaskRecords {
 	private static final String NULL_STRING = "null";
+	private static final String EMPTY_STRING = "";
 	private static final String NEW_LINE = "\r\n";
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("d/M/yyyy hh:mma");
 	private static final String FILE_NAME = "taskrecords.txt";
 	private static final String FILE_DELIMITER = "[|]|\r\n";
 	private static final Task[] TASK_ARRAY_TYPE = new Task[0];
-	
+
 	private static TaskRecords instanceOfTaskRecords;
-	
+
 	private Task[] currentListOfTasks;
 	private TreeSet<Task> allTaskRecords;
 	private File myFile;
@@ -49,7 +50,6 @@ public class TaskRecords {
 			myFile.createNewFile();
 		}
 		initialiseAllTaskRecords();
-		initialiseCurrentListOfTasks();
 	}
 
 	private TaskRecords(String fileName) throws IOException {
@@ -58,27 +58,20 @@ public class TaskRecords {
 			myFile.createNewFile();
 		}
 		initialiseAllTaskRecords();
-		initialiseCurrentListOfTasks();
 	}
-	
-	public static TaskRecords getInstance() throws IOException{
-		if(instanceOfTaskRecords == null){
-			instanceOfTaskRecords =  new TaskRecords();
-		}
-		return instanceOfTaskRecords;
-	}
-	
-	public static TaskRecords getInstance(String fileName) throws IOException{
-		if(instanceOfTaskRecords == null){
-			instanceOfTaskRecords = new TaskRecords(fileName);
+
+	public static TaskRecords getInstance() throws IOException {
+		if (instanceOfTaskRecords == null) {
+			instanceOfTaskRecords = new TaskRecords();
 		}
 		return instanceOfTaskRecords;
 	}
 
-	private void initialiseCurrentListOfTasks() {
-		DateTime now = new DateTime();
-		DateTime twentyFourHoursLater = now.plusDays(1);
-		setCurrentListOfTasks(now, twentyFourHoursLater);
+	public static TaskRecords getInstance(String fileName) throws IOException {
+		if (instanceOfTaskRecords == null) {
+			instanceOfTaskRecords = new TaskRecords(fileName);
+		}
+		return instanceOfTaskRecords;
 	}
 
 	private void initialiseAllTaskRecords() throws FileNotFoundException {
@@ -219,6 +212,14 @@ public class TaskRecords {
 			}
 		}
 		return (isSuccessfullyAdded && isSuccessfullyDeleted);
+	}
+
+	public void setCurrentListOfTasks() {
+		DateTime toDate = new DateTime().plusDays(1);
+		Task fromTask =  new Task(EMPTY_STRING, null, null);
+		Task toTask = new Task(toDate);
+		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
+				TASK_ARRAY_TYPE);
 	}
 
 	public void setCurrentListOfTasks(String query) {

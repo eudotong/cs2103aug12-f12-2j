@@ -7,7 +7,7 @@ import storage.TaskRecords;
 public class CommandSearch implements Command {
 	private static final boolean IS_REVERSIBLE = false;
 	private static final String MESSAGE_SUCCESS = "Searched.";
-	
+
 	private DateTime fromDate;
 	private DateTime toDate;
 	private String query;
@@ -23,7 +23,9 @@ public class CommandSearch implements Command {
 	}
 
 	public String processCommand(TaskRecords taskRecords) {
-		if (query == null && fromDate != null && toDate == null) {
+		if (query == null && fromDate == null && toDate == null) {
+			taskRecords.setCurrentListOfTasks();
+		} else if (query == null && fromDate != null && toDate == null) {
 			taskRecords.setCurrentListOfTasks(fromDate);
 		} else if (query != null && fromDate == null && toDate == null) {
 			taskRecords.setCurrentListOfTasks(query);
