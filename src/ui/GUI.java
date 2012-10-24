@@ -36,10 +36,10 @@ import commandLogic.CommandProcessor;
 public class GUI extends JPanel implements ActionListener {
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
 	private static final String FRAME_NAME = "Jimi";
+	private static final String EMPTY_STRING = "";
 	private static final String BACKGROUND_IMG = "images/bg.gif";
 	private static final String HDR_IMG = "images/hdr.png";
 	private static final String ERROR_COULD_NOT_ACCESS_STORAGE = "Error: Could not access storage.";
-	private static final String WELCOME_MESSAGE = "Welcome to Jimi, your friendly neighbourhood task manager.\n \n";
 	private static final long serialVersionUID = 1L;
 	private final static String NEW_LINE = "\n";
 	private Border empty = BorderFactory.createEmptyBorder();
@@ -94,10 +94,9 @@ public class GUI extends JPanel implements ActionListener {
 	private Component createControlPanel() {
 
 		textArea.setEditable(false);
-		textArea.setText("");
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		textArea.setText(WELCOME_MESSAGE);
+		textArea.setText(EMPTY_STRING);
 
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setPreferredSize(new Dimension(400, 200));
