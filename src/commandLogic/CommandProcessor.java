@@ -1,8 +1,12 @@
 package commandLogic;
 
 import java.io.IOException;
+
+import org.joda.time.DateTime;
+
 import storage.TaskRecords;
 import utilities.Command;
+import utilities.CommandSearch;
 import utilities.Task;
 import exceptions.CommandCouldNotBeParsedException;
 import exceptions.NothingToRedoException;
@@ -14,16 +18,18 @@ public class CommandProcessor {
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
 	private static final String MESSAGE_ERROR_UNABLE_TO_UNDO = "There are no commands to undo";
 	private static final String MESSAGE_ERROR_UNABLE_TO_REDO = "There are no commands to redo";
-	String window;
 
 	private ChangeRecord changeRecord;
 	private TaskRecords taskRecords;
 	private CommandParser commandParser;
+	private Command latestSearch;
 
 	public CommandProcessor() throws IOException {
 		changeRecord = new ChangeRecord();
 		commandParser = new CommandParser();
 		taskRecords = TaskRecords.getInstance();
+		latestSearch = new CommandSearch(null, null, null);
+		latestSearch.processCommand(taskRecords);
 	}
 
 	public String processCommand(String command) {
@@ -33,7 +39,6 @@ public class CommandProcessor {
 			switch (commandIssued.getCommandType()) {
 			case ADD:
 				outputMessage = processAdd(commandIssued);
-				window = getCurrentListOfTasks();
 				break;
 			case EDIT:
 				outputMessage = processEdit(commandIssued);
@@ -93,6 +98,7 @@ public class CommandProcessor {
 	}
 
 	public String getCurrentListOfTasks() {
+		latestSearch.processCommand(taskRecords);
 		Task[] currentListOfTasks = taskRecords.getCurrentListOfTasks();
 		String output = EMPTY_STRING;
 		for (int indexOfTask = 0; indexOfTask < currentListOfTasks.length; indexOfTask++) {
