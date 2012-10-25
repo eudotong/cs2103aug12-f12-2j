@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -30,7 +31,7 @@ public class GUI extends JPanel implements ActionListener {
 	private static final String FRAME_NAME = "Jimi";
 	private static final String BACKGROUND_IMG = "images/bg.gif";
 	private static final String HDR_IMG = "images/hdr.png";
-	private static final String ERROR_COULD_NOT_ACCESS_STORAGE = "Error: Could not access storage.";
+	//private static final String ERROR_COULD_NOT_ACCESS_STORAGE = "Error: Could not access storage.";
 	private static final long serialVersionUID = 1L;
 		
 	private Border empty = BorderFactory.createEmptyBorder();
@@ -57,16 +58,12 @@ public class GUI extends JPanel implements ActionListener {
 
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setPreferredSize(bgLabel.getPreferredSize());
-		// layeredPane.add(bgLabel, JLayeredPane.DEFAULT_LAYER);
 		layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
 
 		textField.setBackground(new java.awt.Color(220, 219, 219));
 		textField.setBorder(empty);
 		textField.addActionListener(this);
 	
-	//	textField.setHorizontalAlignment(JTextField.LEFT);
-		
-
 		forgroundPanel.add(textField);
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -85,7 +82,10 @@ public class GUI extends JPanel implements ActionListener {
 			}
 			
 		commandOutputLabel = new JLabel("");
+		commandOutputLabel.setFont(new Font("Courier", Font.BOLD,12));
+		commandOutputLabel.setForeground(Color.red);
 		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		commandOutputLabel.setPreferredSize(new Dimension(400, 10));
 		add(createControlPanel());
 		add(commandOutputLabel);
 		add(forgroundPanel);
@@ -121,10 +121,6 @@ public class GUI extends JPanel implements ActionListener {
 		verticalBox.setBorder(BorderFactory.createTitledBorder(BORDER_TITLE));
 		return verticalBox;
 
-	}
-
-	private void setListPane(Box verticalBox) {
-		
 	}
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
