@@ -200,8 +200,8 @@ public class GUI extends JPanel implements ActionListener {
 		String command = textField.getText();
 
 		String output = commandProcessor.processCommand(command);
-
 		commandOutputLabel.setText(output);
+		
 		textArea.setText(commandProcessor.getCurrentListOfTasks());
 		textField.selectAll();
 
