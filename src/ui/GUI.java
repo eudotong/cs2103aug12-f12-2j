@@ -45,7 +45,7 @@ public class GUI extends JPanel implements ActionListener {
 		jlist.setVisibleRowCount(4);
 		Font displayFont = new Font("Serif", Font.BOLD, 18);
 		jlist.setFont(displayFont);
-		
+				
 		ImageIcon icon = createImageIcon(BACKGROUND_IMG);
 		JLabel bgLabel = new JLabel(icon);
 		bgLabel.setSize(bgLabel.getPreferredSize());
@@ -63,6 +63,8 @@ public class GUI extends JPanel implements ActionListener {
 		textField.setBackground(new java.awt.Color(220, 219, 219));
 		textField.setBorder(empty);
 		textField.addActionListener(this);
+	
+	//	textField.setHorizontalAlignment(JTextField.LEFT);
 		
 
 		forgroundPanel.add(textField);
@@ -85,10 +87,15 @@ public class GUI extends JPanel implements ActionListener {
 		commandOutputLabel = new JLabel("");
 		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(createControlPanel());
-		add(forgroundPanel);
 		add(commandOutputLabel);
-		add(layeredPane);
+		add(forgroundPanel);
+		//add(layeredPane);
 		
+		SwingUtilities.invokeLater(new Runnable() {
+		    public void run() {
+		          textField.requestFocus();
+		    }
+		}); 
 	}
 	
 	
@@ -104,13 +111,13 @@ public class GUI extends JPanel implements ActionListener {
 
 		ImageIcon hdr = createImageIcon(HDR_IMG);
 		JLabel hdrLabel = new JLabel(hdr);
-		hdrLabel.setSize(150, 150);
+		hdrLabel.setPreferredSize(new Dimension(180, 70));
 		
 		verticalBox = Box.createVerticalBox();
 		
 		verticalBox.add(hdrLabel);
 		verticalBox.add(listPane);
-		verticalBox.setPreferredSize(new Dimension(180, 200));
+		verticalBox.setPreferredSize(new Dimension(180, 250));
 		verticalBox.setBorder(BorderFactory.createTitledBorder(BORDER_TITLE));
 		return verticalBox;
 
