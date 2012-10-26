@@ -26,7 +26,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import commandLogic.CommandProcessor;
 
-public class GUI extends JPanel implements ActionListener {
+public class editedGUI extends JPanel implements ActionListener {
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
 	private static final String FRAME_NAME = "Jimi";
 	private static final String BACKGROUND_IMG = "images/bg.gif";
@@ -42,7 +42,7 @@ public class GUI extends JPanel implements ActionListener {
 	JLabel commandOutputLabel = null;
 	Box verticalBox;
 
-	public GUI() {
+	public editedGUI() {
 		jlist.setVisibleRowCount(4);
 		Font displayFont = new Font("Serif", Font.BOLD, 18);
 		jlist.setFont(displayFont);
@@ -125,7 +125,7 @@ public class GUI extends JPanel implements ActionListener {
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
 	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = GUI.class.getResource(path);
+		java.net.URL imgURL = editedGUI.class.getResource(path);
 		if (imgURL != null) {
 			return new ImageIcon(imgURL);
 		} else {
@@ -142,20 +142,34 @@ public class GUI extends JPanel implements ActionListener {
 		
 		String editedText= commandProcessor.getCurrentListOfTasks();
 		String[] arr= editedText.split("<br>");
-		jlist = new JList(arr);
-		listPane = new JScrollPane(jlist);
-		verticalBox.remove(1);
-		verticalBox.add(listPane);
 		
-				
+		System.out.println("Array :"+arr.length);
+        for(int i=0;i<arr.length;i++)
+        {
+            System.out.println("array"+i+"  :"+arr[i]);
+        }
+        
+		processCmd(arr);
+      
 		textField.selectAll();
+		
 		//textArea.setText(commandProcessor.getCurrentListOfTasks());
 		
 
-		// Make sure the new text is visible, even if there was a selection in the text area.
+		// h sure the new text is visible, even if there was a selection in the text area.
 		//textArea.setCaretPosition(textArea.getDocument().getLength());
 		textField.setText("");
 
+	}
+
+
+
+	private void processCmd(String[] arr) {
+		 verticalBox.remove(1);
+		 verticalBox. add(new JScrollPane(new JList(arr)));
+		 verticalBox.revalidate();
+		//
+		//verticalBox.add(listPane);
 	}
 
 	/**
@@ -170,7 +184,7 @@ public class GUI extends JPanel implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Create and set up the content pane.
-		frame.getContentPane().add(new GUI());
+		frame.getContentPane().add(new editedGUI());
 
 		// Display the window.
 		frame.pack();
