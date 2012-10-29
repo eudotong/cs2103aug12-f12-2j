@@ -1,6 +1,9 @@
 package commandLogic;
 
 import java.io.IOException;
+import java.util.Vector;
+
+import javax.swing.DefaultListModel;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -101,8 +104,22 @@ public class CommandProcessor {
 			return MESSAGE_ERROR_UNABLE_TO_REDO;
 		}
 	}
+	public DefaultListModel<String> getCurrentListModelOfTasks(){
+		latestSearch.processCommand(taskRecords);
+		Task[] currentListOfTasks = taskRecords.getCurrentListOfTasks();
+		DateTime currentDateIteration = null;
+		DefaultListModel<String>currentListOfTasksModel = new DefaultListModel<String>();
+		for (int indexOfTask = 0; indexOfTask < currentListOfTasks.length; indexOfTask++) {
+			if(currentDateIteration != currentListOfTasks[indexOfTask].getStartTime()){
+				currentDateIteration = currentListOfTasks[indexOfTask].getStartTime();
+				currentListOfTasksModel.addElement(currentDateIteration.toString(DATE_FORMATTER));
+			}
+			currentListOfTasksModel.addElement((indexOfTask + 1) + ". " + currentListOfTasks[indexOfTask].toString());
+		}
+		return currentListOfTasksModel;
+	}
 
-	public String getCurrentListOfTasks() {
+	public String getCurrentListOfTasksOld() {
 		latestSearch.processCommand(taskRecords);
 		Task[] currentListOfTasks = taskRecords.getCurrentListOfTasks();
 		String output = EMPTY_STRING;
@@ -116,7 +133,7 @@ public class CommandProcessor {
 				output += (indexOfTask + 1) + ". "
 						+ currentListOfTasks[indexOfTask];
 			} else {
-				output += (indexOfTask + 1) + ". "
+				output += "<b>" + (indexOfTask + 1) + ". "
 						+ currentListOfTasks[indexOfTask] + NEW_LINE;
 			}
 		}
