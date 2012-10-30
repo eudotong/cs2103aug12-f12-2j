@@ -33,4 +33,9 @@ public class CommandAdd implements Command {
 	public boolean isReversible() {
 		return isReversible;
 	}
+	
+	//for testing
+	public String toString(){
+		return taskToBeAdded.toString();
+	}
 }
