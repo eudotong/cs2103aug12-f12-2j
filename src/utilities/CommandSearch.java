@@ -52,4 +52,8 @@ public class CommandSearch implements Command {
 	public boolean isReversible() {
 		return IS_REVERSIBLE;
 	}
+	
+	public String toString(){
+		return fromDate + " " + toDate + " " + query;
+	}
 }
