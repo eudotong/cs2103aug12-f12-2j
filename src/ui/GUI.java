@@ -13,6 +13,7 @@ import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -53,6 +54,9 @@ public class GUI extends JPanel implements ActionListener {
 		Font displayFont = new Font("Serif", Font.BOLD, 18);
 		jlist.setFont(displayFont);
 		listPane = new JScrollPane(jlist);
+		MyCellRenderer cellRenderer = new MyCellRenderer(280);
+	    jlist.setCellRenderer(cellRenderer);
+		
 		ImageIcon icon = createImageIcon(BACKGROUND_IMG);
 		JLabel bgLabel = new JLabel(icon);
 		bgLabel.setSize(bgLabel.getPreferredSize());
@@ -92,7 +96,26 @@ public class GUI extends JPanel implements ActionListener {
 			}
 		});
 	}
+	class MyCellRenderer extends DefaultListCellRenderer {
+		   public static final String HTML_1 = "<html><body style='width: ";
+		   public static final String HTML_2 = "px'>";
+		   public static final String HTML_3 = "</html>";
+		   private int width;
 
+		   public MyCellRenderer(int width) {
+		      this.width = width;
+		   }
+
+		   @Override
+		   public Component getListCellRendererComponent(JList list, Object value,
+		         int index, boolean isSelected, boolean cellHasFocus) {
+		      String text = HTML_1 + String.valueOf(width) + HTML_2 + value.toString()
+		            + HTML_3;
+		      return super.getListCellRendererComponent(list, text, index, isSelected,
+		            cellHasFocus);
+		   }
+
+		}
 	public Component createControlPanel() {
 
 		ImageIcon hdr = createImageIcon(HDR_IMG);
