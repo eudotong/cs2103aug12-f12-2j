@@ -27,6 +27,7 @@ import javax.swing.border.Border;
 import commandLogic.CommandProcessor;
 
 public class GUI extends JPanel implements ActionListener {
+	private static final String EMPTY_STRING = "";
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
 	private static final String FRAME_NAME = "Jimi";
 	private static final String BACKGROUND_IMG = "images/bg.gif";
@@ -80,7 +81,7 @@ public class GUI extends JPanel implements ActionListener {
 
 		add(Box.createRigidArea(new Dimension(0, 10)));
 
-		commandOutputLabel = new JLabel("");
+		commandOutputLabel = new JLabel(EMPTY_STRING);
 		commandOutputLabel.setFont(new Font("Courier", Font.BOLD, 12));
 		commandOutputLabel.setForeground(Color.red);
 		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -151,7 +152,7 @@ public class GUI extends JPanel implements ActionListener {
 		jlist.setModel(commandProcessor.getCurrentListModelOfTasks());
 		//refreshCurrentList(commandProcessor.getCurrentListModelOfTasks());
 
-		textField.setText("");
+		textField.setText(EMPTY_STRING);
 
 	}
 

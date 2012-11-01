@@ -2,6 +2,8 @@ package commandLogic;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,6 +51,8 @@ public class CommandParserNew {
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("d/M/yyyy H:mm");
 
+	private static Logger logger = Logger.getLogger("JIMI");
+	
 	private HashMap<String, CommandType> keywordsDictionary;
 	private String commandToParse;
 
@@ -154,7 +158,8 @@ public class CommandParserNew {
 		}
 		while (dateGroupList.size() > 0) {
 			DateGroup dateGroup = dateGroupList.get(0);
-			if ((dateGroup.getText().matches(" to ") | dateGroup.getText()
+			logger.log(Level.INFO, "Parsing Date: " + dateGroup.getText());
+			if ((dateGroup.getText().contains(" to ") | dateGroup.getText()
 					.contains(" - ")) && dateGroup.getDates().size() > 1) {
 				startAndEndTime[0] = new DateTime(dateGroup.getDates().get(0));
 				startAndEndTime[1] = new DateTime(dateGroup.getDates().get(1));
@@ -226,7 +231,6 @@ public class CommandParserNew {
 	private boolean isTimeSpecified(DateTime dateTimeToCheck) {
 		int timeNow = new DateTime().getMillisOfDay();
 		int timeSpecified = dateTimeToCheck.getMillisOfDay();
-		System.out.println(timeNow - timeSpecified);
 		if (Math.abs(timeNow - timeSpecified) <= MILLISECOND_DIFFERENCE_ALLOWANCE) {
 			return false;
 		}
@@ -296,6 +300,9 @@ public class CommandParserNew {
 	private CommandSearch parseSearch() throws CommandCouldNotBeParsedException {
 		DateTime[] startAndEndTime = getStartAndEndTimesFromCommand();
 		commandToParse = removeExtraWhiteSpaces(commandToParse);
+		if(commandToParse.length() == 0){
+			commandToParse = null;
+		}
 		return new CommandSearch(commandToParse, startAndEndTime[0],
 				startAndEndTime[1]);
 	}
