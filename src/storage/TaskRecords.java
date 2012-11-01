@@ -176,6 +176,27 @@ public class TaskRecords {
 			return false;
 		}
 	}
+	
+	public void addAll(Task [] tasksToAdd){
+		for(Task task: tasksToAdd){
+			appendTask(task);
+		}
+	}
+	
+	public boolean removeAll(Task [] tasksToDelete){
+		for(Task task : tasksToDelete){
+			allTaskRecords.remove(task);
+		}
+		try {
+			rewriteFile();
+			return true;
+		} catch (IOException e) {
+			for(Task task : tasksToDelete){
+				allTaskRecords.add(task);
+			}
+			return false;
+		}
+	}
 
 	public boolean clearAllOverDueTasks() {
 		Iterator<Task> taskIterator = allTaskRecords.iterator();
