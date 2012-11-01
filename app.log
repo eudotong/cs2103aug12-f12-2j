@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-01T18:56:10</date>
+  <millis>1351767370804</millis>
+  <sequence>0</sequence>
+  <logger>CommandParser</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Just started</message>
+</record>
