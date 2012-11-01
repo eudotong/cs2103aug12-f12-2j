@@ -1,6 +1,9 @@
 package commandLogic;
 
 import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.DefaultListModel;
 
@@ -29,16 +32,28 @@ public class CommandProcessor {
 	private TaskRecords taskRecords;
 	private CommandParser commandParser;
 	private Command latestSearch;
+	private static Logger logger = Logger.getLogger("CommandParser");
 
 	public CommandProcessor() throws IOException {
+		 //
+        // Create an instance of FileHandler that write log to a file called
+        // app.log. Each new message will be appended at the at of the log file.
+        //
+        FileHandler fileHandler = new FileHandler("app.log", true);        
+        logger.addHandler(fileHandler);
+        logger.log(Level.INFO, "Just started");
+		
 		changeRecord = new ChangeRecord();
 		commandParser = new CommandParser();
 		taskRecords = TaskRecords.getInstance();
 		latestSearch = new CommandSearch(null, null, null);
 		latestSearch.processCommand(taskRecords);
+		
+		
 	}
 
 	public String processCommand(String command) {
+		
 		try {
 			String outputMessage = EMPTY_STRING;
 			Command commandIssued = commandParser.parseCommand(command);
