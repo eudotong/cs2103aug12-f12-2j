@@ -72,6 +72,9 @@ public class CommandProcessor {
 				logger.log(Level.INFO, "Processing redo.");
 				outputMessage = processRedo();
 				break;
+			case MARK_ALL:
+				logger.log(Level.INFO, "Processing mark all.");
+				outputMessage = processMarkAll(commandIssued);
 			}
 			changeRecord.add(commandIssued);
 			return outputMessage;
@@ -79,6 +82,10 @@ public class CommandProcessor {
 			logger.log(Level.WARNING, "Error: command not recognised");
 			return MESSAGE_ERROR_UNRECOGNISED_COMMAND;
 		}
+	}
+	
+	private String processMarkAll(Command command){
+		return command.processCommand(taskRecords);
 	}
 
 	private String processSearch(Command command) {
