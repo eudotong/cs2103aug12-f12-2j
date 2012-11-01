@@ -23,16 +23,16 @@ public class CommandProcessor {
 	private static final String MESSAGE_ERROR_UNABLE_TO_UNDO = "There are no commands to undo";
 	private static final String MESSAGE_ERROR_UNABLE_TO_REDO = "There are no commands to redo";
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
-			.forPattern("d/M");
+			.forPattern("E, d MMM");
 	
 	private ChangeRecord changeRecord;
 	private TaskRecords taskRecords;
-	private CommandParser commandParser;
+	private CommandParserNew commandParser;
 	private Command latestSearch;
 
 	public CommandProcessor() throws IOException {
 		changeRecord = new ChangeRecord();
-		commandParser = new CommandParser();
+		commandParser = new CommandParserNew();
 		taskRecords = TaskRecords.getInstance();
 		latestSearch = new CommandSearch(null, null, null);
 		latestSearch.processCommand(taskRecords);
