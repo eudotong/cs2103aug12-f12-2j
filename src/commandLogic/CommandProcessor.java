@@ -1,7 +1,6 @@
 package commandLogic;
 
 import java.io.IOException;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,17 +33,8 @@ public class CommandProcessor {
 	private TaskRecords taskRecords;
 	private CommandParserNew commandParser;
 	private Command latestSearch;
-
 	
 	public CommandProcessor() throws IOException {
-	
-		//
-        // Create an instance of FileHandler that write log to a file called
-        // app.log. Each new message will be appended at the at of the log file.
-        //
-        FileHandler fileHandler = new FileHandler("app.log", true);        
-        logger.addHandler(fileHandler);
-        
 		changeRecord = new ChangeRecord();
 		commandParser = new CommandParserNew();
 		taskRecords = TaskRecords.getInstance();
@@ -82,6 +72,9 @@ public class CommandProcessor {
 				logger.log(Level.INFO, "Processing redo.");
 				outputMessage = processRedo();
 				break;
+			case MARK_ALL:
+				logger.log(Level.INFO, "Processing mark all.");
+				outputMessage = processMarkAll(commandIssued);
 			}
 			changeRecord.add(commandIssued);
 			return outputMessage;
@@ -89,6 +82,10 @@ public class CommandProcessor {
 			logger.log(Level.WARNING, "Error: command not recognised");
 			return MESSAGE_ERROR_UNRECOGNISED_COMMAND;
 		}
+	}
+	
+	private String processMarkAll(Command command){
+		return command.processCommand(taskRecords);
 	}
 
 	private String processSearch(Command command) {
