@@ -176,14 +176,15 @@ public class TaskRecords {
 			return false;
 		}
 	}
-	
-	public boolean clearAllOverDueTasks(){
-		Iterator <Task> taskIterator = allTaskRecords.iterator();
-		while (taskIterator.hasNext()){
+
+	public boolean clearAllOverDueTasks() {
+		Iterator<Task> taskIterator = allTaskRecords.iterator();
+		while (taskIterator.hasNext()) {
 			Task task = taskIterator.next();
-			if(task.getStartTime() != null && task.getStartTime().isBeforeNow()){
+			if (task.getStartTime() != null
+					&& task.getStartTime().isBeforeNow()) {
 				taskIterator.remove();
-			}else if(task.getStartTime().isAfterNow()){
+			} else if (task.getStartTime().isAfterNow()) {
 				break;
 			}
 		}
@@ -233,11 +234,18 @@ public class TaskRecords {
 	}
 
 	public void setCurrentListOfTasks() {
-		DateTime toDate = new DateTime().plusDays(1);
-		Task fromTask = new Task(EMPTY_STRING, null, null);
-		Task toTask = new Task(toDate);
-		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
-				TASK_ARRAY_TYPE);
+		DateTime today = new DateTime();
+		Task fromTask = new Task(today);
+		ArrayList<Task> upcomingTasks = new ArrayList<Task>();
+		Iterator<Task> taskIterator = allTaskRecords.iterator();
+		while (taskIterator.hasNext()) {
+			Task task = taskIterator.next();
+			if (task.getStartTime() == null) {
+				upcomingTasks.add(task);
+			}
+		}
+		upcomingTasks.addAll(allTaskRecords.tailSet(fromTask));
+		currentListOfTasks = upcomingTasks.toArray(TASK_ARRAY_TYPE);
 	}
 
 	public void setCurrentListOfTasks(String query) {
