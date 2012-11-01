@@ -19,6 +19,7 @@ import utilities.Command;
 import utilities.CommandAdd;
 import utilities.CommandEdit;
 import utilities.CommandMark;
+import utilities.CommandMarkAll;
 import utilities.CommandRedo;
 import utilities.CommandSearch;
 import utilities.CommandType;
@@ -42,6 +43,7 @@ public class CommandParserNew {
 			"change", "alter", "modify" };
 	private static final String[] LIST_SEARCH_SYNONYMS = { "find", "display",
 			"search", "show", "view", "lookup" };
+	private static final String[] LIST_ALL_SYNONYMS = { "all", "everything" };
 	private static final String[] LIST_REDO_SYNONYMS = { "redo" };
 	private static final String[] LIST_UNDO_SYNONYMS = { "undo" };
 
@@ -52,7 +54,7 @@ public class CommandParserNew {
 			.forPattern("d/M/yyyy H:mm");
 
 	private static Logger logger = Logger.getLogger("JIMI");
-	
+
 	private HashMap<String, CommandType> keywordsDictionary;
 	private String commandToParse;
 
@@ -87,6 +89,9 @@ public class CommandParserNew {
 		for (String entry : LIST_REDO_SYNONYMS) {
 			keywordsDictionary.put(entry, CommandType.REDO);
 		}
+		for (String entry : LIST_ALL_SYNONYMS) {
+			keywordsDictionary.put(entry, CommandType.MARK_ALL);
+		}
 	}
 
 	public Command parseCommand(String inputCommand)
@@ -113,6 +118,9 @@ public class CommandParserNew {
 				break;
 			case REDO:
 				parsedCommand = new CommandRedo();
+				break;
+			case MARK_ALL:
+				parsedCommand = new CommandMarkAll();
 				break;
 			}
 			return parsedCommand;
@@ -300,7 +308,7 @@ public class CommandParserNew {
 	private CommandSearch parseSearch() throws CommandCouldNotBeParsedException {
 		DateTime[] startAndEndTime = getStartAndEndTimesFromCommand();
 		commandToParse = removeExtraWhiteSpaces(commandToParse);
-		if(commandToParse.length() == 0){
+		if (commandToParse.length() == 0) {
 			commandToParse = null;
 		}
 		return new CommandSearch(commandToParse, startAndEndTime[0],
@@ -309,15 +317,27 @@ public class CommandParserNew {
 
 	private CommandType getCommandType()
 			throws CommandCouldNotBeParsedException {
-		;
 		String[] wordsInCommand = commandToParse.split(WHITE_SPACE);
+		CommandType commandType = null;
+		int indexOfWord = 0;
 		for (String word : wordsInCommand) {
 			if (keywordsDictionary.containsKey(word.toLowerCase())) {
 				commandToParse = commandToParse.replace(word, EMPTY_STRING);
 				commandToParse = removeExtraWhiteSpaces(commandToParse);
-				return keywordsDictionary.get(word.toLowerCase());
+				commandType = keywordsDictionary.get(word.toLowerCase());
+			}
+			indexOfWord++;
+		}
+		int indexOfNextWord = indexOfWord + 1;
+		if (commandType == CommandType.MARK
+				&& indexOfNextWord < wordsInCommand.length) {
+			if (keywordsDictionary.get(wordsInCommand[indexOfNextWord]) == CommandType.MARK_ALL) {
+				return CommandType.MARK_ALL;
 			}
 		}
-		throw new CommandCouldNotBeParsedException();
+		if (commandType == null) {
+			throw new CommandCouldNotBeParsedException();
+		}
+		return commandType;
 	}
 }
