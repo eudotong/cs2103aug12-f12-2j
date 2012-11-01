@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -21,7 +22,9 @@ import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import commandLogic.CommandProcessor;
@@ -46,17 +49,20 @@ public class GUI extends JPanel implements ActionListener {
 		try {
 			commandProcessor = new CommandProcessor();
 			jlist = new JList<String>(commandProcessor.getCurrentListModelOfTasks());
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		jlist.setVisibleRowCount(4);
-		Font displayFont = new Font("Serif", Font.BOLD, 18);
+		Font displayFont = new Font("Serif", Font.BOLD, 14);
 		jlist.setFont(displayFont);
 		listPane = new JScrollPane(jlist);
 		MyCellRenderer cellRenderer = new MyCellRenderer(280);
 	    jlist.setCellRenderer(cellRenderer);
+	    jlist.setFixedCellHeight(30);
 		
 		ImageIcon icon = createImageIcon(BACKGROUND_IMG);
 		JLabel bgLabel = new JLabel(icon);
@@ -86,6 +92,7 @@ public class GUI extends JPanel implements ActionListener {
 		commandOutputLabel.setForeground(Color.red);
 		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		commandOutputLabel.setPreferredSize(new Dimension(400, 10));
+		//add(new JLabel("<html><font color=red>RED</font> - <font color=navy>Navy</font></html>"));
 		add(createControlPanel());
 		add(commandOutputLabel);
 		add(forgroundPanel);
@@ -97,10 +104,14 @@ public class GUI extends JPanel implements ActionListener {
 			}
 		});
 	}
+
 	class MyCellRenderer extends DefaultListCellRenderer {
 		   public static final String HTML_1 = "<html><body style='width: ";
 		   public static final String HTML_2 = "px'>";
+		   public static final String HTML_red1 = "<font color=#511818>";
+		   public static final String HTML_red2 = "</font>";
 		   public static final String HTML_3 = "</html>";
+		   public static final String HTML_hr = "<hr/>";
 		   private int width;
 
 		   public MyCellRenderer(int width) {
@@ -110,13 +121,38 @@ public class GUI extends JPanel implements ActionListener {
 		   @Override
 		   public Component getListCellRendererComponent(JList list, Object value,
 		         int index, boolean isSelected, boolean cellHasFocus) {
-		      String text = HTML_1 + String.valueOf(width) + HTML_2 + value.toString()
+			   String text = value.toString();
+			   //System.out.print(text);
+			   if (text.contains("Nov")){
+				   text = HTML_1 + String.valueOf(width) + HTML_2 + HTML_hr + HTML_red1 + value.toString() + HTML_red2 + HTML_3;
+				  
+		      }else{
+		    	  
+		    	  text = HTML_1 + String.valueOf(width) + HTML_2 + value.toString()
 		            + HTML_3;
+		      }
+		      
 		      return super.getListCellRendererComponent(list, text, index, isSelected,
 		            cellHasFocus);
+		      
 		   }
 
 		}
+
+	//	public class MyCellRenderer implements ListCellRenderer {
+//
+//		 @Override
+//		   public Component getListCellRendererComponent(JList list, Object value, int index,
+//		        boolean isSelected, boolean cellHasFocus) {
+//
+//		        JTextArea renderer = new JTextArea(3,5);
+//		        renderer.setText(value.toString());
+//		        renderer.setLineWrap(true);
+//		        return renderer;
+//		   }
+//	}
+	
+	
 	public Component createControlPanel() {
 
 		ImageIcon hdr = createImageIcon(HDR_IMG);
