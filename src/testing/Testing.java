@@ -11,7 +11,7 @@ public class Testing {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String s = "12 something 12";
+		String s = "something 12";
 		Pattern anyNumberPattern = Pattern.compile("\\d+$");
 		Matcher patternMatcher = anyNumberPattern.matcher(s);
 		System.out.println(patternMatcher.find());
