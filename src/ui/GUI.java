@@ -92,7 +92,6 @@ public class GUI extends JPanel implements ActionListener {
 		commandOutputLabel.setForeground(Color.red);
 		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		commandOutputLabel.setPreferredSize(new Dimension(400, 10));
-		//add(new JLabel("<html><font color=red>RED</font> - <font color=navy>Navy</font></html>"));
 		add(createControlPanel());
 		add(commandOutputLabel);
 		add(forgroundPanel);
@@ -122,16 +121,8 @@ public class GUI extends JPanel implements ActionListener {
 		   public Component getListCellRendererComponent(JList list, Object value,
 		         int index, boolean isSelected, boolean cellHasFocus) {
 			   String text = value.toString();
-			   //System.out.print(text);
-			   if (text.contains("Nov")){
-				   text = HTML_1 + String.valueOf(width) + HTML_2 + HTML_hr + HTML_red1 + value.toString() + HTML_red2 + HTML_3;
-				  
-		      }else{
-		    	  
-		    	  text = HTML_1 + String.valueOf(width) + HTML_2 + value.toString()
-		            + HTML_3;
-		      }
-		      
+			   text = HTML_1 + String.valueOf(width) + HTML_2 + value.toString()+ HTML_3;
+					   		      
 		      return super.getListCellRendererComponent(list, text, index, isSelected,
 		            cellHasFocus);
 		      
