@@ -72,3 +72,389 @@
   <message>Processing mark.</message>
 </record>
 </log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-02T10:40:19</date>
+  <millis>1351824019681</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add asfkjhadljasdjlsdkfjsl" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:40:19</date>
+  <millis>1351824019972</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-02T10:41:38</date>
+  <millis>1351824098086</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add 9 nov 1pm to 2pm" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:41:38</date>
+  <millis>1351824098529</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParserNew</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: 9 nov 1pm to 2pm</message>
+</record>
+<record>
+  <date>2012-11-02T10:41:38</date>
+  <millis>1351824098539</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>WARNING</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Error: command not recognised</message>
+</record>
+<record>
+  <date>2012-11-02T10:41:46</date>
+  <millis>1351824106091</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add 9 nov 1pm to 2pm asdlkasjfla" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:41:46</date>
+  <millis>1351824106101</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParserNew</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: 9 nov 1pm to 2pm</message>
+</record>
+<record>
+  <date>2012-11-02T10:41:46</date>
+  <millis>1351824106111</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-02T10:42:40</date>
+  <millis>1351824160901</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "mark 1" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:42:40</date>
+  <millis>1351824160911</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing mark.</message>
+</record>
+<record>
+  <date>2012-11-02T10:42:42</date>
+  <millis>1351824162339</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "mark 1" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:42:42</date>
+  <millis>1351824162349</millis>
+  <sequence>9</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing mark.</message>
+</record>
+<record>
+  <date>2012-11-02T10:42:54</date>
+  <millis>1351824174672</millis>
+  <sequence>10</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add fried chicken " was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:42:54</date>
+  <millis>1351824174683</millis>
+  <sequence>11</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParserNew</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: fri</message>
+</record>
+<record>
+  <date>2012-11-02T10:42:54</date>
+  <millis>1351824174683</millis>
+  <sequence>12</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:01</date>
+  <millis>1351824181233</millis>
+  <sequence>13</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add fried chicken yay" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:01</date>
+  <millis>1351824181234</millis>
+  <sequence>14</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParserNew</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: fri</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:01</date>
+  <millis>1351824181234</millis>
+  <sequence>15</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:29</date>
+  <millis>1351824209987</millis>
+  <sequence>16</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add wedding aslkdjsaldkj" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:29</date>
+  <millis>1351824209997</millis>
+  <sequence>17</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParserNew</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: wed</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:29</date>
+  <millis>1351824209997</millis>
+  <sequence>18</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:44</date>
+  <millis>1351824224208</millis>
+  <sequence>19</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "delete 1" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:44</date>
+  <millis>1351824224218</millis>
+  <sequence>20</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing mark.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:46</date>
+  <millis>1351824226003</millis>
+  <sequence>21</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "delete 1" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:46</date>
+  <millis>1351824226003</millis>
+  <sequence>22</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing mark.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:47</date>
+  <millis>1351824227774</millis>
+  <sequence>23</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "delete 2" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:47</date>
+  <millis>1351824227784</millis>
+  <sequence>24</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing mark.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:48</date>
+  <millis>1351824228925</millis>
+  <sequence>25</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "delete 1" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:43:48</date>
+  <millis>1351824228925</millis>
+  <sequence>26</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing mark.</message>
+</record>
+<record>
+  <date>2012-11-02T10:44:49</date>
+  <millis>1351824289226</millis>
+  <sequence>27</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "search" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:44:49</date>
+  <millis>1351824289226</millis>
+  <sequence>28</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing search.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-02T10:51:36</date>
+  <millis>1351824696429</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add fried chicken" was issued.</message>
+</record>
+<record>
+  <date>2012-11-02T10:51:36</date>
+  <millis>1351824696870</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParserNew</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: fri</message>
+</record>
+<record>
+  <date>2012-11-02T10:51:36</date>
+  <millis>1351824696870</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+</log>

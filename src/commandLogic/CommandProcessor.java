@@ -27,7 +27,6 @@ public class CommandProcessor {
 	private static final String MESSAGE_ERROR_UNABLE_TO_REDO = "There are no commands to redo";
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("E, d MMM");
-
 	
 	private static Logger logger = Logger.getLogger("JIMI");
 	
