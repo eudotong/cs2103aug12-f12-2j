@@ -270,6 +270,9 @@ public class TaskRecords {
 	}
 
 	public void setCurrentListOfTasks(String query) {
+		if(query == null){
+			query = "";
+		}
 		currentListOfTasks = findMatchesFromSetOfTasks(allTaskRecords, query);
 	}
 
