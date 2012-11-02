@@ -157,6 +157,7 @@ public class CommandParserNew {
 		return newDate;
 	}
 
+	//TODO get rid of the error of parsing substring "wedding", "fries" etc.
 	private DateTime[] getStartAndEndTimesFromCommand() {
 		Parser dateParser = new Parser();
 		List<DateGroup> dateGroupList = dateParser.parse(commandToParse);
