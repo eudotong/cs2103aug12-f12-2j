@@ -1,5 +1,8 @@
 package testing;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.joda.time.DateTime;
 
 public class Testing {
@@ -8,8 +11,11 @@ public class Testing {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String s = "today";
-		System.out.println(s.matches(" to "));
+		String s = "12 something 12";
+		Pattern anyNumberPattern = Pattern.compile("\\d+$");
+		Matcher patternMatcher = anyNumberPattern.matcher(s);
+		System.out.println(patternMatcher.find());
+		System.out.println(patternMatcher.group(0));
 	}
 
 }
