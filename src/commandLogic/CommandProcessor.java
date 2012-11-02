@@ -18,8 +18,10 @@ import utilities.Task;
 import exceptions.CommandCouldNotBeParsedException;
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
+import exceptions.StartTimeAfterEndTimeException;
 
 public class CommandProcessor {
+	private static final String MESSAGE_ERROR_START_TIME_AFTER_END_TIME = "Error: Start date/time is after end date/time.";
 	private static final String EMPTY_STRING = "";
 	private static final String NEW_LINE = "<br>";
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
@@ -48,6 +50,7 @@ public class CommandProcessor {
 	public String processCommand(String command) {
 		try {
 			logger.log(Level.INFO, "The command: \"" + command + "\" was issued.");
+			changeRecord.add(command);
 			String outputMessage = EMPTY_STRING;
 			Command commandIssued = commandParser.parseCommand(command);
 			switch (commandIssued.getCommandType()) {
@@ -84,6 +87,9 @@ public class CommandProcessor {
 		} catch (CommandCouldNotBeParsedException e) {
 			logger.log(Level.WARNING, "Error: command not recognised");
 			return MESSAGE_ERROR_UNRECOGNISED_COMMAND;
+		} catch (StartTimeAfterEndTimeException e){
+			logger.log(Level.WARNING, "Error: start time is after end time.");
+			return MESSAGE_ERROR_START_TIME_AFTER_END_TIME;
 		}
 	}
 	
@@ -185,5 +191,13 @@ public class CommandProcessor {
 			}
 		}
 		return output;
+	}
+	
+	public String getPreviouslyIssued(){
+		return changeRecord.getPrevCommand();
+	}
+	
+	public String getLaterIssued(){
+		return changeRecord.getLaterCommand();
 	}
 }

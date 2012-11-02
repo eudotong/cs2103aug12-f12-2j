@@ -30,7 +30,7 @@ public class CommandEdit implements Command {
 				return MESSAGE_ERROR_CANNOT_FIND_TASK;
 			}
 		}
-		if (newTask.getTaskName() == null) {
+		if (newTask.getTaskName() == null || newTask.getTaskName().length() == 0) {
 			newTask.setTaskName(taskToBeReplaced.getTaskName());
 		}
 		if (newTask.getStartTime() == null) {

@@ -1,5 +1,8 @@
 package utilities;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -15,6 +18,8 @@ public class Task implements Comparable<Task> {
 			.forPattern("d/M/yyyy hh:mma");
 	private static final String TASK_FORMAT = "%s|%s|%s";
 
+	private static Logger logger = Logger.getLogger("JIMI");
+
 	private String taskName;
 	private DateTime startTime;
 	private DateTime endTime;
@@ -25,14 +30,12 @@ public class Task implements Comparable<Task> {
 	}
 
 	public Task(String taskName, DateTime startTime, DateTime endTime) {
-		if (compareNullDatesLast(startTime, endTime) >= POSITIVE_NUMBER) {
-			this.startTime = endTime;
-			this.endTime = startTime;
-		} else {
-			this.startTime = startTime;
-			this.endTime = endTime;
-		}
+		assert (compareNullDatesLast(startTime, endTime) < POSITIVE_NUMBER) : "Start time is after end time.";
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.taskName = changeToValidName(taskName);
+		logger.log(Level.INFO, "Task created with parameters: " + taskName
+				+ ", " + startTime + ", " + endTime);
 	}
 
 	public String changeToValidName(String taskName) {
@@ -117,8 +120,8 @@ public class Task implements Comparable<Task> {
 		}
 		return firstDate.compareTo(secondDate);
 	}
-	
-	private int compareNullDatesLast(DateTime firstDate, DateTime secondDate){
+
+	private int compareNullDatesLast(DateTime firstDate, DateTime secondDate) {
 		if (firstDate == null && secondDate == null) {
 			return SAME_TIME;
 		}
