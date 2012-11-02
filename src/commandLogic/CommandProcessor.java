@@ -135,11 +135,11 @@ public class CommandProcessor {
 					currentListOfTasks[indexOfTask].getStartTime())) {
 				currentDateIteration = currentListOfTasks[indexOfTask]
 						.getStartTime();
-				currentListOfTasksModel.addElement(currentDateIteration
-						.toString(DATE_FORMATTER));
+				currentListOfTasksModel.addElement("<html>" + currentDateIteration
+						.toString(DATE_FORMATTER) + "</html>");
 			}
-			currentListOfTasksModel.addElement((indexOfTask + 1) + ". "
-					+ currentListOfTasks[indexOfTask].toString());
+			currentListOfTasksModel.addElement("<html>" + (indexOfTask + 1) + ". "
+					+ currentListOfTasks[indexOfTask].toString() + "</html>");
 		}
 		return currentListOfTasksModel;
 	}
