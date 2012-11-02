@@ -1,6 +1,7 @@
 package commandLogic;
 
 import java.io.IOException;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +28,7 @@ public class CommandProcessor {
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("E, d MMM");
 
+	
 	private static Logger logger = Logger.getLogger("JIMI");
 	
 	private ChangeRecord changeRecord;
@@ -35,6 +37,8 @@ public class CommandProcessor {
 	private Command latestSearch;
 	
 	public CommandProcessor() throws IOException {
+		FileHandler fileHandler = new FileHandler("log/app.log", true);
+		logger.addHandler(fileHandler);
 		changeRecord = new ChangeRecord();
 		commandParser = new CommandParserNew();
 		taskRecords = TaskRecords.getInstance();
