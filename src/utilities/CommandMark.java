@@ -11,15 +11,18 @@ public class CommandMark implements Command {
 	private int indexOfTaskToBeDeleted;
 
 	public CommandMark(int indexOfTaskToBeDeleted) {
+		assert indexOfTaskToBeDeleted >= 1 : "Not a valid task index";
 		this.indexOfTaskToBeDeleted = indexOfTaskToBeDeleted;
 		taskToBeDeleted = null;
 	}
 
 	public CommandMark(Task taskToBeDeleted) {
+		assert taskToBeDeleted != null : "Null task.";
 		this.taskToBeDeleted = taskToBeDeleted;
 	}
 
 	public String processCommand(TaskRecords taskRecords) {
+		assert taskRecords != null : "Null task records.";
 		if (taskToBeDeleted == null) {
 			taskToBeDeleted = taskRecords
 					.getTaskByIndex(indexOfTaskToBeDeleted);

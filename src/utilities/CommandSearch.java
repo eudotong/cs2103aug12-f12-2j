@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import storage.TaskRecords;
 
 public class CommandSearch implements Command {
+	private static final int LENGTH_ZERO = 0;
 	private static final boolean IS_REVERSIBLE = false;
 	private static final String MESSAGE_SUCCESS = "Searched.";
 
@@ -17,12 +18,24 @@ public class CommandSearch implements Command {
 			this.fromDate = toDate;
 			this.toDate = fromDate;
 		}
+		//TODO IS THIS OKAY?
+		if(fromDate == null){
+			assert toDate != null : "Invalid from and to dates.";
+		}
 		this.fromDate = fromDate;
 		this.toDate = toDate;
-		this.query = query;
+		this.query = convertQueryToCorrectFormat(query);
+	}
+	
+	private String convertQueryToCorrectFormat(String query){
+		if(query != null && query.length() == LENGTH_ZERO){
+			return null;
+		}
+		return query;
 	}
 
 	public String processCommand(TaskRecords taskRecords) {
+		assert taskRecords != null : "Null task records.";
 		if (query == null && fromDate == null && toDate == null) {
 			taskRecords.setCurrentListOfTasks();
 		} else if (query == null && fromDate != null && toDate == null) {
@@ -41,6 +54,7 @@ public class CommandSearch implements Command {
 
 	@Override
 	public Command reverseCommand() {
+		assert false : "Called reverse command on irreversible command.";
 		return null;
 	}
 
