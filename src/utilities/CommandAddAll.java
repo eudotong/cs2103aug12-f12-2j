@@ -8,10 +8,16 @@ public class CommandAddAll implements Command{
 	private Task [] tasksToAdd = new Task[0];
 	
 	public CommandAddAll(Task [] tasksToBeAdded){
+		assert tasksToBeAdded != null : "Null array";
+		//TODO ask Hieu if this assertion can... but like very waste time
+		for(Task task : tasksToBeAdded){
+			assert task != null : "Task in array is null.";
+		}
 		this.tasksToAdd = tasksToBeAdded;
 	}
 	@Override
 	public String processCommand(TaskRecords taskRecords) {
+		assert taskRecords != null : "Null task records.";
 		taskRecords.addAll(tasksToAdd);
 		return MESSAGE_SUCCESS;
 	}
