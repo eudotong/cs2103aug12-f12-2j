@@ -5,11 +5,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -20,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -37,6 +40,8 @@ public class GUI extends JPanel implements ActionListener {
 	private static final String HDR_IMG = "images/hdr.png";
 	private static final long serialVersionUID = 1L;
 
+	  
+	        
 	private Border empty = BorderFactory.createEmptyBorder();
 	JList<String> jlist;
 	JScrollPane listPane;
@@ -56,11 +61,12 @@ public class GUI extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 		
+		
 		jlist.setVisibleRowCount(4);
 		Font displayFont = new Font("Serif", Font.BOLD, 14);
 		jlist.setFont(displayFont);
 		listPane = new JScrollPane(jlist);
-		MyCellRenderer cellRenderer = new MyCellRenderer(280);
+		MyCellRenderer cellRenderer = new MyCellRenderer();
 	    jlist.setCellRenderer(cellRenderer);
 	    jlist.setFixedCellHeight(30);
 		
@@ -75,6 +81,7 @@ public class GUI extends JPanel implements ActionListener {
 
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setPreferredSize(bgLabel.getPreferredSize());
+		layeredPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 		layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
 
 		textField.setBackground(new java.awt.Color(220, 219, 219));
@@ -90,8 +97,8 @@ public class GUI extends JPanel implements ActionListener {
 		commandOutputLabel = new JLabel(EMPTY_STRING);
 		commandOutputLabel.setFont(new Font("Courier", Font.BOLD, 12));
 		commandOutputLabel.setForeground(Color.red);
-		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		commandOutputLabel.setPreferredSize(new Dimension(400, 10));
+		//commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		commandOutputLabel.setPreferredSize(new Dimension(100, 10));
 		add(createControlPanel());
 		add(commandOutputLabel);
 		add(forgroundPanel);
@@ -103,25 +110,27 @@ public class GUI extends JPanel implements ActionListener {
 			}
 		});
 	}
-
+//	
+//	class LoadFont {
+//        URL fontUrl = new URL("http://www.webpagepublicity.com/" +
+//                "free-fonts/a/Airacobra%20Condensed.ttf");
+//            Font font = Font.createFont(Font.TRUETYPE_FONT, fontUrl.openStream());
+//            font = font.deriveFont(Font.PLAIN,20);
+//            GraphicsEnvironment ge =  GraphicsEnvironment.getLocalGraphicsEnvironment();
+//            ge.registerFont(font);
+//
+//            JLabel l = new JLabel(
+//                "The quick brown fox jumped over the lazy dog. 0123456789");
+//            l.setFont(font);
+//            JOptionPane.showMessageDialog(null, l);
+//        }
+	
 	class MyCellRenderer extends DefaultListCellRenderer {
-		   public static final String HTML_1 = "<html><body style='width: ";
-		   public static final String HTML_2 = "px'>";
-		   public static final String HTML_red1 = "<font color=#511818>";
-		   public static final String HTML_red2 = "</font>";
-		   public static final String HTML_3 = "</html>";
-		   public static final String HTML_hr = "<hr/>";
-		   private int width;
-
-		   public MyCellRenderer(int width) {
-		      this.width = width;
-		   }
-
-		   @Override
+		@Override
 		   public Component getListCellRendererComponent(JList list, Object value,
 		         int index, boolean isSelected, boolean cellHasFocus) {
 			   String text = value.toString();
-			   text = HTML_1 + String.valueOf(width) + HTML_2 + value.toString()+ HTML_3;
+			  // text = HTML_1 + String.valueOf(width) + HTML_2 + value.toString()+ HTML_3;
 					   		      
 		      return super.getListCellRendererComponent(list, text, index, isSelected,
 		            cellHasFocus);
@@ -130,19 +139,6 @@ public class GUI extends JPanel implements ActionListener {
 
 		}
 
-	//	public class MyCellRenderer implements ListCellRenderer {
-//
-//		 @Override
-//		   public Component getListCellRendererComponent(JList list, Object value, int index,
-//		        boolean isSelected, boolean cellHasFocus) {
-//
-//		        JTextArea renderer = new JTextArea(3,5);
-//		        renderer.setText(value.toString());
-//		        renderer.setLineWrap(true);
-//		        return renderer;
-//		   }
-//	}
-	
 	
 	public Component createControlPanel() {
 
