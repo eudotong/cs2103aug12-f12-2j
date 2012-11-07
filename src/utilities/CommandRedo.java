@@ -10,8 +10,10 @@ public class CommandRedo implements Command {
 		return "";
 	}
 
+	//TODO IS THIS OKAY?
 	@Override
 	public Command reverseCommand() {
+		assert false : "Called reverse command on irreversible command.";
 		return null;
 	}
 

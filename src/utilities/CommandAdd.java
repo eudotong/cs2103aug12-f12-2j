@@ -10,6 +10,8 @@ public class CommandAdd implements Command {
 	private Task taskToBeAdded;
 
 	public CommandAdd(Task taskToBeAdded) {
+		assert taskToBeAdded != null : "Null task.";
+		assert taskToBeAdded.getTaskName() != null : "Task has null name.";
 		this.taskToBeAdded = taskToBeAdded;
 	}
 
@@ -18,6 +20,7 @@ public class CommandAdd implements Command {
 	}
 
 	public String processCommand(TaskRecords taskRecords) {
+		assert taskRecords != null : "Null task records.";
 		boolean isSuccessful = taskRecords.appendTask(taskToBeAdded);
 		isReversible = isSuccessful;
 		if (isSuccessful) {

@@ -18,8 +18,10 @@ import utilities.Task;
 import exceptions.CommandCouldNotBeParsedException;
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
+import exceptions.StartTimeAfterEndTimeException;
 
 public class CommandProcessor {
+	private static final String MESSAGE_ERROR_START_TIME_AFTER_END_TIME = "Error: Start date/time is after end date/time.";
 	private static final String EMPTY_STRING = "";
 	private static final String NEW_LINE = "<br>";
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
@@ -27,7 +29,6 @@ public class CommandProcessor {
 	private static final String MESSAGE_ERROR_UNABLE_TO_REDO = "There are no commands to redo";
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("E, d MMM");
-
 	
 	private static Logger logger = Logger.getLogger("JIMI");
 	
@@ -49,6 +50,7 @@ public class CommandProcessor {
 	public String processCommand(String command) {
 		try {
 			logger.log(Level.INFO, "The command: \"" + command + "\" was issued.");
+			changeRecord.add(command);
 			String outputMessage = EMPTY_STRING;
 			Command commandIssued = commandParser.parseCommand(command);
 			switch (commandIssued.getCommandType()) {
@@ -85,6 +87,9 @@ public class CommandProcessor {
 		} catch (CommandCouldNotBeParsedException e) {
 			logger.log(Level.WARNING, "Error: command not recognised");
 			return MESSAGE_ERROR_UNRECOGNISED_COMMAND;
+		} catch (StartTimeAfterEndTimeException e){
+			logger.log(Level.WARNING, "Error: start time is after end time.");
+			return MESSAGE_ERROR_START_TIME_AFTER_END_TIME;
 		}
 	}
 	
@@ -139,10 +144,10 @@ public class CommandProcessor {
 					currentListOfTasks[indexOfTask].getStartTime())) {
 				currentDateIteration = currentListOfTasks[indexOfTask]
 						.getStartTime();
-				currentListOfTasksModel.addElement("<html><body style='width:280px'><hr/><font color=#511818>" + currentDateIteration.toString(DATE_FORMATTER) + "</font></html>");
-				//currentListOfTasksModel.addElement(+ currentDateIteration.toString(DATE_FORMATTER) +);
+				currentListOfTasksModel.addElement("<html>" + currentDateIteration
+						.toString(DATE_FORMATTER) + "</html>");
 			}
-			currentListOfTasksModel.addElement("<html><body style='width:280px'>" + (indexOfTask + 1) + ". "
+			currentListOfTasksModel.addElement("<html>" + (indexOfTask + 1) + ". "
 					+ currentListOfTasks[indexOfTask].toString() + "</html>");
 		}
 		return currentListOfTasksModel;
@@ -186,5 +191,13 @@ public class CommandProcessor {
 			}
 		}
 		return output;
+	}
+	
+	public String getPreviouslyIssued(){
+		return changeRecord.getPrevCommand();
+	}
+	
+	public String getLaterIssued(){
+		return changeRecord.getLaterCommand();
 	}
 }

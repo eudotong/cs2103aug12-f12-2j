@@ -9,8 +9,6 @@ import org.joda.time.IllegalFieldValueException;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import com.joestelmach.natty.Parser;
-
 import utilities.Command;
 import utilities.CommandAdd;
 import utilities.CommandEdit;
@@ -29,7 +27,7 @@ public class CommandParser {
 	private static final String MULTIPLE_WHITE_SPACES = "\\s+";
 	private static final String WHITE_SPACE = " ";
 	private static final int INDEX_OF_FIRST_WORD = 0;
-	
+
 	private static final String[] LIST_ADD_SYNONYMS = { "add", "insert",
 			"create", "new", "put" };
 	private static final String[] LIST_MARK_SYNONYMS = { "mark", "delete",
@@ -40,12 +38,12 @@ public class CommandParser {
 			"search", "show" };
 	private static final String[] LIST_REDO_SYNONYMS = { "redo" };
 	private static final String[] LIST_UNDO_SYNONYMS = { "undo" };
-	
+
 	private static final String PATTERN_DATE = "\\d{1,2}[/]\\d{1,2}[/]\\d{4} \\d{1,2}[:]\\d{2}";
-	private static final String PATTERN_ANY_NUMBER = "\\d";
+	private static final String PATTERN_ANY_NUMBER = " \\d+($|\\w)";
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("d/M/yyyy H:mm");
-	
+
 	private HashMap<String, CommandType> dictionary;
 
 	public CommandParser() {

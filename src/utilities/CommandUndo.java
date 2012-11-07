@@ -7,6 +7,7 @@ public class CommandUndo implements Command {
 
 	@Override
 	public Command reverseCommand() {
+		assert false : "Called reverse command on irreversible command.";
 		return null;
 	}
 
