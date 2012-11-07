@@ -110,20 +110,7 @@ public class GUI extends JPanel implements ActionListener {
 			}
 		});
 	}
-//	
-//	class LoadFont {
-//        URL fontUrl = new URL("http://www.webpagepublicity.com/" +
-//                "free-fonts/a/Airacobra%20Condensed.ttf");
-//            Font font = Font.createFont(Font.TRUETYPE_FONT, fontUrl.openStream());
-//            font = font.deriveFont(Font.PLAIN,20);
-//            GraphicsEnvironment ge =  GraphicsEnvironment.getLocalGraphicsEnvironment();
-//            ge.registerFont(font);
-//
-//            JLabel l = new JLabel(
-//                "The quick brown fox jumped over the lazy dog. 0123456789");
-//            l.setFont(font);
-//            JOptionPane.showMessageDialog(null, l);
-//        }
+
 	
 	class MyCellRenderer extends DefaultListCellRenderer {
 		@Override
