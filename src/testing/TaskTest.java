@@ -109,13 +109,13 @@ public class TaskTest {
 		// Test case: test1 null start date, test2 not null start date
 		test1 = new Task(name1, null, null);
 		test2 = new Task(name1, date1, null);
-		assertTrue(test1.compareTo(test2) > 0);
-		assertTrue(test2.compareTo(test1) < 0);
+		assertTrue(test1.compareTo(test2) < 0);
+		assertTrue(test2.compareTo(test1) > 0);
 		// Test case: test1 not null start date, test2 null start date
 		test2 = new Task(name1, null, null);
 		test1 = new Task(name1, date1, null);
-		assertTrue(test2.compareTo(test1) > 0);
-		assertTrue(test1.compareTo(test2) < 0);
+		assertTrue(test2.compareTo(test1) < 0);
+		assertTrue(test1.compareTo(test2) > 0);
 		// Test case: both not null start dates that are different
 		test2 = new Task(name1, date2, null);
 		test1 = new Task(name1, date1, null);
@@ -136,13 +136,13 @@ public class TaskTest {
 		// Test case: test1 null start date, test2 not null start date
 		test1 = new Task(name1, null, null);
 		test2 = new Task(name2, date1, null);
-		assertTrue(test1.compareTo(test2) > 0);
-		assertTrue(test2.compareTo(test1) < 0);
+		assertTrue(test1.compareTo(test2) < 0);
+		assertTrue(test2.compareTo(test1) > 0);
 		// Test case: test1 not null start date, test2 null start date
 		test2 = new Task(name1, null, null);
 		test1 = new Task(name2, date1, null);
-		assertTrue(test2.compareTo(test1) > 0);
-		assertTrue(test1.compareTo(test2) < 0);
+		assertTrue(test2.compareTo(test1) < 0);
+		assertTrue(test1.compareTo(test2) > 0);
 		// Test case: both not null start dates that are different
 		test2 = new Task(name2, date2, null);
 		test1 = new Task(name1, date1, null);
