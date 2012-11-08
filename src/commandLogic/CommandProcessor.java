@@ -21,22 +21,29 @@ import exceptions.NothingToUndoException;
 import exceptions.StartTimeAfterEndTimeException;
 
 public class CommandProcessor {
+	private static final int TASK_INDEX_START = 0;
+	private static final int SAME_TIME = 0;
+	private static final String LIST_FORMAT_ELEMENT = "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">"
+			+ "<table><tr><td width = \"10\">%s.</td><td width = \"140\">%s</td><td>%s</td></tr></table>"
+			+ "</body></html>";
+	private static final String LIST_FORMAT_HEADING = "<html><head><style>	p.padding {padding-left:0.3cm;} <style/><head/>"
+			+ "<body style=\"width:290px\"><hr align=\"right\" width=\"98%\">"
+			+ "<font size=\"5\" face=\"Georgia, Arial\" color=\"maroon\"><p class=\"padding\">%s</p></font></body></html>";
 	private static final String MESSAGE_ERROR_START_TIME_AFTER_END_TIME = "Error: Start date/time is after end date/time.";
 	private static final String EMPTY_STRING = "";
-	private static final String NEW_LINE = "<br>";
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
 	private static final String MESSAGE_ERROR_UNABLE_TO_UNDO = "There are no commands to undo";
 	private static final String MESSAGE_ERROR_UNABLE_TO_REDO = "There are no commands to redo";
-	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
+	private static final DateTimeFormatter DATE_FORMATTER_DAY_DATE = DateTimeFormat
 			.forPattern("E, d MMM");
-	
+
 	private static Logger logger = Logger.getLogger("JIMI");
-	
+
 	private ChangeRecord changeRecord;
 	private TaskRecords taskRecords;
 	private CommandParser commandParser;
 	private Command latestSearch;
-	
+
 	public CommandProcessor() throws IOException {
 		FileHandler fileHandler = new FileHandler("log/app.log", true);
 		logger.addHandler(fileHandler);
@@ -49,7 +56,8 @@ public class CommandProcessor {
 
 	public String processCommand(String command) {
 		try {
-			logger.log(Level.INFO, "The command: \"" + command + "\" was issued.");
+			logger.log(Level.INFO, "The command: \"" + command
+					+ "\" was issued.");
 			changeRecord.add(command);
 			String outputMessage = EMPTY_STRING;
 			Command commandIssued = commandParser.parseCommand(command);
@@ -87,13 +95,13 @@ public class CommandProcessor {
 		} catch (CommandCouldNotBeParsedException e) {
 			logger.log(Level.WARNING, "Error: command not recognised");
 			return MESSAGE_ERROR_UNRECOGNISED_COMMAND;
-		} catch (StartTimeAfterEndTimeException e){
+		} catch (StartTimeAfterEndTimeException e) {
 			logger.log(Level.WARNING, "Error: start time is after end time.");
 			return MESSAGE_ERROR_START_TIME_AFTER_END_TIME;
 		}
 	}
-	
-	private String processMarkAll(Command command){
+
+	private String processMarkAll(Command command) {
 		return command.processCommand(taskRecords);
 	}
 
@@ -134,25 +142,36 @@ public class CommandProcessor {
 		}
 	}
 
+	// Note that we keep the super long magic strings here because if we
+	// extract, String.format() returns:
+	// java.util.UnknownFormatConversionException
 	public DefaultListModel<String> getCurrentListModelOfTasks() {
 		latestSearch.processCommand(taskRecords);
 		Task[] currentListOfTasks = taskRecords.getCurrentListOfTasks();
 		DateTime currentDateIteration = null;
 		DefaultListModel<String> currentListOfTasksModel = new DefaultListModel<String>();
-		for (int indexOfTask = 0; indexOfTask < currentListOfTasks.length; indexOfTask++) {
+		for (int indexOfTask = TASK_INDEX_START; indexOfTask < currentListOfTasks.length; indexOfTask++) {
 			if (!isSameDay(currentDateIteration,
 					currentListOfTasks[indexOfTask].getStartTime())) {
 				currentDateIteration = currentListOfTasks[indexOfTask]
 						.getStartTime();
-				currentListOfTasksModel.addElement("<html><head><style>	p.padding {padding-left:0.3cm;} <style/><head/>" +
-						"<body style='width:290px'><hr align=\'right\' width=\'98%\'>" + 
-						"<font size=\'5\' face=\'Georgia, Arial\' color=\'maroon\'><p class=\'padding\'>" +currentDateIteration
-						.toString(DATE_FORMATTER) + "</p></font></body></html>");
+				String element = "<html><head><style>	p.padding {padding-left:0.3cm;} <style/><head/>"
+						+ "<body style=\"width:290px\"><hr align=\"right\" width=\"98%\">"
+						+ "<font size=\"5\" face=\"Georgia, Arial\" color=\"maroon\"><p class=\"padding\">"
+						+ currentDateIteration
+								.toString(DATE_FORMATTER_DAY_DATE)
+						+ "</p></font></body></html>";
+				currentListOfTasksModel.addElement(element);
 			}
-			//currentListOfTasksModel.addElement("<html><body style='width:280px'><hr/><font color=#511818>" + currentDateIteration.toString(DATE_FORMATTER) + "</font></html>");
-							
-			currentListOfTasksModel.addElement("<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style='width:280px'><p class=\'padding\'>" + (indexOfTask + 1) + ". "
-					+ currentListOfTasks[indexOfTask].toString() + "</body></html>");
+			String element = "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">"
+					+ "<table><tr><td width = \"10\">"
+					+ (indexOfTask + 1)
+					+ ".</td><td width = \"133\">"
+					+ currentListOfTasks[indexOfTask].getTimesAsString()
+					+ "</td><td>"
+					+ currentListOfTasks[indexOfTask].getTaskName()
+					+ "</td></tr></table>" + "</body></html>";
+			currentListOfTasksModel.addElement(element);
 		}
 		return currentListOfTasksModel;
 	}
@@ -167,41 +186,17 @@ public class CommandProcessor {
 		}
 		firstDate = firstDate.withTimeAtStartOfDay();
 		secondDate = secondDate.withTimeAtStartOfDay();
-		if (firstDate.compareTo(secondDate) == 0) {
+		if (firstDate.compareTo(secondDate) == SAME_TIME) {
 			return true;
 		}
 		return false;
 	}
 
-	public String getCurrentListOfTasksOld() {
-		latestSearch.processCommand(taskRecords);
-		Task[] currentListOfTasks = taskRecords.getCurrentListOfTasks();
-		String output = EMPTY_STRING;
-		DateTime currentDateIteration = null;
-		for (int indexOfTask = 0; indexOfTask < currentListOfTasks.length; indexOfTask++) {
-			if (!isSameDay(currentDateIteration,
-					currentListOfTasks[indexOfTask].getStartTime())) {
-				currentDateIteration = currentListOfTasks[indexOfTask]
-						.getStartTime();
-				output += currentDateIteration.toString(DATE_FORMATTER)
-						+ NEW_LINE;
-			}
-			if (indexOfTask == currentListOfTasks.length - 1) {
-				output += (indexOfTask + 1) + ". "
-						+ currentListOfTasks[indexOfTask];
-			} else {
-				output += "<b>" + (indexOfTask + 1) + ". "
-						+ currentListOfTasks[indexOfTask] + NEW_LINE;
-			}
-		}
-		return output;
-	}
-	
-	public String getPreviouslyIssued(){
+	public String getPreviouslyIssued() {
 		return changeRecord.getPrevCommand();
 	}
-	
-	public String getLaterIssued(){
+
+	public String getLaterIssued() {
 		return changeRecord.getLaterCommand();
 	}
 }
