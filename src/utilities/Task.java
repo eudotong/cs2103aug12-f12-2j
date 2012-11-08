@@ -7,7 +7,15 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         Task class is data structure for a task
+ */
 public class Task implements Comparable<Task> {
+	private static final String COLON = ": ";
+	private static final String TIME_TO_TIME = "%s to %s";
 	private static final String PIPE_STRING = "|";
 	private static final int POSITIVE_NUMBER = 1;
 	private static final int SAME_TIME = 0;
@@ -26,14 +34,19 @@ public class Task implements Comparable<Task> {
 	private String taskName;
 	private DateTime startTime;
 	private DateTime endTime;
-	
+
+	public static void main(String[] args) {
+		Task t = new Task("asd", null, null);
+		t = new Task("B Second Task", new DateTime().minusDays(2), null);
+	}
+
 	public Task(DateTime startTime) {
 		this.startTime = startTime;
 		taskName = EMPTY_STRING;
 	}
 
 	public Task(String taskName, DateTime startTime, DateTime endTime) {
-		assert (compareNullDatesLast(startTime, endTime) < POSITIVE_NUMBER) : "Start time cannot be after end time.";
+		assert (compareNullDatesLast(startTime, endTime) <= SAME_TIME) : "Start time is after end time.";
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.taskName = changeToValidName(taskName);
@@ -41,7 +54,20 @@ public class Task implements Comparable<Task> {
 				+ ", " + startTime + ", " + endTime);
 	}
 
-	public String changeToValidName(String taskName) {
+	public String getTimesAsString() {
+		if (startTime == null) {
+			return EMPTY_STRING;
+		}
+		if (endTime == null) {
+			return startTime.toString(DATE_FORMATTER_TIME) + COLON;
+		}
+		return String.format(TIME_TO_TIME,
+				startTime.toString(DATE_FORMATTER_TIME),
+				endTime.toString(DATE_FORMATTER_TIME))
+				+ COLON;
+	}
+
+	private String changeToValidName(String taskName) {
 		if (taskName == null) {
 			return EMPTY_STRING;
 		}
@@ -52,7 +78,7 @@ public class Task implements Comparable<Task> {
 		return String.format(TASK_FORMAT, convertDateToString(startTime),
 				convertDateToString(endTime), taskName);
 	}
-	
+
 	private String convertDateToString(DateTime dateToProcess) {
 		if (dateToProcess == null) {
 			return NULL_STRING;

@@ -7,6 +7,13 @@ import utilities.Command;
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         ChangeRecord is used to record previously issued user commands. This
+ *         facilitates undo/redo commands.
+ */
 public class ChangeRecord {
 	private static final String EMPTY_STRING = "";
 	private Stack<Command> toRedoStack;
@@ -14,27 +21,6 @@ public class ChangeRecord {
 	private Stack<String> prevCommandsStack;
 	private Stack<String> laterCommandsStack;
 
-	public static void main(String [] args){
-		ChangeRecord cr = new ChangeRecord();
-		cr.add("something");
-		cr.add("something1");
-		cr.add("something2");
-		cr.add("something3");
-		System.out.println(cr.getPrevCommand());
-		System.out.println(cr.getPrevCommand());
-		System.out.println(cr.getPrevCommand());
-		System.out.println(cr.getPrevCommand());
-		System.out.println(cr.getPrevCommand());
-		System.out.println(cr.getLaterCommand());
-		System.out.println(cr.getLaterCommand());
-		System.out.println(cr.getLaterCommand());
-		System.out.println(cr.getLaterCommand());
-		System.out.println(cr.getLaterCommand());
-		cr.add("added");
-		System.out.println(cr.getLaterCommand());
-		System.out.println(cr.getPrevCommand());
-	}
-	
 	public ChangeRecord() {
 		toRedoStack = new Stack<Command>();
 		toUndoStack = new Stack<Command>();
@@ -42,29 +28,31 @@ public class ChangeRecord {
 		laterCommandsStack = new Stack<String>();
 	}
 
-	public void add(String newCommand){
-		prevCommandsStack.push(newCommand);
-		laterCommandsStack.clear();
+	public void add(String newCommand) {
+		if (!newCommand.isEmpty()) {
+			prevCommandsStack.push(newCommand);
+			laterCommandsStack.clear();
+		}
 	}
-	
+
 	public void add(Command newCommand) {
 		if (newCommand.isReversible()) {
 			toUndoStack.push(newCommand);
 			toRedoStack.clear();
 		}
 	}
-	
-	public String getPrevCommand(){
-		if(prevCommandsStack.isEmpty()){
+
+	public String getPrevCommand() {
+		if (prevCommandsStack.isEmpty()) {
 			return EMPTY_STRING;
 		}
 		String previousCommand = prevCommandsStack.pop();
 		laterCommandsStack.push(previousCommand);
 		return previousCommand;
 	}
-	
-	public String getLaterCommand(){
-		if(laterCommandsStack.isEmpty()){
+
+	public String getLaterCommand() {
+		if (laterCommandsStack.isEmpty()) {
 			return EMPTY_STRING;
 		}
 		String laterCommand = laterCommandsStack.pop();

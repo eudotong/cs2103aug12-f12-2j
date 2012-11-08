@@ -1,20 +1,16 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -24,13 +20,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import javax.swing.ListCellRenderer;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import commandLogic.CommandProcessor;
@@ -43,8 +36,6 @@ public class GUI extends JPanel implements ActionListener {
 	private static final String HDR_IMG = "images/hdr.png";
 	private static final long serialVersionUID = 1L;
 
-	  
-	        
 	private Border empty = BorderFactory.createEmptyBorder();
 	JList<String> jlist;
 	JScrollPane listPane;
@@ -56,23 +47,21 @@ public class GUI extends JPanel implements ActionListener {
 	public GUI() {
 		try {
 			commandProcessor = new CommandProcessor();
-			jlist = new JList<String>(commandProcessor.getCurrentListModelOfTasks());
-			
-
+			jlist = new JList<String>(
+					commandProcessor.getCurrentListModelOfTasks());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		jlist.setVisibleRowCount(4);
 		Font displayFont = new Font("Serif", Font.BOLD, 14);
 		jlist.setFont(displayFont);
 		listPane = new JScrollPane(jlist);
 		MyCellRenderer cellRenderer = new MyCellRenderer();
-	    jlist.setCellRenderer(cellRenderer);
-	    jlist.setFixedCellHeight(30);
-		
+		jlist.setCellRenderer(cellRenderer);
+		jlist.setFixedCellHeight(30);
+
 		ImageIcon icon = createImageIcon(BACKGROUND_IMG);
 		JLabel bgLabel = new JLabel(icon);
 		bgLabel.setSize(bgLabel.getPreferredSize());
@@ -90,21 +79,28 @@ public class GUI extends JPanel implements ActionListener {
 		textField.setBackground(new java.awt.Color(220, 219, 219));
 		textField.setBorder(empty);
 		textField.addActionListener(this);
-		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"),"upKey");
+		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upKey");
 		textField.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "downKey");
 		textField.getActionMap().put("upKey", new AbstractAction() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		            System.out.println("IT WORKS");
-		        }
-		    });
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String previouslyIssuedCommand = commandProcessor
+						.getPreviouslyIssued();
+				if (!previouslyIssuedCommand.isEmpty()) {
+					textField.setText(previouslyIssuedCommand);
+				}
+			}
+		});
 		textField.getActionMap().put("downKey", new AbstractAction() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            System.out.println("IT WORKS TOO XD");
-	        }
-	    });
-		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String laterIssuedCommand = commandProcessor.getLaterIssued();
+				if (!laterIssuedCommand.isEmpty()) {
+					textField.setText(laterIssuedCommand);
+				}
+			}
+		});
+
 		forgroundPanel.add(textField);
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -114,7 +110,7 @@ public class GUI extends JPanel implements ActionListener {
 		commandOutputLabel = new JLabel(EMPTY_STRING);
 		commandOutputLabel.setFont(new Font("Courier", Font.BOLD, 12));
 		commandOutputLabel.setForeground(Color.red);
-		//commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		// commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		commandOutputLabel.setPreferredSize(new Dimension(100, 10));
 		add(createControlPanel());
 		add(commandOutputLabel);
@@ -128,22 +124,21 @@ public class GUI extends JPanel implements ActionListener {
 		});
 	}
 
-	
 	class MyCellRenderer extends DefaultListCellRenderer {
 		@Override
-		   public Component getListCellRendererComponent(JList list, Object value,
-		         int index, boolean isSelected, boolean cellHasFocus) {
-			   String text = value.toString();
-			  // text = HTML_1 + String.valueOf(width) + HTML_2 + value.toString()+ HTML_3;
-					   		      
-		      return super.getListCellRendererComponent(list, text, index, isSelected,
-		            cellHasFocus);
-		      
-		   }
+		public Component getListCellRendererComponent(JList list, Object value,
+				int index, boolean isSelected, boolean cellHasFocus) {
+			String text = value.toString();
+			// text = HTML_1 + String.valueOf(width) + HTML_2 +
+			// value.toString()+ HTML_3;
+
+			return super.getListCellRendererComponent(list, text, index,
+					isSelected, cellHasFocus);
 
 		}
 
-	
+	}
+
 	public Component createControlPanel() {
 
 		ImageIcon hdr = createImageIcon(HDR_IMG);
@@ -177,7 +172,7 @@ public class GUI extends JPanel implements ActionListener {
 		String output = commandProcessor.processCommand(command);
 		commandOutputLabel.setText(output);
 		jlist.setModel(commandProcessor.getCurrentListModelOfTasks());
-		//refreshCurrentList(commandProcessor.getCurrentListModelOfTasks());
+		// refreshCurrentList(commandProcessor.getCurrentListModelOfTasks());
 
 		textField.setText(EMPTY_STRING);
 

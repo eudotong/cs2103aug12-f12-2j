@@ -4,6 +4,12 @@ import org.joda.time.DateTime;
 
 import storage.TaskRecords;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         Functionality for command of type SEARCH
+ */
 public class CommandSearch implements Command {
 	private static final int LENGTH_ZERO = 0;
 	private static final boolean IS_REVERSIBLE = false;
@@ -18,20 +24,9 @@ public class CommandSearch implements Command {
 			this.fromDate = toDate;
 			this.toDate = fromDate;
 		}
-		//TODO IS THIS OKAY?
-		if(fromDate == null){
-			assert toDate != null : "Invalid from and to dates.";
-		}
 		this.fromDate = fromDate;
 		this.toDate = toDate;
-		this.query = convertQueryToCorrectFormat(query);
-	}
-	
-	private String convertQueryToCorrectFormat(String query){
-		if(query != null && query.length() == LENGTH_ZERO){
-			return null;
-		}
-		return query;
+		this.query = query;
 	}
 
 	public String processCommand(TaskRecords taskRecords) {
@@ -66,8 +61,8 @@ public class CommandSearch implements Command {
 	public boolean isReversible() {
 		return IS_REVERSIBLE;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return fromDate + " " + toDate + " " + query;
 	}
 }

@@ -13,97 +13,167 @@ import utilities.Task;
 
 public class TaskRecordsTest {
 	TaskRecords taskRecordsTest;
-	DateTime date = new DateTime();
-	ArrayList <Task> tasksToTest = new ArrayList<Task>();
+	private static DateTime TODAY = new DateTime();
+	ArrayList<Task> tasksToTest;
+
 	@Before
 	public void setUp() throws Exception {
 		taskRecordsTest = TaskRecords.getInstance("testing.txt");
 		taskRecordsTest.clearAllTasks();
-		tasksToTest.add(new Task("AAA 2 days before", null, date.minusDays(2)));
-		tasksToTest.add(new Task("AAA 1 days before", null, date.minusDays(1)));
-		tasksToTest.add(new Task("BBB 1 day after", null, date.plusDays(1)));
-		tasksToTest.add(new Task("CCC 3 hours later", null, date.minusHours(3)));
-		tasksToTest.add(new Task("DDD 4 months later", null,date.plusMonths(4)));
-		tasksToTest.add(new Task("EEE 5 months",null, date.plusWeeks(2)));
-		tasksToTest.add(new Task("Aaa 1 hour later",null, date.plusHours(1)));
-		tasksToTest.add(new Task("ABC 1 yr later",null, date.plusYears(1)));
-		tasksToTest.add(new Task("CBA now",null, date));
-		tasksToTest.add(new Task("QWERTY 10 hours later",null, date.plusHours(10)));
-		tasksToTest.add(new Task("abc 3 days", null,date.plusDays(3)));
-		tasksToTest.add(new Task("ghj 3 days", null,date.plusDays(3)));
-		tasksToTest.add(new Task("ghjasd 3 days",null, date.plusDays(3)));
-		tasksToTest.add(new Task("gasdhj 3 days",null, date.plusDays(3)));
-		for(Task t : tasksToTest){
-			taskRecordsTest.appendTask(t);
+		tasksToTest = new ArrayList<Task>();
+		tasksToTest.add(new Task("A First Task", null, null));
+		tasksToTest.add(new Task("B Second Task", TODAY.minusDays(2), null));
+		tasksToTest.add(new Task("C 3rd Task", TODAY.minusDays(1), null));
+		tasksToTest.add(new Task("D FoUrTh Task", TODAY.minusHours(1), null));
+		tasksToTest.add(new Task("e fifth Task", TODAY, null));
+		tasksToTest.add(new Task("f sixth Task", TODAY.plusMinutes(1), null));
+		tasksToTest.add(new Task("G 7th Task", TODAY.plusDays(1), null));
+		tasksToTest.add(new Task("H 8th Task", TODAY.plusDays(10), null));
+		for (Task task : tasksToTest) {
+			taskRecordsTest.appendTask(task);
 		}
 	}
 
 	@Test
+	public void testGetCurrentListOfTasks() {
+		resetCurrentList();
+		assertEquals(tasksToTest.toArray(new Task[0]),
+				taskRecordsTest.getCurrentListOfTasks());
+		// Test case: current list of tasks set
+		taskRecordsTest.setCurrentListOfTasks("No matching yay yay!");
+		assertEquals(new Task[0], taskRecordsTest.getCurrentListOfTasks());
+	}
+
+	@Test
 	public void testGetTaskByIndex() {
-		taskRecordsTest.setCurrentListOfTasks(date, date.plusDays(1));
-		Task taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		assertEquals(tasksToTest.get(8), taskByIndex);
-		taskByIndex = taskRecordsTest.getTaskByIndex(3);
-		assertEquals(tasksToTest.get(9), taskByIndex);
-		taskByIndex = taskRecordsTest.getTaskByIndex(10);
-		assertEquals(null, taskByIndex);
+		resetCurrentList();
+		// Test case: task index less than 1
+		assertEquals(null, taskRecordsTest.getTaskByIndex(0));
+		// Test case: task index more than length of list
+		assertEquals(null, taskRecordsTest.getTaskByIndex(100));
+		// Test case: task index valid
+		assertEquals(tasksToTest.get(2), taskRecordsTest.getTaskByIndex(3));
 	}
 
 	@Test
 	public void testGetTaskByName() {
-		taskRecordsTest.setCurrentListOfTasks(date, date.plusDays(1));
-		Task taskByName = taskRecordsTest.getTaskByName("AAA");
-		assertEquals(tasksToTest.get(0), taskByName);
-		taskByName = taskRecordsTest.getTaskByName("eE");
-		assertEquals(tasksToTest.get(5), taskByName);
-		taskByName = taskRecordsTest.getTaskByName("not inside");
-		assertEquals(null, taskByName);
+		// TODO
+	}
+
+	@Test
+	public void testAppendTask() {
+		Task newTask = new Task("random", null, null);
+		// Test case: can add
+		assertTrue(taskRecordsTest.appendTask(newTask));
+		resetCurrentList();
+		assertEquals(9, taskRecordsTest.getCurrentListOfTasks().length);
+		assertEquals(newTask, taskRecordsTest.getTaskByIndex(2));
+		// Test case: cannot add
+		assertFalse(taskRecordsTest.appendTask(newTask));
+		resetCurrentList();
+		assertEquals(9, taskRecordsTest.getCurrentListOfTasks().length);
 	}
 
 	@Test
 	public void testDeleteTask() {
-		taskRecordsTest.deleteTask(new Task("CBA now",null, date));
-		taskRecordsTest.setCurrentListOfTasks(date);
-		Task taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		assertEquals(tasksToTest.get(6), taskByIndex);
-		taskRecordsTest.deleteTask(new Task("CBA now",null, date));
-		taskRecordsTest.setCurrentListOfTasks(date);
-		taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		assertEquals(tasksToTest.get(6), taskByIndex);
-		assertFalse(taskRecordsTest.deleteTask(null));
+		Task invalidTaskToDelete = new Task("random", null, null);
+		// Test case: cannot delete
+		assertFalse(taskRecordsTest.deleteTask(invalidTaskToDelete));
+		resetCurrentList();
+		assertEquals(tasksToTest.toArray(new Task[0]),
+				taskRecordsTest.getCurrentListOfTasks());
+		// Test case: can delete
+		assertTrue(taskRecordsTest.deleteTask(tasksToTest.remove(0)));
+		resetCurrentList();
+		assertEquals(tasksToTest.toArray(new Task[0]),
+				taskRecordsTest.getCurrentListOfTasks());
 	}
 
 	@Test
 	public void testReplaceTask() {
-		Task changeToTask =new Task("changed", null,date);
-		taskRecordsTest.replaceTask(new Task("CBA now",null, date), changeToTask);
-		taskRecordsTest.setCurrentListOfTasks(date);
-		Task taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		assertEquals(changeToTask, taskByIndex);
-		//Test case: Task does not exist
-		taskRecordsTest.replaceTask(new Task("CBA now",null, date), changeToTask);
-		taskRecordsTest.setCurrentListOfTasks(date);
-		taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		assertEquals(changeToTask, taskByIndex);
+		Task invalidTask = new Task("random", null, null);
+		Task newTask = new Task("New Task", null, null);
+		// Test case: cannot replace (taskToBeReplaced not found)
+		assertFalse(taskRecordsTest.replaceTask(invalidTask, newTask));
+		resetCurrentList();
+		assertEquals(tasksToTest.toArray(new Task[0]),
+				taskRecordsTest.getCurrentListOfTasks());
+		// Test case: cannot replace (newTask already exists)
+		assertFalse(taskRecordsTest.replaceTask(tasksToTest.get(0),
+				tasksToTest.get(1)));
+		resetCurrentList();
+		assertEquals(tasksToTest.toArray(new Task[0]),
+				taskRecordsTest.getCurrentListOfTasks());
+		// Test case: can replace
+		assertTrue(taskRecordsTest.replaceTask(tasksToTest.get(0), newTask));
+		resetCurrentList();
+		assertEquals(newTask, taskRecordsTest.getTaskByIndex(1));
+	}
+
+	@Test
+	public void testRemoveAll() {
+		Task[] tasksToRemoveInvalid = { tasksToTest.get(0),
+				new Task("random", null, null) };
+		// Test case: some in array not matching
+		tasksToTest.remove(0);
+		assertTrue(taskRecordsTest.removeAll(tasksToRemoveInvalid));
+		resetCurrentList();
+		assertEquals(tasksToTest.toArray(new Task[0]),
+				taskRecordsTest.getCurrentListOfTasks());
+		//Test case: all matching
+		assertTrue(taskRecordsTest.removeAll(tasksToTest.toArray(new Task[0])));
+		resetCurrentList();
+		assertEquals(new Task[0], taskRecordsTest.getCurrentListOfTasks());
 	}
 
 	@Test
 	public void testSetCurrentListOfTasks() {
-		taskRecordsTest.setCurrentListOfTasks(date.plusYears(1));
-		Task taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		assertEquals(tasksToTest.get(7), taskByIndex);
-		taskRecordsTest.setCurrentListOfTasks("QWERTY");
-		taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		assertEquals(tasksToTest.get(9), taskByIndex);
-		taskRecordsTest.setCurrentListOfTasks(date.minusDays(1), date);
-		taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		assertEquals(tasksToTest.get(1), taskByIndex);
-		taskRecordsTest.setCurrentListOfTasks("gh", date.plusDays(3));
-		taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		assertEquals(tasksToTest.get(11), taskByIndex);
-		taskRecordsTest.setCurrentListOfTasks(date.minusDays(1));
-		taskByIndex = taskRecordsTest.getTaskByIndex(1);
-		assertEquals(tasksToTest.get(1), taskByIndex);
+		Task [] expectedList = {tasksToTest.get(0), tasksToTest.get(5), tasksToTest.get(6), tasksToTest.get(7)};
+		taskRecordsTest.setCurrentListOfTasks();
+		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
+	}
+	
+	@Test
+	public void testSetCurrentListOfTasksString() {
+		Task [] expectedList = {tasksToTest.get(3), tasksToTest.get(4), tasksToTest.get(5), tasksToTest.get(6), tasksToTest.get(7)};
+		taskRecordsTest.setCurrentListOfTasks("th");
+		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
+		taskRecordsTest.setCurrentListOfTasks("Th");
+		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
+		taskRecordsTest.setCurrentListOfTasks("");
+		assertEquals(tasksToTest.toArray(new Task[0]), taskRecordsTest.getCurrentListOfTasks());
+	}
+
+	@Test
+	public void testSetCurrentListOfTasksDateTimeDateTime() {
+		Task [] expectedList = {tasksToTest.get(4), tasksToTest.get(5), tasksToTest.get(6)};
+		taskRecordsTest.setCurrentListOfTasks(TODAY, TODAY.plusDays(2));
+		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
+	}
+
+	@Test
+	public void testSetCurrentListOfTasksDateTime() {
+		Task [] expectedList = {tasksToTest.get(4), tasksToTest.get(5)};
+		taskRecordsTest.setCurrentListOfTasks(TODAY);
+		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
+	}
+
+	@Test
+	public void testSetCurrentListOfTasksStringDateTimeDateTime() {
+		Task [] expectedList = {tasksToTest.get(3)};
+		taskRecordsTest.setCurrentListOfTasks("th", TODAY.minusDays(2), TODAY);
+		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
+	}
+
+	@Test
+	public void testSetCurrentListOfTasksStringDateTime() {
+		Task [] expectedList = {tasksToTest.get(4), tasksToTest.get(5)};
+		taskRecordsTest.setCurrentListOfTasks("th", TODAY);
+		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
+	}
+
+	private void resetCurrentList() {
+		taskRecordsTest.setCurrentListOfTasks("");
 	}
 
 }

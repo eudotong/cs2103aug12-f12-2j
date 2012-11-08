@@ -2,21 +2,27 @@ package utilities;
 
 import storage.TaskRecords;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         Functionality for command of type MARK_ALL
+ */
 public class CommandMarkAll implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_DELETE = "Tasks could not be deleted.";
 	private static final String MESSAGE_SUCCESS = "Tasks deleted.";
 
 	private boolean isReversible = true;
 	private Task[] tasksToDelete;
-	
-	public CommandMarkAll(){
+
+	public CommandMarkAll() {
 		tasksToDelete = null;
 	}
-	
-	public CommandMarkAll(Task [] tasksToDelete){
+
+	public CommandMarkAll(Task[] tasksToDelete) {
 		assert tasksToDelete != null : "Null array";
-		//TODO ask Hieu if this assertion can... but like very waste time
-		for(Task task : tasksToDelete){
+		// TODO ask Hieu if this assertion can... but like very waste time
+		for (Task task : tasksToDelete) {
 			assert task != null : "Task in array is null.";
 		}
 		this.tasksToDelete = tasksToDelete;

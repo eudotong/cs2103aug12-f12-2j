@@ -2,6 +2,12 @@ package utilities;
 
 import storage.TaskRecords;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         Functionality for command of type REDO
+ */
 public class CommandRedo implements Command {
 	private static final boolean IS_REVERSIBLE = false;
 
@@ -10,7 +16,7 @@ public class CommandRedo implements Command {
 		return "";
 	}
 
-	//TODO IS THIS OKAY?
+	// TODO IS THIS OKAY?
 	@Override
 	public Command reverseCommand() {
 		assert false : "Called reverse command on irreversible command.";
