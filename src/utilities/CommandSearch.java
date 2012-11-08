@@ -1,6 +1,8 @@
 package utilities;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import storage.TaskRecords;
 
@@ -11,9 +13,11 @@ import storage.TaskRecords;
  *         Functionality for command of type SEARCH
  */
 public class CommandSearch implements Command {
-	private static final int LENGTH_ZERO = 0;
+	private static final String NULL = "null";
 	private static final boolean IS_REVERSIBLE = false;
 	private static final String MESSAGE_SUCCESS = "Searched.";
+	private static DateTimeFormatter DATE_FORMATTER = DateTimeFormat
+			.forPattern("dd/MM/yyyy HH:mm");
 
 	private DateTime fromDate;
 	private DateTime toDate;
@@ -63,6 +67,14 @@ public class CommandSearch implements Command {
 	}
 
 	public String toString() {
-		return fromDate + " " + toDate + " " + query;
+		String fromDateString = NULL;
+		String toDateString = NULL;
+		if(fromDate != null){
+			fromDateString = fromDate.toString(DATE_FORMATTER);
+		}
+		if(toDate != null){
+			toDateString = toDate.toString(DATE_FORMATTER);
+		}
+		return query + fromDateString + toDateString;
 	}
 }

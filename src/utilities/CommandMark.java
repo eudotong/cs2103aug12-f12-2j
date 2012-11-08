@@ -52,4 +52,8 @@ public class CommandMark implements Command {
 	public boolean isReversible() {
 		return isReversible;
 	}
+	
+	public String toString(){
+		return Integer.toString(indexOfTaskToBeDeleted);
+	}
 }

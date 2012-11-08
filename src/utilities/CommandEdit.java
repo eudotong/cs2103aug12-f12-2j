@@ -71,4 +71,8 @@ public class CommandEdit implements Command {
 	public CommandType getCommandType() {
 		return CommandType.EDIT;
 	}
+	
+	public String toString(){
+		return indexOfTaskToBeReplaced + newTask.toString();
+	}
 }
