@@ -8,6 +8,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class Task implements Comparable<Task> {
+	private static final String COLON = ": ";
 	private static final String TIME_TO_TIME = "%s to %s";
 	private static final String PIPE_STRING = "|";
 	private static final int POSITIVE_NUMBER = 1;
@@ -27,13 +28,12 @@ public class Task implements Comparable<Task> {
 	private String taskName;
 	private DateTime startTime;
 	private DateTime endTime;
-	
-	
-	public static void main(String [] args){
+
+	public static void main(String[] args) {
 		Task t = new Task("asd", null, null);
 		t = new Task("B Second Task", new DateTime().minusDays(2), null);
 	}
-	
+
 	public Task(DateTime startTime) {
 		this.startTime = startTime;
 		taskName = EMPTY_STRING;
@@ -47,17 +47,18 @@ public class Task implements Comparable<Task> {
 		logger.log(Level.INFO, "Task created with parameters: " + taskName
 				+ ", " + startTime + ", " + endTime);
 	}
-	
-	public String getTimesAsString(){
-		if(startTime == null){
-			System.out.println("Asd");
+
+	public String getTimesAsString() {
+		if (startTime == null) {
 			return EMPTY_STRING;
 		}
-		if(endTime == null){
-			System.out.println(startTime.toString(DATE_FORMATTER_TIME));
-			return startTime.toString(DATE_FORMATTER_TIME);
+		if (endTime == null) {
+			return startTime.toString(DATE_FORMATTER_TIME) + COLON;
 		}
-		return String.format(TIME_TO_TIME, startTime.toString(DATE_FORMATTER_TIME), endTime.toString(DATE_FORMATTER_TIME));
+		return String.format(TIME_TO_TIME,
+				startTime.toString(DATE_FORMATTER_TIME),
+				endTime.toString(DATE_FORMATTER_TIME))
+				+ COLON;
 	}
 
 	private String changeToValidName(String taskName) {
@@ -71,7 +72,7 @@ public class Task implements Comparable<Task> {
 		return String.format(TASK_FORMAT, convertDateToString(startTime),
 				convertDateToString(endTime), taskName);
 	}
-	
+
 	private String convertDateToString(DateTime dateToProcess) {
 		if (dateToProcess == null) {
 			return NULL_STRING;

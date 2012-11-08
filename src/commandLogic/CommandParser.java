@@ -1,6 +1,7 @@
 package commandLogic;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,13 +55,17 @@ public class CommandParser {
 	private static final DateTime IMPOSSIBLY_SMALL_DATE = new DateTime(
 			Long.MIN_VALUE);
 
-	private static final String[] LIST_DATE_VARIANTS = { "mon", "tues", "wed",
-			"thurs", "fri", "sat", "sun", "jan", "feb", "mar", "apr", "may",
-			"jun", "jul", "aug", "sep", "oct", "nov", "dec" };
+	private static final char[] LIST_DISALLOWED_START_CHARS = { 'a', 'e', 'p',
+			's', 'd', 'f', 'h', 'l', 'z', 'm' };
+	private static final String[] LIST_SHORT_DATE_VARIANTS = { "mon", "tues",
+			"wed", "thurs", "fri", "sat", "sun", "jan", "feb", "mar", "apr",
+			"may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
+	private static final String[] LIST_DATE_VARIANTS = { "am", "pm", "day",
+			"days", "hour", "hours", "hr", "hrs" };
 	private static final String[] LIST_ADD_SYNONYMS = { "add", "insert",
 			"create", "new", "put", "ins" };
 	private static final String[] LIST_MARK_SYNONYMS = { "mark", "delete",
-			"del", "remove", "discard", "erase", "drop" };
+			"del", "remove", "discard", "erase", "drop", "clear" };
 	private static final String[] LIST_EDIT_SYNONYMS = { "update", "edit",
 			"change", "alter", "modify" };
 	private static final String[] LIST_SEARCH_SYNONYMS = { "find", "display",
@@ -73,10 +78,12 @@ public class CommandParser {
 	private static final String[] LIST_RELATIVE_TIME_KEYWORDS_AFTER = {
 			"after", "aft" };
 
+	private static final String PATTERN_TIME = "(\\d{1,4}|\\d{1,2}[:|.]\\d{2})(am|pm)";
 	private static final String PATTERN_ALPHANUMERIC_WORD = "\\w*";
-	private static final String PATTERN_TIME = "\\d{1,2}.\\d{2}";
+	private static final String PATTERN_TIME_DOT_SEPARATOR = "\\d{1,2}.\\d{2}";
 	private static final String PATTERN_DATE = "(\\d{1,2}[-|/]\\d{1,2}[-|/]\\d{2,4})|\\d{1,2}[-|/]\\d{1,2}";
-	private static final String PATTERN_ANY_NUMBER = "\\d+";
+	private static final String PATTERN_NON_DIGIT = "\\D+";
+	private static final String PATTERN_NUMBER = "\\d+";
 	private static final String PATTERN_ANY_NUMBER_NOT_DATE = "(^| )\\d+($| )";
 
 	private static Logger logger = Logger.getLogger("JIMI");
@@ -84,6 +91,8 @@ public class CommandParser {
 	private HashMap<String, CommandType> commandTypeKeywordsDictionary;
 	private HashMap<String, CommandType> specialKeywordsDictionary;
 	private HashMap<String, RelativeType> relativeTimeKeywordsDictionary;
+	private HashSet<String> dateVariantsDictionary;
+	private HashSet<Character> disallowedStartCharsDictionary;
 
 	private String commandToParse;
 
@@ -95,6 +104,14 @@ public class CommandParser {
 		commandTypeKeywordsDictionary = new HashMap<String, CommandType>();
 		specialKeywordsDictionary = new HashMap<String, CommandType>();
 		relativeTimeKeywordsDictionary = new HashMap<String, RelativeType>();
+		dateVariantsDictionary = new HashSet<String>();
+		disallowedStartCharsDictionary = new HashSet<Character>();
+		for (char entry : LIST_DISALLOWED_START_CHARS) {
+			disallowedStartCharsDictionary.add(entry);
+		}
+		for (String entry : LIST_DATE_VARIANTS) {
+			dateVariantsDictionary.add(entry);
+		}
 		for (String entry : LIST_ADD_SYNONYMS) {
 			commandTypeKeywordsDictionary.put(entry, CommandType.ADD);
 		}
@@ -168,7 +185,7 @@ public class CommandParser {
 
 	private String changeAllDatesToSameFormat(String stringToProcess) {
 		String[] words = stringToProcess.split(WHITE_SPACE);
-		Pattern timePattern = Pattern.compile(PATTERN_TIME);
+		Pattern timePattern = Pattern.compile(PATTERN_TIME_DOT_SEPARATOR);
 		for (String word : words) {
 			if (word.matches(PATTERN_DATE)) {
 				String newDate = convertToMiddleEndian(word.replaceAll(DASH,
@@ -199,11 +216,9 @@ public class CommandParser {
 	private String removeWronglyParsedDates(String dateString) {
 		String[] components = dateString.split(WHITE_SPACE);
 		for (String component : components) {
-			boolean isMatchVariant = false;
 			String componentLowerCase = component.toLowerCase();
-			for (String dateVariant : LIST_DATE_VARIANTS) {
+			for (String dateVariant : LIST_SHORT_DATE_VARIANTS) {
 				if (componentLowerCase.contains(dateVariant)) {
-					isMatchVariant = true;
 					if (!componentLowerCase.equals(dateVariant)) {
 						dateString = dateString
 								.replace(component, EMPTY_STRING);
@@ -211,9 +226,13 @@ public class CommandParser {
 					break;
 				}
 			}
-			if (component.matches(PATTERN_ALPHANUMERIC_WORD)
-					&& !component.matches(PATTERN_ANY_NUMBER)
-					&& !isMatchVariant) {
+			if ((disallowedStartCharsDictionary.contains(componentLowerCase
+					.charAt(START_INDEX)) && !dateVariantsDictionary
+					.contains(componentLowerCase))
+					|| (component.matches(PATTERN_ALPHANUMERIC_WORD)
+							&& !component.matches(PATTERN_NON_DIGIT)
+							&& !component.matches(PATTERN_NUMBER) && !componentLowerCase
+								.matches(PATTERN_TIME))) {
 				dateString = dateString.replace(component, EMPTY_STRING);
 			}
 		}
@@ -372,7 +391,7 @@ public class CommandParser {
 	private CommandMark parseMark(String command)
 			throws CommandCouldNotBeParsedException {
 		logger.log(Level.INFO, "Parsing as mark command.");
-		Pattern anyNumberPattern = Pattern.compile(PATTERN_ANY_NUMBER);
+		Pattern anyNumberPattern = Pattern.compile(PATTERN_NON_DIGIT);
 		Matcher patternMatcher = anyNumberPattern.matcher(command);
 		if (patternMatcher.find()) {
 			return new CommandMark(Integer.parseInt(patternMatcher
@@ -408,7 +427,7 @@ public class CommandParser {
 						startAndEndTime[START_TIME], IMPOSSIBLY_LARGE_DATE);
 			}
 		}
-		if (relativeType == relativeType.ALL) {
+		if (relativeType == RelativeType.ALL) {
 			return new CommandSearch(EMPTY_STRING, null, null);
 		}
 		return new CommandSearch(commandToParse, startAndEndTime[START_TIME],
