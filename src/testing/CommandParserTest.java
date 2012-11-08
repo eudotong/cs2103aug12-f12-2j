@@ -36,9 +36,15 @@ public class CommandParserTest {
 	private static final String START_OF_TODAY_STRING = START_OF_TODAY.toString(DATE_FORMATTER);
 	private static CommandParser COMMAND_PARSER = new CommandParser();
 
+	private DateTime getNextMonday(){
+		int daysToAdd = (1 + 7 - START_OF_TODAY.getDayOfWeek());
+		return START_OF_TODAY.plusDays(daysToAdd);
+	}
+	
 	@Test
 	public void testParseCommand() throws CommandCouldNotBeParsedException,
 			StartTimeAfterEndTimeException {
+		getNextMonday();
 		Command actualCommand;
 		Task expectedTask = new Task("name", TODAY, TODAY.plusHours(1));
 		// Add Command
@@ -81,6 +87,13 @@ public class CommandParserTest {
 		expectedTask = new Task("Juney's wedding with fries", null, null);
 		actualCommand = COMMAND_PARSER
 				.parseCommand("add Juney's wedding with fries");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		// Test cases: special date monday
+		expectedTask = new Task("something good",getNextMonday(), null);
+		actualCommand = COMMAND_PARSER.parseCommand("add monday something good");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		expectedTask = new Task("something good",getNextMonday(), null);
+		actualCommand = COMMAND_PARSER.parseCommand("add mon something good");
 		assertEquals(expectedTask.toString(), actualCommand.toString());
 
 		// Edit Command
