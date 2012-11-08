@@ -26,6 +26,13 @@ import utilities.Task;
 import exceptions.CommandCouldNotBeParsedException;
 import exceptions.StartTimeAfterEndTimeException;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         The CommandParser takes in a command as a String and returns a
+ *         Command object accordingly.
+ */
 public class CommandParser {
 	private static final String COLON = ":";
 	private static final String DOT = ".";

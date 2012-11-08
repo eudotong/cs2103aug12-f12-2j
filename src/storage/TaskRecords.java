@@ -19,7 +19,7 @@ import org.joda.time.format.DateTimeFormatter;
 import utilities.Task;
 
 /**
- * @author a0088278
+ * @author A0088278L
  * 
  *         The TaskRecords modifies and accesses the text file that is used for
  *         storing task information.

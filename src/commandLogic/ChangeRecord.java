@@ -7,6 +7,13 @@ import utilities.Command;
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         ChangeRecord is used to record previously issued user commands. This
+ *         facilitates undo/redo commands.
+ */
 public class ChangeRecord {
 	private static final String EMPTY_STRING = "";
 	private Stack<Command> toRedoStack;
