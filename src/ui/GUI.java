@@ -95,13 +95,19 @@ public class GUI extends JPanel implements ActionListener {
 		textField.getActionMap().put("upKey", new AbstractAction() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		            System.out.println("IT WORKS");
+		        	String previouslyIssuedCommand = commandProcessor.getPreviouslyIssued();
+		        	if(!previouslyIssuedCommand.isEmpty()){
+		        		textField.setText(previouslyIssuedCommand);
+		        	}
 		        }
 		    });
 		textField.getActionMap().put("downKey", new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	            System.out.println("IT WORKS TOO XD");
+	        	String laterIssuedCommand = commandProcessor.getLaterIssued();
+	        	if(!laterIssuedCommand.isEmpty()){
+	        		textField.setText(laterIssuedCommand);
+	        	}
 	        }
 	    });
 		

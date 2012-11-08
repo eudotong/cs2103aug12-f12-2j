@@ -173,8 +173,8 @@ public class CommandParserNew {
 		if (dateGroupList.isEmpty()) {
 			return startAndEndTime;
 		}
-		while (dateGroupList.size() > 0) {
-			DateGroup dateGroup = dateGroupList.get(0);
+		while (!dateGroupList.isEmpty()) {
+			DateGroup dateGroup = dateGroupList.get(FIRST_GROUP);
 			logger.log(Level.INFO, "Parsing Date: " + dateGroup.getText());
 			if ((dateGroup.getText().contains(KEYWORD_TO) | dateGroup.getText()
 					.contains(KEYWORD_DASH)) && dateGroup.getDates().size() > 1) {
