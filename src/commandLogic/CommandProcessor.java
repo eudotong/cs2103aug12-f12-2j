@@ -34,14 +34,14 @@ public class CommandProcessor {
 	
 	private ChangeRecord changeRecord;
 	private TaskRecords taskRecords;
-	private CommandParserNew commandParser;
+	private CommandParser commandParser;
 	private Command latestSearch;
 	
 	public CommandProcessor() throws IOException {
 		FileHandler fileHandler = new FileHandler("log/app.log", true);
 		logger.addHandler(fileHandler);
 		changeRecord = new ChangeRecord();
-		commandParser = new CommandParserNew();
+		commandParser = new CommandParser();
 		taskRecords = TaskRecords.getInstance();
 		latestSearch = new CommandSearch(null, null, null);
 		latestSearch.processCommand(taskRecords);
