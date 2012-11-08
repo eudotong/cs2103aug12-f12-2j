@@ -18,20 +18,9 @@ public class CommandSearch implements Command {
 			this.fromDate = toDate;
 			this.toDate = fromDate;
 		}
-		//TODO IS THIS OKAY?
-		if(fromDate == null){
-			assert toDate == null : "Invalid from and to dates.";
-		}
 		this.fromDate = fromDate;
 		this.toDate = toDate;
-		this.query = convertQueryToCorrectFormat(query);
-	}
-	
-	private String convertQueryToCorrectFormat(String query){
-		if(query != null && query.length() == LENGTH_ZERO){
-			return null;
-		}
-		return query;
+		this.query = query;
 	}
 
 	public String processCommand(TaskRecords taskRecords) {

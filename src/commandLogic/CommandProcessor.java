@@ -23,12 +23,7 @@ import exceptions.StartTimeAfterEndTimeException;
 public class CommandProcessor {
 	private static final int TASK_INDEX_START = 0;
 	private static final int SAME_TIME = 0;
-	private static final String LIST_FORMAT_ELEMENT = "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">"
-			+ "<table><tr><td width = \"10\">%s.</td><td width = \"140\">%s</td><td>%s</td></tr></table>"
-			+ "</body></html>";
-	private static final String LIST_FORMAT_HEADING = "<html><head><style>	p.padding {padding-left:0.3cm;} <style/><head/>"
-			+ "<body style=\"width:290px\"><hr align=\"right\" width=\"98%\">"
-			+ "<font size=\"5\" face=\"Georgia, Arial\" color=\"maroon\"><p class=\"padding\">%s</p></font></body></html>";
+	
 	private static final String MESSAGE_ERROR_START_TIME_AFTER_END_TIME = "Error: Start date/time is after end date/time.";
 	private static final String EMPTY_STRING = "";
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
