@@ -1670,3 +1670,2315 @@
   <message>Setting current list of tasks matching query ""</message>
 </record>
 </log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T23:39:46</date>
+  <millis>1352389186819</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-08T23:39:46</date>
+  <millis>1352389186829</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-08T23:39:58</date>
+  <millis>1352389198389</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add something" was issued.</message>
+</record>
+<record>
+  <date>2012-11-08T23:39:58</date>
+  <millis>1352389198399</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-08T23:39:58</date>
+  <millis>1352389198399</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-08T23:39:58</date>
+  <millis>1352389198460</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T23:39:58</date>
+  <millis>1352389198460</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-08T23:39:58</date>
+  <millis>1352389198460</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "something" to task records.</message>
+</record>
+<record>
+  <date>2012-11-08T23:39:58</date>
+  <millis>1352389198465</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T23:42:34</date>
+  <millis>1352389354543</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T23:42:34</date>
+  <millis>1352389354552</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-08T23:42:34</date>
+  <millis>1352389354554</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T23:43:53</date>
+  <millis>1352389433634</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T23:43:53</date>
+  <millis>1352389433642</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-08T23:43:53</date>
+  <millis>1352389433645</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:00</date>
+  <millis>1352389440580</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add tomorrow something" was issued.</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:00</date>
+  <millis>1352389440586</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:00</date>
+  <millis>1352389440590</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:00</date>
+  <millis>1352389440651</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: tomorrow something, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:00</date>
+  <millis>1352389440651</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:00</date>
+  <millis>1352389440652</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "tomorrow something" to task records.</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:00</date>
+  <millis>1352389440655</millis>
+  <sequence>9</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:10</date>
+  <millis>1352389450520</millis>
+  <sequence>10</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add tomorrow something" was issued.</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:10</date>
+  <millis>1352389450522</millis>
+  <sequence>11</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:10</date>
+  <millis>1352389450523</millis>
+  <sequence>12</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:10</date>
+  <millis>1352389450524</millis>
+  <sequence>13</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: tomorrow something, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:10</date>
+  <millis>1352389450526</millis>
+  <sequence>14</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:10</date>
+  <millis>1352389450527</millis>
+  <sequence>15</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "tomorrow something" to task records.</message>
+</record>
+<record>
+  <date>2012-11-08T23:44:10</date>
+  <millis>1352389450529</millis>
+  <sequence>16</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-09T00:03:52</date>
+  <millis>1352390632038</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 16 something, 2012-11-01T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:03:52</date>
+  <millis>1352390632048</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:03:52</date>
+  <millis>1352390632048</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:03</date>
+  <millis>1352390643341</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add 16 nov somthin" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:03</date>
+  <millis>1352390643341</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:03</date>
+  <millis>1352390643351</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:03</date>
+  <millis>1352390643752</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: 16 nov</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:03</date>
+  <millis>1352390643772</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: somthin, 2012-11-16T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:03</date>
+  <millis>1352390643772</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:03</date>
+  <millis>1352390643772</millis>
+  <sequence>9</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "somthin" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:03</date>
+  <millis>1352390643772</millis>
+  <sequence>10</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:18</date>
+  <millis>1352390658644</millis>
+  <sequence>11</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add 28 nov cs2010" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:18</date>
+  <millis>1352390658654</millis>
+  <sequence>12</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:18</date>
+  <millis>1352390658654</millis>
+  <sequence>13</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:18</date>
+  <millis>1352390658664</millis>
+  <sequence>14</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: 28 nov</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:18</date>
+  <millis>1352390658664</millis>
+  <sequence>15</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: cs2010, 2012-11-28T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:18</date>
+  <millis>1352390658664</millis>
+  <sequence>16</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:18</date>
+  <millis>1352390658675</millis>
+  <sequence>17</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "cs2010" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:04:18</date>
+  <millis>1352390658675</millis>
+  <sequence>18</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-09T00:05:49</date>
+  <millis>1352390749050</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 16 something, 2012-11-01T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:49</date>
+  <millis>1352390749060</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: somthin, 2012-11-16T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:49</date>
+  <millis>1352390749060</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: cs2010, 2012-11-28T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:49</date>
+  <millis>1352390749060</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 1pm to 2pm something, 2012-11-10T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:49</date>
+  <millis>1352390749060</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:49</date>
+  <millis>1352390749070</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:57</date>
+  <millis>1352390757212</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add 10 nov 1 am to 2 am asd" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:57</date>
+  <millis>1352390757222</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:57</date>
+  <millis>1352390757222</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:57</date>
+  <millis>1352390757633</millis>
+  <sequence>9</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: 10 nov 1 am to 2 am</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:57</date>
+  <millis>1352390757643</millis>
+  <sequence>10</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: asd, 2012-11-10T01:00:00.000+08:00, 2012-11-10T02:00:00.000+08:00</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:57</date>
+  <millis>1352390757643</millis>
+  <sequence>11</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:57</date>
+  <millis>1352390757643</millis>
+  <sequence>12</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "asd" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:05:57</date>
+  <millis>1352390757643</millis>
+  <sequence>13</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-09T00:14:12</date>
+  <millis>1352391252498</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 16 something, 2012-11-01T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:12</date>
+  <millis>1352391252508</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: somthin, 2012-11-16T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:12</date>
+  <millis>1352391252508</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: cs2010, 2012-11-28T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:12</date>
+  <millis>1352391252508</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 1pm to 2pm something, 2012-11-10T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:12</date>
+  <millis>1352391252508</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: asd, 2012-11-10T01:00:00.000+08:00, 2012-11-10T02:00:00.000+08:00</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:12</date>
+  <millis>1352391252508</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:12</date>
+  <millis>1352391252508</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:23</date>
+  <millis>1352391263320</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add tomorrow 1pm to 2pm asdlkasj" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:23</date>
+  <millis>1352391263330</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:23</date>
+  <millis>1352391263330</millis>
+  <sequence>9</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:23</date>
+  <millis>1352391263721</millis>
+  <sequence>10</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: tomorrow</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:23</date>
+  <millis>1352391263731</millis>
+  <sequence>11</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 1pm to 2pm asdlkasj, 2012-11-10T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:23</date>
+  <millis>1352391263731</millis>
+  <sequence>12</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:23</date>
+  <millis>1352391263731</millis>
+  <sequence>13</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "1pm to 2pm asdlkasj" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:23</date>
+  <millis>1352391263731</millis>
+  <sequence>14</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:39</date>
+  <millis>1352391279795</millis>
+  <sequence>15</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add something 1 nov 1pm" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:39</date>
+  <millis>1352391279795</millis>
+  <sequence>16</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:39</date>
+  <millis>1352391279795</millis>
+  <sequence>17</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:39</date>
+  <millis>1352391279826</millis>
+  <sequence>18</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: 1 nov</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:39</date>
+  <millis>1352391279826</millis>
+  <sequence>19</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something 1pm, 2012-11-01T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:39</date>
+  <millis>1352391279826</millis>
+  <sequence>20</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:39</date>
+  <millis>1352391279826</millis>
+  <sequence>21</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "something 1pm" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:39</date>
+  <millis>1352391279836</millis>
+  <sequence>22</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-09T00:14:47</date>
+  <millis>1352391287890</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>16</thread>
+  <message>Task created with parameters: 16 something, 2012-11-01T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:47</date>
+  <millis>1352391287900</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>16</thread>
+  <message>Task created with parameters: somthin, 2012-11-16T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:47</date>
+  <millis>1352391287900</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>16</thread>
+  <message>Task created with parameters: cs2010, 2012-11-28T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:47</date>
+  <millis>1352391287910</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>16</thread>
+  <message>Task created with parameters: 1pm to 2pm something, 2012-11-10T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:47</date>
+  <millis>1352391287910</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>16</thread>
+  <message>Task created with parameters: asd, 2012-11-10T01:00:00.000+08:00, 2012-11-10T02:00:00.000+08:00</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:47</date>
+  <millis>1352391287910</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>16</thread>
+  <message>Task created with parameters: 1pm to 2pm asdlkasj, 2012-11-10T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:47</date>
+  <millis>1352391287910</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>16</thread>
+  <message>Task created with parameters: something 1pm, 2012-11-01T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:47</date>
+  <millis>1352391287910</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>16</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:47</date>
+  <millis>1352391287910</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>16</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:55</date>
+  <millis>1352391295733</millis>
+  <sequence>9</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>16</thread>
+  <message>The command: "add 16 nov 1pm asda" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:55</date>
+  <millis>1352391295743</millis>
+  <sequence>10</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>16</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:14:55</date>
+  <millis>1352391295743</millis>
+  <sequence>11</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>16</thread>
+  <message>Parsing as add command.</message>
+</record>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-09T00:19:20</date>
+  <millis>1352391560401</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 16 something, 2012-11-01T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:20</date>
+  <millis>1352391560401</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: somthin, 2012-11-16T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:20</date>
+  <millis>1352391560401</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: cs2010, 2012-11-28T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:20</date>
+  <millis>1352391560411</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 1pm to 2pm something, 2012-11-10T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:20</date>
+  <millis>1352391560411</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: asd, 2012-11-10T01:00:00.000+08:00, 2012-11-10T02:00:00.000+08:00</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:20</date>
+  <millis>1352391560411</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 1pm to 2pm asdlkasj, 2012-11-10T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:20</date>
+  <millis>1352391560411</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something 1pm, 2012-11-01T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:20</date>
+  <millis>1352391560411</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:20</date>
+  <millis>1352391560411</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:30</date>
+  <millis>1352391570744</millis>
+  <sequence>9</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add 16 nov 1pm something" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:30</date>
+  <millis>1352391570744</millis>
+  <sequence>10</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:30</date>
+  <millis>1352391570744</millis>
+  <sequence>11</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:31</date>
+  <millis>1352391571145</millis>
+  <sequence>12</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: 16 nov 1pm</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:31</date>
+  <millis>1352391571155</millis>
+  <sequence>13</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something, 2012-11-16T13:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:31</date>
+  <millis>1352391571155</millis>
+  <sequence>14</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:31</date>
+  <millis>1352391571155</millis>
+  <sequence>15</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "something" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:31</date>
+  <millis>1352391571165</millis>
+  <sequence>16</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:35</date>
+  <millis>1352391575665</millis>
+  <sequence>17</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add 16 nov 1pm to 2pm something" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:35</date>
+  <millis>1352391575685</millis>
+  <sequence>18</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:35</date>
+  <millis>1352391575685</millis>
+  <sequence>19</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:35</date>
+  <millis>1352391575695</millis>
+  <sequence>20</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: 16 nov 1pm to 2pm</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:35</date>
+  <millis>1352391575705</millis>
+  <sequence>21</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something, 2012-11-16T13:00:00.000+08:00, 2012-11-16T14:00:00.000+08:00</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:35</date>
+  <millis>1352391575705</millis>
+  <sequence>22</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:35</date>
+  <millis>1352391575705</millis>
+  <sequence>23</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "something" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:35</date>
+  <millis>1352391575705</millis>
+  <sequence>24</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:39</date>
+  <millis>1352391579186</millis>
+  <sequence>25</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add 16 nov 1pm to 2pm asdsomething" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:39</date>
+  <millis>1352391579186</millis>
+  <sequence>26</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:39</date>
+  <millis>1352391579186</millis>
+  <sequence>27</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:39</date>
+  <millis>1352391579196</millis>
+  <sequence>28</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: 16 nov 1pm to 2pm</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:39</date>
+  <millis>1352391579196</millis>
+  <sequence>29</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: asdsomething, 2012-11-16T13:00:00.000+08:00, 2012-11-16T14:00:00.000+08:00</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:39</date>
+  <millis>1352391579217</millis>
+  <sequence>30</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:39</date>
+  <millis>1352391579217</millis>
+  <sequence>31</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "asdsomething" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:39</date>
+  <millis>1352391579227</millis>
+  <sequence>32</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594041</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 16 something, 2012-11-01T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594051</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: somthin, 2012-11-16T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594051</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: cs2010, 2012-11-28T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594051</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 1pm to 2pm something, 2012-11-10T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594051</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: asd, 2012-11-10T01:00:00.000+08:00, 2012-11-10T02:00:00.000+08:00</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594051</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 1pm to 2pm asdlkasj, 2012-11-10T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594051</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something 1pm, 2012-11-01T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594051</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something, 2012-11-16T13:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594061</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: asdsomething, 2012-11-16T13:00:00.000+08:00, 2012-11-16T14:00:00.000+08:00</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594061</millis>
+  <sequence>9</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:54</date>
+  <millis>1352391594061</millis>
+  <sequence>10</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:58</date>
+  <millis>1352391598072</millis>
+  <sequence>11</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "mark all" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:58</date>
+  <millis>1352391598082</millis>
+  <sequence>12</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:58</date>
+  <millis>1352391598082</millis>
+  <sequence>13</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing mark all.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:58</date>
+  <millis>1352391598092</millis>
+  <sequence>14</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>removeAll</method>
+  <thread>13</thread>
+  <message>Deleting a list of tasks from task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:19:58</date>
+  <millis>1352391598092</millis>
+  <sequence>15</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:02</date>
+  <millis>1352391602145</millis>
+  <sequence>16</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add tomorrow 1pm something" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:02</date>
+  <millis>1352391602155</millis>
+  <sequence>17</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:02</date>
+  <millis>1352391602155</millis>
+  <sequence>18</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:02</date>
+  <millis>1352391602566</millis>
+  <sequence>19</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: tomorrow 1pm</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:02</date>
+  <millis>1352391602576</millis>
+  <sequence>20</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something, 2012-11-10T13:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:02</date>
+  <millis>1352391602576</millis>
+  <sequence>21</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:02</date>
+  <millis>1352391602576</millis>
+  <sequence>22</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "something" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:02</date>
+  <millis>1352391602586</millis>
+  <sequence>23</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:09</date>
+  <millis>1352391609537</millis>
+  <sequence>24</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add tomorrow 1.00pm aslkdjaslf" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:09</date>
+  <millis>1352391609537</millis>
+  <sequence>25</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:09</date>
+  <millis>1352391609547</millis>
+  <sequence>26</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:09</date>
+  <millis>1352391609557</millis>
+  <sequence>27</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: tomorrow 1:00pm</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:09</date>
+  <millis>1352391609557</millis>
+  <sequence>28</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: aslkdjaslf, 2012-11-10T13:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:09</date>
+  <millis>1352391609557</millis>
+  <sequence>29</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:09</date>
+  <millis>1352391609567</millis>
+  <sequence>30</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "aslkdjaslf" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:09</date>
+  <millis>1352391609583</millis>
+  <sequence>31</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:18</date>
+  <millis>1352391618595</millis>
+  <sequence>32</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add tomorrow 1.00pm to 2.30pm aslkdjaslfasd" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:18</date>
+  <millis>1352391618595</millis>
+  <sequence>33</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:18</date>
+  <millis>1352391618605</millis>
+  <sequence>34</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:18</date>
+  <millis>1352391618615</millis>
+  <sequence>35</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: tomorrow 1:00pm to 2:30pm</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:18</date>
+  <millis>1352391618625</millis>
+  <sequence>36</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: aslkdjaslfasd, 2012-11-10T13:00:00.000+08:00, 2012-11-10T14:30:00.000+08:00</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:18</date>
+  <millis>1352391618626</millis>
+  <sequence>37</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:18</date>
+  <millis>1352391618626</millis>
+  <sequence>38</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "aslkdjaslfasd" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:18</date>
+  <millis>1352391618636</millis>
+  <sequence>39</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:39</date>
+  <millis>1352391639651</millis>
+  <sequence>40</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add now asd" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:39</date>
+  <millis>1352391639661</millis>
+  <sequence>41</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:39</date>
+  <millis>1352391639661</millis>
+  <sequence>42</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:39</date>
+  <millis>1352391639671</millis>
+  <sequence>43</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: now</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:39</date>
+  <millis>1352391639671</millis>
+  <sequence>44</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: asd, 2012-11-09T00:20:39.671+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:39</date>
+  <millis>1352391639671</millis>
+  <sequence>45</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:39</date>
+  <millis>1352391639681</millis>
+  <sequence>46</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "asd" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:39</date>
+  <millis>1352391639691</millis>
+  <sequence>47</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks to default (null tasks and tasks later than now)</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:42</date>
+  <millis>1352391642752</millis>
+  <sequence>48</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "search all" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:42</date>
+  <millis>1352391642752</millis>
+  <sequence>49</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:42</date>
+  <millis>1352391642752</millis>
+  <sequence>50</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseSearch</method>
+  <thread>13</thread>
+  <message>Parsing as search command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:42</date>
+  <millis>1352391642762</millis>
+  <sequence>51</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing search.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:42</date>
+  <millis>1352391642762</millis>
+  <sequence>52</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks matching query ""</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:42</date>
+  <millis>1352391642762</millis>
+  <sequence>53</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks matching query ""</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:46</date>
+  <millis>1352391646644</millis>
+  <sequence>54</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "mark all" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:46</date>
+  <millis>1352391646644</millis>
+  <sequence>55</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:46</date>
+  <millis>1352391646644</millis>
+  <sequence>56</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing mark all.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:46</date>
+  <millis>1352391646644</millis>
+  <sequence>57</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>removeAll</method>
+  <thread>13</thread>
+  <message>Deleting a list of tasks from task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:46</date>
+  <millis>1352391646654</millis>
+  <sequence>58</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks matching query ""</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:48</date>
+  <millis>1352391648695</millis>
+  <sequence>59</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add something" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:48</date>
+  <millis>1352391648695</millis>
+  <sequence>60</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:48</date>
+  <millis>1352391648705</millis>
+  <sequence>61</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:48</date>
+  <millis>1352391648705</millis>
+  <sequence>62</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: something, null, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:48</date>
+  <millis>1352391648705</millis>
+  <sequence>63</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:48</date>
+  <millis>1352391648705</millis>
+  <sequence>64</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "something" to task records.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:48</date>
+  <millis>1352391648715</millis>
+  <sequence>65</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>setCurrentListOfTasks</method>
+  <thread>13</thread>
+  <message>Setting current list of tasks matching query ""</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:59</date>
+  <millis>1352391659151</millis>
+  <sequence>66</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "search after 1 nov" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:59</date>
+  <millis>1352391659151</millis>
+  <sequence>67</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:59</date>
+  <millis>1352391659151</millis>
+  <sequence>68</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseSearch</method>
+  <thread>13</thread>
+  <message>Parsing as search command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:59</date>
+  <millis>1352391659172</millis>
+  <sequence>69</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getStartAndEndTimesFromCommand</method>
+  <thread>13</thread>
+  <message>Parsing Date: 1 nov</message>
+</record>
+<record>
+  <date>2012-11-09T00:20:59</date>
+  <millis>1352391659172</millis>
+  <sequence>70</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing search.</message>
+</record>
+<record>
+  <date>2012-11-09T00:21:03</date>
+  <millis>1352391663923</millis>
+  <sequence>71</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add 28 nov a" was issued.</message>
+</record>
+<record>
+  <date>2012-11-09T00:21:03</date>
+  <millis>1352391663923</millis>
+  <sequence>72</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-09T00:21:03</date>
+  <millis>1352391663923</millis>
+  <sequence>73</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParser</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-09T00:21:03</date>
+  <millis>1352391663933</millis>
+  <sequence>74</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: 28 nov a, null, null</message>
+</record>
+<record>
+  <date>2012-11-09T00:21:03</date>
+  <millis>1352391663933</millis>
+  <sequence>75</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+<record>
+  <date>2012-11-09T00:21:03</date>
+  <millis>1352391663933</millis>
+  <sequence>76</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>storage.TaskRecords</class>
+  <method>appendTask</method>
+  <thread>13</thread>
+  <message>Appending task "28 nov a" to task records.</message>
+</record>
+</log>

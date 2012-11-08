@@ -23,7 +23,7 @@ import exceptions.StartTimeAfterEndTimeException;
 public class CommandProcessor {
 	private static final int TASK_INDEX_START = 0;
 	private static final int SAME_TIME = 0;
-	
+
 	private static final String MESSAGE_ERROR_START_TIME_AFTER_END_TIME = "Error: Start date/time is after end date/time.";
 	private static final String EMPTY_STRING = "";
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
@@ -158,14 +158,20 @@ public class CommandProcessor {
 						+ "</p></font></body></html>";
 				currentListOfTasksModel.addElement(element);
 			}
+			/*
+			 * String element =
+			 * "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">"
+			 * + "<table><tr><td width = \"10\">" + (indexOfTask + 1) +
+			 * ".</td><td width = \"133\">" +
+			 * currentListOfTasks[indexOfTask].getTimesAsString() + "</td><td>"
+			 * + currentListOfTasks[indexOfTask].getTaskName() +
+			 * "</td></tr></table>" + "</body></html>";
+			 */
 			String element = "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">"
-					+ "<table><tr><td width = \"10\">"
-					+ (indexOfTask + 1)
-					+ ".</td><td width = \"133\">"
+					+ (indexOfTask + 1) + ". "
 					+ currentListOfTasks[indexOfTask].getTimesAsString()
-					+ "</td><td>"
 					+ currentListOfTasks[indexOfTask].getTaskName()
-					+ "</td></tr></table>" + "</body></html>";
+					+ "</body></html>";
 			currentListOfTasksModel.addElement(element);
 		}
 		return currentListOfTasksModel;
