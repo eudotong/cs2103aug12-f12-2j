@@ -64,7 +64,7 @@ public class CommandParser {
 			Long.MIN_VALUE);
 
 	private static final char[] LIST_DISALLOWED_START_CHARS = { 'a', 'e', 'p',
-			's', 'd', 'f', 'h', 'l', 'z', 'm' };
+			's', 'd', 'f', 'h', 'l', 'z', 'm', 'g' };
 	private static final String[] LIST_CONFLICTING_DATE_VARIANTS = { "mon",
 			"tues", "wed", "thurs", "fri", "sat", "sun", "jan", "feb", "mar",
 			"apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
@@ -268,6 +268,7 @@ public class CommandParser {
 	private DateTime[] getStartAndEndTimesFromCommand() {
 		Parser dateParser = new Parser();
 		String stringToParse = removeWronglyParsedDates(commandToParse);
+		stringToParse = removeExtraWhiteSpaces(stringToParse);
 		List<DateGroup> dateGroupList = dateParser.parse(stringToParse);
 		DateTime[] startAndEndTime = new DateTime[NUM_START_AND_END_TIMES];
 		if (dateGroupList.isEmpty()) {
