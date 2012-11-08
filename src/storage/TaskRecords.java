@@ -334,6 +334,17 @@ public class TaskRecords {
 		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
 				TASK_ARRAY_TYPE);
 	}
+	
+	public void setCurrentListOfTasksTail(DateTime fromDate) {
+		logger.log(
+				Level.INFO,
+				"Setting current list of tasks from "
+						+ fromDate.toString(DATE_FORMATTER));
+		// dummy tasks to facilitate searching in TreeSet
+		Task fromTask = new Task(fromDate);
+		currentListOfTasks = allTaskRecords.tailSet(fromTask).toArray(
+				TASK_ARRAY_TYPE);
+	}
 
 	public void setCurrentListOfTasks(DateTime fromDate) {
 		logger.log(

@@ -1,7 +1,6 @@
 package commandLogic;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,11 +49,16 @@ public class CommandParser {
 	private static final String MULTIPLE_WHITE_SPACES = "\\s+";
 	private static final String WHITE_SPACE = " ";
 
+	private static final DateTime IMPOSSIBLY_LARGE_DATE = new DateTime(
+			Long.MAX_VALUE);
+	private static final DateTime IMPOSSIBLY_SMALL_DATE = new DateTime(
+			Long.MIN_VALUE);
+
 	private static final String[] LIST_DATE_VARIANTS = { "mon", "tues", "wed",
 			"thurs", "fri", "sat", "sun", "jan", "feb", "mar", "apr", "may",
 			"jun", "jul", "aug", "sep", "oct", "nov", "dec" };
 	private static final String[] LIST_ADD_SYNONYMS = { "add", "insert",
-			"create", "new", "put" };
+			"create", "new", "put", "ins" };
 	private static final String[] LIST_MARK_SYNONYMS = { "mark", "delete",
 			"del", "remove", "discard", "erase", "drop" };
 	private static final String[] LIST_EDIT_SYNONYMS = { "update", "edit",
@@ -64,6 +68,10 @@ public class CommandParser {
 	private static final String[] LIST_ALL_SYNONYMS = { "all", "everything" };
 	private static final String[] LIST_REDO_SYNONYMS = { "redo" };
 	private static final String[] LIST_UNDO_SYNONYMS = { "undo" };
+	private static final String[] LIST_RELATIVE_TIME_KEYWORDS_BEFORE = {
+			"before", "b4", "bef" };
+	private static final String[] LIST_RELATIVE_TIME_KEYWORDS_AFTER = {
+			"after", "aft" };
 
 	private static final String PATTERN_ALPHANUMERIC_WORD = "\\w*";
 	private static final String PATTERN_TIME = "\\d{1,2}.\\d{2}";
@@ -75,15 +83,18 @@ public class CommandParser {
 
 	private HashMap<String, CommandType> commandTypeKeywordsDictionary;
 	private HashMap<String, CommandType> specialKeywordsDictionary;
+	private HashMap<String, RelativeType> relativeTimeKeywordsDictionary;
+
 	private String commandToParse;
 
 	public CommandParser() {
-		initialiseDictionary();
+		initialiseDictionaries();
 	}
 
-	private void initialiseDictionary() {
+	private void initialiseDictionaries() {
 		commandTypeKeywordsDictionary = new HashMap<String, CommandType>();
 		specialKeywordsDictionary = new HashMap<String, CommandType>();
+		relativeTimeKeywordsDictionary = new HashMap<String, RelativeType>();
 		for (String entry : LIST_ADD_SYNONYMS) {
 			commandTypeKeywordsDictionary.put(entry, CommandType.ADD);
 		}
@@ -104,6 +115,13 @@ public class CommandParser {
 		}
 		for (String entry : LIST_ALL_SYNONYMS) {
 			specialKeywordsDictionary.put(entry, CommandType.MARK_ALL);
+			relativeTimeKeywordsDictionary.put(entry, RelativeType.ALL);
+		}
+		for (String entry : LIST_RELATIVE_TIME_KEYWORDS_BEFORE) {
+			relativeTimeKeywordsDictionary.put(entry, RelativeType.BEFORE);
+		}
+		for (String entry : LIST_RELATIVE_TIME_KEYWORDS_AFTER) {
+			relativeTimeKeywordsDictionary.put(entry, RelativeType.AFTER);
 		}
 	}
 
@@ -182,10 +200,11 @@ public class CommandParser {
 		String[] components = dateString.split(WHITE_SPACE);
 		for (String component : components) {
 			boolean isMatchVariant = false;
+			String componentLowerCase = component.toLowerCase();
 			for (String dateVariant : LIST_DATE_VARIANTS) {
-				if (component.contains(dateVariant)) {
+				if (componentLowerCase.contains(dateVariant)) {
 					isMatchVariant = true;
-					if (!component.equals(dateVariant)) {
+					if (!componentLowerCase.equals(dateVariant)) {
 						dateString = dateString
 								.replace(component, EMPTY_STRING);
 					}
@@ -375,6 +394,23 @@ public class CommandParser {
 		if (commandToParse.length() == 0) {
 			commandToParse = null;
 		}
+		RelativeType relativeType = getRelativeKeyword();
+		System.out.println("a" + IMPOSSIBLY_LARGE_DATE);
+		System.out.println("b" + IMPOSSIBLY_SMALL_DATE);
+		System.out.println(new DateTime());
+		if (startAndEndTime[START_TIME] != null) {
+			switch (relativeType) {
+			case BEFORE:
+				return new CommandSearch(commandToParse, IMPOSSIBLY_SMALL_DATE,
+						startAndEndTime[START_TIME]);
+			case AFTER:
+				return new CommandSearch(commandToParse,
+						startAndEndTime[START_TIME], IMPOSSIBLY_LARGE_DATE);
+			}
+		}
+		if (relativeType == relativeType.ALL) {
+			return new CommandSearch(EMPTY_STRING, null, null);
+		}
 		return new CommandSearch(commandToParse, startAndEndTime[START_TIME],
 				startAndEndTime[END_TIME]);
 	}
@@ -390,6 +426,18 @@ public class CommandParser {
 			return NEGATIVE_NUMBER;
 		}
 		return firstDate.compareTo(secondDate);
+	}
+
+	private RelativeType getRelativeKeyword() {
+		String[] wordsInCommand = commandToParse.split(WHITE_SPACE);
+		for (String word : wordsInCommand) {
+			if (relativeTimeKeywordsDictionary.containsKey(word.toLowerCase())) {
+				commandToParse = commandToParse.replace(word, EMPTY_STRING);
+				commandToParse = removeExtraWhiteSpaces(commandToParse);
+				return relativeTimeKeywordsDictionary.get(word.toLowerCase());
+			}
+		}
+		return RelativeType.NOT;
 	}
 
 	private CommandType getCommandType()
@@ -420,4 +468,8 @@ public class CommandParser {
 		}
 		return commandType;
 	}
+}
+
+enum RelativeType {
+	BEFORE, AFTER, NOT, ALL;
 }
