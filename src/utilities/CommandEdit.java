@@ -2,6 +2,12 @@ package utilities;
 
 import storage.TaskRecords;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         Functionality for command of type EDIT
+ */
 public class CommandEdit implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_EDIT = "Task could not be edited.";
 	private static final String MESSAGE_SUCCESS = "Replaced with %s";

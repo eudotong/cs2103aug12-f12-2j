@@ -2,6 +2,12 @@ package utilities;
 
 import storage.TaskRecords;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         Functionality for command of type MARK
+ */
 public class CommandMark implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_DELETE = "Task could not be deleted.";
 	private static final String MESSAGE_SUCCESS = "%s was deleted";

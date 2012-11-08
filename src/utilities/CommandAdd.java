@@ -2,10 +2,16 @@ package utilities;
 
 import storage.TaskRecords;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         Functionality for command of type ADD
+ */
 public class CommandAdd implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_ADD = "Task could not be added.";
 	private static final String MESSAGE_SUCCESS = "%s was added";
-	
+
 	private boolean isReversible = true;
 	private Task taskToBeAdded;
 
@@ -36,9 +42,9 @@ public class CommandAdd implements Command {
 	public boolean isReversible() {
 		return isReversible;
 	}
-	
-	//for testing
-	public String toString(){
+
+	// for testing
+	public String toString() {
 		return taskToBeAdded.toString();
 	}
 }

@@ -7,6 +7,12 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+/**
+ * 
+ * @author A0088278L
+ * 
+ *         Task class is data structure for a task
+ */
 public class Task implements Comparable<Task> {
 	private static final String COLON = ": ";
 	private static final String TIME_TO_TIME = "%s to %s";
