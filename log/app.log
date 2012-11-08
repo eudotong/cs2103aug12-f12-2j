@@ -4053,3 +4053,979 @@
   <thread>13</thread>
   <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
 </record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T01:49:37</date>
+  <millis>1352310577042</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T01:49:37</date>
+  <millis>1352310577137</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T01:49:37</date>
+  <millis>1352310577139</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T01:49:37</date>
+  <millis>1352310577140</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T01:49:37</date>
+  <millis>1352310577141</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T12:29:27</date>
+  <millis>1352348967615</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T12:29:27</date>
+  <millis>1352348967821</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T12:29:27</date>
+  <millis>1352348967823</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T12:29:27</date>
+  <millis>1352348967824</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T12:29:27</date>
+  <millis>1352348967826</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T12:29:37</date>
+  <millis>1352348977342</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "add ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt" was issued.</message>
+</record>
+<record>
+  <date>2012-11-08T12:29:37</date>
+  <millis>1352348977348</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParserNew</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-08T12:29:37</date>
+  <millis>1352348977351</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParserNew</class>
+  <method>parseAdd</method>
+  <thread>13</thread>
+  <message>Parsing as add command.</message>
+</record>
+<record>
+  <date>2012-11-08T12:29:37</date>
+  <millis>1352348977675</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T12:29:37</date>
+  <millis>1352348977676</millis>
+  <sequence>9</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Processing add.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:14:32</date>
+  <millis>1352362472321</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:14:32</date>
+  <millis>1352362472514</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:14:32</date>
+  <millis>1352362472515</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:14:32</date>
+  <millis>1352362472516</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:14:32</date>
+  <millis>1352362472517</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:14:32</date>
+  <millis>1352362472518</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:14:50</date>
+  <millis>1352362490167</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:14:50</date>
+  <millis>1352362490251</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:14:50</date>
+  <millis>1352362490252</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:14:50</date>
+  <millis>1352362490253</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:14:50</date>
+  <millis>1352362490254</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:14:50</date>
+  <millis>1352362490256</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:15:11</date>
+  <millis>1352362511117</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:15:11</date>
+  <millis>1352362511198</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:15:11</date>
+  <millis>1352362511200</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:15:11</date>
+  <millis>1352362511201</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:15:11</date>
+  <millis>1352362511202</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:15:11</date>
+  <millis>1352362511202</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:15:35</date>
+  <millis>1352362535783</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:15:35</date>
+  <millis>1352362535874</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:15:35</date>
+  <millis>1352362535875</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:15:35</date>
+  <millis>1352362535876</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:15:35</date>
+  <millis>1352362535877</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:15:35</date>
+  <millis>1352362535878</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:27:02</date>
+  <millis>1352363222877</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:27:02</date>
+  <millis>1352363222994</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:27:02</date>
+  <millis>1352363222995</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:27:02</date>
+  <millis>1352363222997</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:27:02</date>
+  <millis>1352363222999</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:27:03</date>
+  <millis>1352363223000</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:27:41</date>
+  <millis>1352363261116</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:27:41</date>
+  <millis>1352363261212</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:27:41</date>
+  <millis>1352363261213</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:27:41</date>
+  <millis>1352363261214</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:27:41</date>
+  <millis>1352363261215</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:27:41</date>
+  <millis>1352363261216</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:28:03</date>
+  <millis>1352363283050</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:28:03</date>
+  <millis>1352363283131</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:28:03</date>
+  <millis>1352363283132</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:28:03</date>
+  <millis>1352363283133</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:28:03</date>
+  <millis>1352363283134</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:28:03</date>
+  <millis>1352363283135</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:29:14</date>
+  <millis>1352363354801</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:29:14</date>
+  <millis>1352363354881</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:29:14</date>
+  <millis>1352363354882</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:29:14</date>
+  <millis>1352363354883</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:29:14</date>
+  <millis>1352363354884</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:29:14</date>
+  <millis>1352363354885</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:30:03</date>
+  <millis>1352363403727</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:30:03</date>
+  <millis>1352363403812</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:30:03</date>
+  <millis>1352363403813</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:30:03</date>
+  <millis>1352363403814</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:30:03</date>
+  <millis>1352363403815</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:30:03</date>
+  <millis>1352363403816</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:30:21</date>
+  <millis>1352363421471</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:30:21</date>
+  <millis>1352363421565</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:30:21</date>
+  <millis>1352363421566</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:30:21</date>
+  <millis>1352363421568</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:30:21</date>
+  <millis>1352363421569</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:30:21</date>
+  <millis>1352363421570</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-11-08T16:31:21</date>
+  <millis>1352363481586</millis>
+  <sequence>0</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: eorifj, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:31:21</date>
+  <millis>1352363481676</millis>
+  <sequence>1</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oirefoeirf on, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:31:21</date>
+  <millis>1352363481677</millis>
+  <sequence>2</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: oeirgerijme, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:31:21</date>
+  <millis>1352363481679</millis>
+  <sequence>3</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: iuhwefuihwe iwuefhuiwefhw, 2012-11-08T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:31:21</date>
+  <millis>1352363481681</millis>
+  <sequence>4</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ieuhfiued, 2012-11-09T00:00:00.000+08:00, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:31:21</date>
+  <millis>1352363481682</millis>
+  <sequence>5</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>utilities.Task</class>
+  <method>&lt;init&gt;</method>
+  <thread>13</thread>
+  <message>Task created with parameters: ierjgoreijfoirejfo oiefoierfoe oirejoreijfoirej f impt, null, null</message>
+</record>
+<record>
+  <date>2012-11-08T16:31:29</date>
+  <millis>1352363489098</millis>
+  <sequence>6</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>The command: "" was issued.</message>
+</record>
+<record>
+  <date>2012-11-08T16:31:29</date>
+  <millis>1352363489099</millis>
+  <sequence>7</sequence>
+  <logger>JIMI</logger>
+  <level>INFO</level>
+  <class>commandLogic.CommandParserNew</class>
+  <method>getCommandType</method>
+  <thread>13</thread>
+  <message>Getting command type.</message>
+</record>
+<record>
+  <date>2012-11-08T16:31:29</date>
+  <millis>1352363489101</millis>
+  <sequence>8</sequence>
+  <logger>JIMI</logger>
+  <level>WARNING</level>
+  <class>commandLogic.CommandProcessor</class>
+  <method>processCommand</method>
+  <thread>13</thread>
+  <message>Error: command not recognised</message>
+</record>
