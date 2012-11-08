@@ -49,11 +49,6 @@ public class TaskTest {
 		assertEquals(name, testTask.getTaskName());
 		assertEquals(earlierTime, testTask.getStartTime());
 		assertEquals(laterTime, testTask.getEndTime());
-		// Test case: start time after end time
-		testTask = new Task(name, laterTime, earlierTime);
-		assertEquals(name, testTask.getTaskName());
-		assertEquals(earlierTime, testTask.getStartTime());
-		assertEquals(laterTime, testTask.getEndTime());
 	}
 
 	@Test

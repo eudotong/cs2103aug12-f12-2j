@@ -26,6 +26,10 @@ import exceptions.CommandCouldNotBeParsedException;
 import exceptions.StartTimeAfterEndTimeException;
 
 public class CommandParserNew {
+	private static final int FIRST_VALID_INDEX = 1;
+	private static final int FIRST_GROUP = 0;
+	private static final int START_INDEX = 0;
+	private static final int NEXT_WORD = 1;
 	private static final String KEYWORD_FOR = "for";
 	private static final String KEYWORD_DASH = " - ";
 	private static final String KEYWORD_TO = " to ";
@@ -61,7 +65,8 @@ public class CommandParserNew {
 
 	private static Logger logger = Logger.getLogger("JIMI");
 
-	private HashMap<String, CommandType> keywordsDictionary;
+	private HashMap<String, CommandType> commandTypeKeywordsDictionary;
+	private HashMap<String, CommandType> specialKeywordsDictionary;
 	private String commandToParse;
 
 	public CommandParserNew() {
@@ -69,32 +74,38 @@ public class CommandParserNew {
 	}
 
 	private void initialiseDictionary() {
-		keywordsDictionary = new HashMap<String, CommandType>();
+		commandTypeKeywordsDictionary = new HashMap<String, CommandType>();
+		specialKeywordsDictionary = new HashMap<String, CommandType>();
 		for (String entry : LIST_ADD_SYNONYMS) {
-			keywordsDictionary.put(entry, CommandType.ADD);
+			commandTypeKeywordsDictionary.put(entry, CommandType.ADD);
 		}
 		for (String entry : LIST_EDIT_SYNONYMS) {
-			keywordsDictionary.put(entry, CommandType.EDIT);
+			commandTypeKeywordsDictionary.put(entry, CommandType.EDIT);
 		}
 		for (String entry : LIST_MARK_SYNONYMS) {
-			keywordsDictionary.put(entry, CommandType.MARK);
+			commandTypeKeywordsDictionary.put(entry, CommandType.MARK);
+			for (String allKeyWord : LIST_ALL_SYNONYMS) {
+				commandTypeKeywordsDictionary.put(entry + WHITE_SPACE
+						+ allKeyWord, CommandType.MARK_ALL);
+			}
 		}
 		for (String entry : LIST_SEARCH_SYNONYMS) {
-			keywordsDictionary.put(entry, CommandType.SEARCH);
+			commandTypeKeywordsDictionary.put(entry, CommandType.SEARCH);
 		}
 		for (String entry : LIST_UNDO_SYNONYMS) {
-			keywordsDictionary.put(entry, CommandType.UNDO);
+			commandTypeKeywordsDictionary.put(entry, CommandType.UNDO);
 		}
 		for (String entry : LIST_REDO_SYNONYMS) {
-			keywordsDictionary.put(entry, CommandType.REDO);
+			commandTypeKeywordsDictionary.put(entry, CommandType.REDO);
 		}
 		for (String entry : LIST_ALL_SYNONYMS) {
-			keywordsDictionary.put(entry, CommandType.MARK_ALL);
+			specialKeywordsDictionary.put(entry, CommandType.MARK_ALL);
 		}
 	}
 
 	public Command parseCommand(String inputCommand)
-			throws CommandCouldNotBeParsedException, StartTimeAfterEndTimeException {
+			throws CommandCouldNotBeParsedException,
+			StartTimeAfterEndTimeException {
 		commandToParse = changeAllDatesToSameFormat(inputCommand);
 		try {
 			CommandType commandType = getCommandType();
@@ -227,9 +238,11 @@ public class CommandParserNew {
 							.withTimeAtStartOfDay();
 				}
 			} else {
-				startAndEndTime[END_TIME] = new DateTime(dateGroup.getDates().get(0));
+				startAndEndTime[END_TIME] = new DateTime(dateGroup.getDates()
+						.get(0));
 			}
-			commandToParse = commandToParse.replace(dateGroup.getText(), EMPTY_STRING);
+			commandToParse = commandToParse.replace(dateGroup.getText(),
+					EMPTY_STRING);
 			dateGroupList = dateParser.parse(commandToParse);
 		}
 
@@ -245,40 +258,43 @@ public class CommandParserNew {
 		return true;
 	}
 
-	private CommandAdd parseAdd() throws CommandCouldNotBeParsedException, StartTimeAfterEndTimeException {
+	private CommandAdd parseAdd() throws CommandCouldNotBeParsedException,
+			StartTimeAfterEndTimeException {
 		logger.log(Level.INFO, "Parsing as add command.");
 		DateTime[] startAndEndTime = getStartAndEndTimesFromCommand();
-		if(compareNullDatesLast(startAndEndTime[START_TIME], startAndEndTime[END_TIME]) > SAME_TIME){
+		if (compareNullDatesLast(startAndEndTime[START_TIME],
+				startAndEndTime[END_TIME]) > SAME_TIME) {
 			throw new StartTimeAfterEndTimeException();
 		}
 		String taskName = removeExtraWhiteSpaces(commandToParse);
 		if (taskName.length() == 0) {
 			throw new CommandCouldNotBeParsedException();
 		}
-		return new CommandAdd(new Task(taskName, startAndEndTime[0],
-				startAndEndTime[1]));
+		return new CommandAdd(new Task(taskName, startAndEndTime[START_TIME],
+				startAndEndTime[END_TIME]));
 	}
 
-	private CommandEdit parseEdit()
-			throws CommandCouldNotBeParsedException, StartTimeAfterEndTimeException {
+	private CommandEdit parseEdit() throws CommandCouldNotBeParsedException,
+			StartTimeAfterEndTimeException {
 		logger.log(Level.INFO, "Parsing as edit command.");
 		String taskName = null;
 		int taskIndex;
 		Pattern anyNumberPattern = Pattern.compile(PATTERN_ANY_NUMBER_NOT_DATE);
 		Matcher patternMatcher = anyNumberPattern.matcher(commandToParse);
 		if (patternMatcher.find()) {
-			taskIndex = Integer.parseInt(patternMatcher.group(0).trim());
+			taskIndex = Integer.parseInt(patternMatcher.group(FIRST_GROUP).trim());
 			System.out.println(taskIndex);
-			if (taskIndex <= 0) {
+			if (taskIndex < FIRST_VALID_INDEX) {
 				throw new CommandCouldNotBeParsedException();
 			}
-			commandToParse = commandToParse.replaceAll(PATTERN_ANY_NUMBER_NOT_DATE,
-					EMPTY_STRING);
+			commandToParse = commandToParse.replaceAll(
+					PATTERN_ANY_NUMBER_NOT_DATE, EMPTY_STRING);
 		} else {
 			throw new CommandCouldNotBeParsedException();
 		}
 		DateTime[] startAndEndTime = getStartAndEndTimesFromCommand();
-		if(compareNullDatesLast(startAndEndTime[START_TIME], startAndEndTime[END_TIME]) > SAME_TIME){
+		if (compareNullDatesLast(startAndEndTime[START_TIME],
+				startAndEndTime[END_TIME]) > SAME_TIME) {
 			throw new StartTimeAfterEndTimeException();
 		}
 		taskName = removeExtraWhiteSpaces(commandToParse);
@@ -293,15 +309,18 @@ public class CommandParserNew {
 		Pattern anyNumberPattern = Pattern.compile(PATTERN_ANY_NUMBER);
 		Matcher patternMatcher = anyNumberPattern.matcher(command);
 		if (patternMatcher.find()) {
-			return new CommandMark(Integer.parseInt(patternMatcher.group(0)));
+			return new CommandMark(Integer.parseInt(patternMatcher.group(FIRST_GROUP)));
 		}
 		throw new CommandCouldNotBeParsedException();
 	}
 
-	private CommandSearch parseSearch() throws CommandCouldNotBeParsedException, StartTimeAfterEndTimeException {
+	private CommandSearch parseSearch()
+			throws CommandCouldNotBeParsedException,
+			StartTimeAfterEndTimeException {
 		logger.log(Level.INFO, "Parsing as search command.");
 		DateTime[] startAndEndTime = getStartAndEndTimesFromCommand();
-		if(compareNullDatesLast(startAndEndTime[START_TIME], startAndEndTime[END_TIME]) > SAME_TIME){
+		if (compareNullDatesLast(startAndEndTime[START_TIME],
+				startAndEndTime[END_TIME]) > SAME_TIME) {
 			throw new StartTimeAfterEndTimeException();
 		}
 		commandToParse = removeExtraWhiteSpaces(commandToParse);
@@ -311,7 +330,7 @@ public class CommandParserNew {
 		return new CommandSearch(commandToParse, startAndEndTime[START_TIME],
 				startAndEndTime[END_TIME]);
 	}
-	
+
 	private int compareNullDatesLast(DateTime firstDate, DateTime secondDate) {
 		if (firstDate == null && secondDate == null) {
 			return SAME_TIME;
@@ -330,19 +349,21 @@ public class CommandParserNew {
 		logger.log(Level.INFO, "Getting command type.");
 		String[] wordsInCommand = commandToParse.split(WHITE_SPACE);
 		CommandType commandType = null;
-		int indexOfWord = 0;
+		int indexOfWord = START_INDEX;
 		for (String word : wordsInCommand) {
-			if (keywordsDictionary.containsKey(word.toLowerCase())) {
+			if (commandTypeKeywordsDictionary.containsKey(word.toLowerCase())) {
 				commandToParse = commandToParse.replace(word, EMPTY_STRING);
 				commandToParse = removeExtraWhiteSpaces(commandToParse);
-				commandType = keywordsDictionary.get(word.toLowerCase());
+				commandType = commandTypeKeywordsDictionary.get(word
+						.toLowerCase());
+				break;
 			}
 			indexOfWord++;
 		}
-		int indexOfNextWord = indexOfWord + 1;
+		int indexOfNextWord = indexOfWord + NEXT_WORD;
 		if (commandType == CommandType.MARK
 				&& indexOfNextWord < wordsInCommand.length) {
-			if (keywordsDictionary.get(wordsInCommand[indexOfNextWord]) == CommandType.MARK_ALL) {
+			if (specialKeywordsDictionary.get(wordsInCommand[indexOfNextWord]) == CommandType.MARK_ALL) {
 				return CommandType.MARK_ALL;
 			}
 		}

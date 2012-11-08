@@ -27,13 +27,19 @@ public class Task implements Comparable<Task> {
 	private DateTime startTime;
 	private DateTime endTime;
 	
+	
+	public static void main(String [] args){
+		Task t = new Task("asd", null, null);
+		t = new Task("B Second Task", new DateTime().minusDays(2), null);
+	}
+	
 	public Task(DateTime startTime) {
 		this.startTime = startTime;
 		taskName = EMPTY_STRING;
 	}
 
 	public Task(String taskName, DateTime startTime, DateTime endTime) {
-		assert (compareNullDatesLast(startTime, endTime) < POSITIVE_NUMBER) : "Start time cannot be after end time.";
+		assert (compareNullDatesLast(startTime, endTime) <= SAME_TIME) : "Start time is after end time.";
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.taskName = changeToValidName(taskName);

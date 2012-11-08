@@ -112,13 +112,12 @@ public class TaskRecords {
 		return currentListOfTasks[index];
 	}
 
-	public Task getTaskByName(String taskName) {
-		Task[] taskMatches = findMatchesFromSetOfTasks(allTaskRecords, taskName);
-		if (taskMatches.length == 0) {
-			return null;
-		}
-		return taskMatches[0];
-	}
+	// TODO either remove or use
+	/*
+	 * public Task getTaskByName(String taskName) { Task[] taskMatches =
+	 * findMatchesFromSetOfTasks(allTaskRecords, taskName); if
+	 * (taskMatches.length == 0) { return null; } return taskMatches[0]; }
+	 */
 
 	private void rewriteFile() throws IOException {
 		FileWriter myFileWriter = new FileWriter(myFile, false);
@@ -176,28 +175,33 @@ public class TaskRecords {
 			return false;
 		}
 	}
-	
-	public void addAll(Task [] tasksToAdd){
-		for(Task task: tasksToAdd){
+
+	public void addAll(Task[] tasksToAdd) {
+		for (Task task : tasksToAdd) {
 			appendTask(task);
 		}
 	}
-	
-	public boolean removeAll(Task [] tasksToDelete){
-		for(Task task : tasksToDelete){
-			allTaskRecords.remove(task);
+
+	//TODO ASK HIEU ABOUT IO EXCEPTION
+	public boolean removeAll(Task[] tasksToDelete) {
+		ArrayList<Task> tasksSuccessfullyRemoved = new ArrayList<Task>();
+		for (Task task : tasksToDelete) {
+			if(allTaskRecords.remove(task)){
+				tasksSuccessfullyRemoved.add(task);
+			}
 		}
 		try {
 			rewriteFile();
 			return true;
 		} catch (IOException e) {
-			for(Task task : tasksToDelete){
+			for (Task task : tasksSuccessfullyRemoved) {
 				allTaskRecords.add(task);
 			}
 			return false;
 		}
 	}
 
+	// TODO DELETE
 	public boolean clearAllOverDueTasks() {
 		Iterator<Task> taskIterator = allTaskRecords.iterator();
 		while (taskIterator.hasNext()) {
@@ -240,6 +244,9 @@ public class TaskRecords {
 		boolean isSuccessfullyAdded = false;
 		if (isSuccessfullyDeleted) {
 			isSuccessfullyAdded = allTaskRecords.add(newTask);
+			if (!isSuccessfullyAdded) {
+				allTaskRecords.add(taskToBeReplaced);
+			}
 		}
 		if (isSuccessfullyAdded && isSuccessfullyDeleted) {
 			try {
@@ -270,7 +277,7 @@ public class TaskRecords {
 	}
 
 	public void setCurrentListOfTasks(String query) {
-		if(query == null){
+		if (query == null) {
 			query = "";
 		}
 		currentListOfTasks = findMatchesFromSetOfTasks(allTaskRecords, query);

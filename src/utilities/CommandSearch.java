@@ -20,7 +20,7 @@ public class CommandSearch implements Command {
 		}
 		//TODO IS THIS OKAY?
 		if(fromDate == null){
-			assert toDate != null : "Invalid from and to dates.";
+			assert toDate == null : "Invalid from and to dates.";
 		}
 		this.fromDate = fromDate;
 		this.toDate = toDate;
