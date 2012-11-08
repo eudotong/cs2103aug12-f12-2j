@@ -9,6 +9,9 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -32,6 +35,7 @@ public class TaskRecords {
 	private static final Task[] TASK_ARRAY_TYPE = new Task[0];
 
 	private static TaskRecords instanceOfTaskRecords;
+	private static Logger logger = Logger.getLogger("JIMI");
 
 	private Task[] currentListOfTasks;
 	private TreeSet<Task> allTaskRecords;
@@ -136,6 +140,9 @@ public class TaskRecords {
 	 * @return boolean
 	 */
 	public boolean appendTask(Task taskToBeAdded) {
+		logger.log(Level.INFO,
+				"Appending task \"" + taskToBeAdded.getTaskName()
+						+ "\" to task records.");
 		boolean isSuccessfullyAdded = allTaskRecords.add(taskToBeAdded);
 		FileWriter myFileWriter;
 		if (isSuccessfullyAdded) {
@@ -145,8 +152,11 @@ public class TaskRecords {
 				myFileWriter.flush();
 				myFileWriter.close();
 			} catch (IOException e) {
-				allTaskRecords.remove(taskToBeAdded);
-				isSuccessfullyAdded = false;
+				logger.log(Level.SEVERE, "Error: could not write to file.");
+				/*
+				 * allTaskRecords.remove(taskToBeAdded); isSuccessfullyAdded =
+				 * false;
+				 */
 			}
 		}
 		return isSuccessfullyAdded;
@@ -159,6 +169,9 @@ public class TaskRecords {
 	 * @return boolean
 	 */
 	public boolean deleteTask(Task taskToBeDeleted) {
+		logger.log(Level.INFO,
+				"Deleting task \"" + taskToBeDeleted.getTaskName()
+						+ "\" from task records.");
 		try {
 			boolean isSuccessfullyDeleted = allTaskRecords
 					.remove(taskToBeDeleted);
@@ -166,8 +179,11 @@ public class TaskRecords {
 				try {
 					rewriteFile();
 				} catch (IOException e) {
-					isSuccessfullyDeleted = false;
-					allTaskRecords.add(taskToBeDeleted);
+					logger.log(Level.SEVERE, "Error: could not write to file.");
+					/*
+					 * isSuccessfullyDeleted = false;
+					 * allTaskRecords.add(taskToBeDeleted);
+					 */
 				}
 			}
 			return isSuccessfullyDeleted;
@@ -177,28 +193,31 @@ public class TaskRecords {
 	}
 
 	public void addAll(Task[] tasksToAdd) {
+		logger.log(Level.INFO, "Appending a list of tasks to task records.");
 		for (Task task : tasksToAdd) {
 			appendTask(task);
 		}
 	}
 
-	//TODO ASK HIEU ABOUT IO EXCEPTION
+	// TODO ASK HIEU ABOUT IO EXCEPTION
 	public boolean removeAll(Task[] tasksToDelete) {
+		logger.log(Level.INFO, "Deleting a list of tasks from task records.");
 		ArrayList<Task> tasksSuccessfullyRemoved = new ArrayList<Task>();
 		for (Task task : tasksToDelete) {
-			if(allTaskRecords.remove(task)){
+			if (allTaskRecords.remove(task)) {
 				tasksSuccessfullyRemoved.add(task);
 			}
 		}
 		try {
 			rewriteFile();
-			return true;
 		} catch (IOException e) {
-			for (Task task : tasksSuccessfullyRemoved) {
-				allTaskRecords.add(task);
-			}
-			return false;
+			logger.log(Level.SEVERE, "Error: could not write to file.");
+			/*
+			 * for (Task task : tasksSuccessfullyRemoved) {
+			 * allTaskRecords.add(task); }
+			 */
 		}
+		return true;
 	}
 
 	// TODO DELETE
@@ -217,16 +236,19 @@ public class TaskRecords {
 			rewriteFile();
 			return true;
 		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Error: could not write to file.");
 			return false;
 		}
 	}
 
+	// This method is for testing only
 	public boolean clearAllTasks() {
 		try {
 			allTaskRecords.clear();
 			rewriteFile();
 			return true;
 		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Error: could not write to file.");
 			return false;
 		}
 	}
@@ -240,6 +262,10 @@ public class TaskRecords {
 	 * @return boolean
 	 */
 	public boolean replaceTask(Task taskToBeReplaced, Task newTask) {
+		logger.log(Level.INFO,
+				"Replacing task \"" + taskToBeReplaced.getTaskName()
+						+ "\" with \"" + newTask.getTaskName()
+						+ "\"in task records.");
 		boolean isSuccessfullyDeleted = allTaskRecords.remove(taskToBeReplaced);
 		boolean isSuccessfullyAdded = false;
 		if (isSuccessfullyDeleted) {
@@ -252,6 +278,7 @@ public class TaskRecords {
 			try {
 				rewriteFile();
 			} catch (IOException e) {
+				logger.log(Level.SEVERE, "Error: could not write to file.");
 				allTaskRecords.remove(newTask);
 				allTaskRecords.add(taskToBeReplaced);
 				isSuccessfullyAdded = false;
@@ -262,6 +289,9 @@ public class TaskRecords {
 	}
 
 	public void setCurrentListOfTasks() {
+		logger.log(
+				Level.INFO,
+				"Setting current list of tasks to default (null tasks and tasks later than now)");
 		DateTime today = new DateTime();
 		Task fromTask = new Task(today);
 		ArrayList<Task> upcomingTasks = new ArrayList<Task>();
@@ -277,14 +307,22 @@ public class TaskRecords {
 	}
 
 	public void setCurrentListOfTasks(String query) {
+		logger.log(Level.INFO,
+				"Setting current list of tasks matching query \"" + query
+						+ "\"");
 		if (query == null) {
-			query = "";
+			query = EMPTY_STRING;
 		}
 		currentListOfTasks = findMatchesFromSetOfTasks(allTaskRecords, query);
 	}
 
 	public void setCurrentListOfTasks(DateTime fromDate, DateTime toDate)
 			throws IllegalArgumentException {
+		logger.log(
+				Level.INFO,
+				"Setting current list of tasks from "
+						+ fromDate.toString(DATE_FORMATTER) + " to "
+						+ toDate.toString(DATE_FORMATTER));
 		if (fromDate.isAfter(toDate)) {
 			DateTime tempDate = fromDate;
 			fromDate = toDate;
@@ -298,6 +336,10 @@ public class TaskRecords {
 	}
 
 	public void setCurrentListOfTasks(DateTime fromDate) {
+		logger.log(
+				Level.INFO,
+				"Setting current list of tasks from "
+						+ fromDate.toString(DATE_FORMATTER));
 		DateTime toDate = fromDate.plusDays(1).toLocalDate()
 				.toDateTimeAtStartOfDay();
 		// dummy tasks to facilitate searching in TreeSet
@@ -309,6 +351,11 @@ public class TaskRecords {
 
 	public void setCurrentListOfTasks(String query, DateTime fromDate,
 			DateTime toDate) {
+		logger.log(
+				Level.INFO,
+				"Setting current list of tasks matching \"" + query + "\" from "
+						+ fromDate.toString(DATE_FORMATTER) + " to "
+						+ toDate.toString(DATE_FORMATTER));
 		if (fromDate.isAfter(toDate)) {
 			DateTime tempDate = fromDate;
 			fromDate = toDate;
@@ -324,6 +371,10 @@ public class TaskRecords {
 	}
 
 	public void setCurrentListOfTasks(String query, DateTime fromDate) {
+		logger.log(
+				Level.INFO,
+				"Setting current list of tasks matching \"" + query + "\" from "
+						+ fromDate.toString(DATE_FORMATTER));
 		DateTime toDate = fromDate.plusDays(1).toLocalDate()
 				.toDateTimeAtStartOfDay();
 		// dummy tasks to facilitate searching in TreeSet

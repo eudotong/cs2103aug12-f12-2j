@@ -8,6 +8,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class Task implements Comparable<Task> {
+	private static final String TIME_TO_TIME = "%s to %s";
 	private static final String PIPE_STRING = "|";
 	private static final int POSITIVE_NUMBER = 1;
 	private static final int SAME_TIME = 0;
@@ -46,8 +47,20 @@ public class Task implements Comparable<Task> {
 		logger.log(Level.INFO, "Task created with parameters: " + taskName
 				+ ", " + startTime + ", " + endTime);
 	}
+	
+	public String getTimesAsString(){
+		if(startTime == null){
+			System.out.println("Asd");
+			return EMPTY_STRING;
+		}
+		if(endTime == null){
+			System.out.println(startTime.toString(DATE_FORMATTER_TIME));
+			return startTime.toString(DATE_FORMATTER_TIME);
+		}
+		return String.format(TIME_TO_TIME, startTime.toString(DATE_FORMATTER_TIME), endTime.toString(DATE_FORMATTER_TIME));
+	}
 
-	public String changeToValidName(String taskName) {
+	private String changeToValidName(String taskName) {
 		if (taskName == null) {
 			return EMPTY_STRING;
 		}
