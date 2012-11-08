@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -27,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
@@ -87,7 +90,21 @@ public class GUI extends JPanel implements ActionListener {
 		textField.setBackground(new java.awt.Color(220, 219, 219));
 		textField.setBorder(empty);
 		textField.addActionListener(this);
-
+		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"),"upKey");
+		textField.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "downKey");
+		textField.getActionMap().put("upKey", new AbstractAction() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		            System.out.println("IT WORKS");
+		        }
+		    });
+		textField.getActionMap().put("downKey", new AbstractAction() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            System.out.println("IT WORKS TOO XD");
+	        }
+	    });
+		
 		forgroundPanel.add(textField);
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
