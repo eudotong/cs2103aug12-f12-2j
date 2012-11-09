@@ -110,6 +110,9 @@ public class CommandParser {
 
 	private String commandToParse;
 
+	/**
+	 * Initializes newly created CommandParser object.
+	 */
 	public CommandParser() {
 		initialiseDictionaries();
 	}
@@ -160,6 +163,14 @@ public class CommandParser {
 		}
 	}
 
+	/**
+	 * Parses input command and changes it to a appropriate Command object.
+	 * 
+	 * @param inputCommand
+	 * @return Command
+	 * @throws CommandCouldNotBeParsedException
+	 * @throws StartTimeAfterEndTimeException
+	 */
 	public Command parseCommand(String inputCommand)
 			throws CommandCouldNotBeParsedException,
 			StartTimeAfterEndTimeException {

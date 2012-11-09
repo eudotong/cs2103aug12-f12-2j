@@ -18,6 +18,12 @@ public class CommandEdit implements Command {
 	private Task taskToBeReplaced;
 	private int indexOfTaskToBeReplaced;
 
+	/**
+	 * Initializes a newly created CommandEdit object with parameters specified.
+	 * 
+	 * @param indexOfTaskToBeReplaced
+	 * @param newTask
+	 */
 	public CommandEdit(int indexOfTaskToBeReplaced, Task newTask) {
 		assert indexOfTaskToBeReplaced >= 1 : "Not a valid index";
 		assert newTask != null : "Null task.";
@@ -25,6 +31,12 @@ public class CommandEdit implements Command {
 		this.newTask = newTask;
 	}
 
+	/**
+	 * Initializes a newly created CommandEdit object with parameters specified.
+	 * 
+	 * @param taskToBeReplaced
+	 * @param newTask
+	 */
 	public CommandEdit(Task taskToBeReplaced, Task newTask) {
 		assert newTask != null : "Null task.";
 		assert taskToBeReplaced != null : "Null task.";
@@ -71,8 +83,8 @@ public class CommandEdit implements Command {
 	public CommandType getCommandType() {
 		return CommandType.EDIT;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return indexOfTaskToBeReplaced + newTask.toString();
 	}
 }

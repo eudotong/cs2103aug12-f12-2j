@@ -12,7 +12,8 @@ import exceptions.NothingToUndoException;
  * @author A0088278L
  * 
  *         ChangeRecord is used to record previously issued user commands. This
- *         facilitates undo/redo commands.
+ *         facilitates undo/redo commands. It makes use of two stacks to record
+ *         changes.
  */
 public class ChangeRecord {
 	private static final String EMPTY_STRING = "";
@@ -21,6 +22,9 @@ public class ChangeRecord {
 	private Stack<String> prevCommandsStack;
 	private Stack<String> laterCommandsStack;
 
+	/**
+	 * Initializes a newly created ChangeRecord object.
+	 */
 	public ChangeRecord() {
 		toRedoStack = new Stack<Command>();
 		toUndoStack = new Stack<Command>();
@@ -28,6 +32,12 @@ public class ChangeRecord {
 		laterCommandsStack = new Stack<String>();
 	}
 
+	/**
+	 * Adds new command issued into the previous commands stack. Later commands
+	 * stack is cleared.
+	 * 
+	 * @param newCommand
+	 */
 	public void add(String newCommand) {
 		if (!newCommand.isEmpty()) {
 			prevCommandsStack.push(newCommand);
@@ -35,6 +45,12 @@ public class ChangeRecord {
 		}
 	}
 
+	/**
+	 * Adds new command issued into the undo stack if it is reversible. Redo
+	 * stack is cleared.
+	 * 
+	 * @param newCommand
+	 */
 	public void add(Command newCommand) {
 		if (newCommand.isReversible()) {
 			toUndoStack.push(newCommand);
@@ -42,6 +58,12 @@ public class ChangeRecord {
 		}
 	}
 
+	/**
+	 * Returns top of the previous commands stack. If no previous commands were
+	 * issued, returns an empty string.
+	 * 
+	 * @return String
+	 */
 	public String getPrevCommand() {
 		if (prevCommandsStack.isEmpty()) {
 			return EMPTY_STRING;
@@ -51,6 +73,12 @@ public class ChangeRecord {
 		return previousCommand;
 	}
 
+	/**
+	 * Returns top of the later commands stack. If no later commands were
+	 * issued, returns an empty string.
+	 * 
+	 * @return String
+	 */
 	public String getLaterCommand() {
 		if (laterCommandsStack.isEmpty()) {
 			return EMPTY_STRING;
@@ -60,6 +88,13 @@ public class ChangeRecord {
 		return laterCommand;
 	}
 
+	/**
+	 * Returns top of the undo stack. If the undo stack is empty,
+	 * NothingToUndoException is thrown.
+	 * 
+	 * @return Command
+	 * @throws NothingToUndoException
+	 */
 	public Command undo() throws NothingToUndoException {
 		if (toUndoStack.isEmpty()) {
 			throw new NothingToUndoException();
@@ -70,6 +105,13 @@ public class ChangeRecord {
 		return reverseCommand;
 	}
 
+	/**
+	 * Returns top of the redo stack. If the redo stack is empty,
+	 * NothingToRedoException is thrown.
+	 * 
+	 * @return Command
+	 * @throws NothingToRedoException
+	 */
 	public Command redo() throws NothingToRedoException {
 		if (toRedoStack.isEmpty()) {
 			throw new NothingToRedoException();

@@ -39,6 +39,12 @@ public class CommandProcessor {
 	private CommandParser commandParser;
 	private Command latestSearch;
 
+	/**
+	 * Initializes newly created CommandProcessor object. Sets the current list of tasks
+	 * to the default.
+	 * 
+	 * @throws IOException
+	 */
 	public CommandProcessor() throws IOException {
 		FileHandler fileHandler = new FileHandler("log/app.log", true);
 		logger.addHandler(fileHandler);
@@ -49,6 +55,12 @@ public class CommandProcessor {
 		latestSearch.processCommand(taskRecords);
 	}
 
+	/**
+	 * Processes user input command and returns appropriate message.
+	 * 
+	 * @param command
+	 * @return String
+	 */
 	public String processCommand(String command) {
 		try {
 			logger.log(Level.INFO, "The command: \"" + command
@@ -137,6 +149,12 @@ public class CommandProcessor {
 		}
 	}
 
+	/**
+	 * Returns a ListModel containing tasks formatted as Strings. Tasks with
+	 * different dates are separated.
+	 * 
+	 * @return DefaultListModel
+	 */
 	// Note that we keep the super long magic strings here because if we
 	// extract, String.format() returns:
 	// java.util.UnknownFormatConversionException
@@ -168,7 +186,8 @@ public class CommandProcessor {
 			 * "</td></tr></table>" + "</body></html>";
 			 */
 			String element = "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">"
-					+ (indexOfTask + 1) + ". "
+					+ (indexOfTask + 1)
+					+ ". "
 					+ currentListOfTasks[indexOfTask].getTimesAsString()
 					+ currentListOfTasks[indexOfTask].getTaskName()
 					+ "</body></html>";

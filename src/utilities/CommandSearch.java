@@ -23,6 +23,12 @@ public class CommandSearch implements Command {
 	private DateTime toDate;
 	private String query;
 
+	/**
+	 * Initializes a newly created CommandSearch object with parameters specified.
+	 * @param query
+	 * @param fromDate
+	 * @param toDate
+	 */
 	public CommandSearch(String query, DateTime fromDate, DateTime toDate) {
 		if (fromDate != null && toDate != null && fromDate.isAfter(toDate)) {
 			this.fromDate = toDate;
