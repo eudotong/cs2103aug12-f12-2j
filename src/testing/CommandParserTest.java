@@ -95,7 +95,10 @@ public class CommandParserTest {
 		expectedTask = new Task("something good",getNextMonday(), null);
 		actualCommand = COMMAND_PARSER.parseCommand("add mon something good");
 		assertEquals(expectedTask.toString(), actualCommand.toString());
-
+		expectedTask = new Task("m",getNextMonday(), null);
+		actualCommand = COMMAND_PARSER.parseCommand("add mon m");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		
 		// Edit Command
 		// Test cases: edit name only
 		expectedTask = new Task("new name", null, null);
