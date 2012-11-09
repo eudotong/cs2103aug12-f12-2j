@@ -135,13 +135,6 @@ public class TaskRecords {
 		return currentListOfTasks[index];
 	}
 
-	// TODO either remove or use
-	/*
-	 * public Task getTaskByName(String taskName) { Task[] taskMatches =
-	 * findMatchesFromSetOfTasks(allTaskRecords, taskName); if
-	 * (taskMatches.length == 0) { return null; } return taskMatches[0]; }
-	 */
-
 	private void rewriteFile() throws IOException {
 		FileWriter myFileWriter = new FileWriter(myFile, false);
 		Iterator<Task> recordsIterator = allTaskRecords.iterator();
@@ -172,10 +165,6 @@ public class TaskRecords {
 				myFileWriter.close();
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, "Error: could not write to file.");
-				/*
-				 * allTaskRecords.remove(taskToBeAdded); isSuccessfullyAdded =
-				 * false;
-				 */
 			}
 		}
 		return isSuccessfullyAdded;
@@ -199,10 +188,6 @@ public class TaskRecords {
 					rewriteFile();
 				} catch (IOException e) {
 					logger.log(Level.SEVERE, "Error: could not write to file.");
-					/*
-					 * isSuccessfullyDeleted = false;
-					 * allTaskRecords.add(taskToBeDeleted);
-					 */
 				}
 			}
 			return isSuccessfullyDeleted;
@@ -228,7 +213,6 @@ public class TaskRecords {
 	 * 
 	 * @param tasksToDelete
 	 */
-	// TODO ASK ABOUT IO EXCEPTION
 	public void removeAll(Task[] tasksToDelete) {
 		logger.log(Level.INFO, "Deleting a list of tasks from task records.");
 		ArrayList<Task> tasksSuccessfullyRemoved = new ArrayList<Task>();
@@ -241,10 +225,6 @@ public class TaskRecords {
 			rewriteFile();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Error: could not write to file.");
-			/*
-			 * for (Task task : tasksSuccessfullyRemoved) {
-			 * allTaskRecords.add(task); }
-			 */
 		}
 	}
 
@@ -307,7 +287,7 @@ public class TaskRecords {
 		logger.log(
 				Level.INFO,
 				"Setting current list of tasks to default (null tasks and tasks later than now)");
-		DateTime today = new DateTime();
+		DateTime today = new DateTime().withTimeAtStartOfDay();
 		Task fromTask = new Task(today);
 		ArrayList<Task> upcomingTasks = new ArrayList<Task>();
 		Iterator<Task> taskIterator = allTaskRecords.iterator();
