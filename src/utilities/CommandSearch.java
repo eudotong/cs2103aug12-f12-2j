@@ -35,17 +35,13 @@ public class CommandSearch implements Command {
 
 	public String processCommand(TaskRecords taskRecords) {
 		assert taskRecords != null : "Null task records.";
-		if (query == null && fromDate == null && toDate == null) {
+		if (query.isEmpty() && fromDate == null && toDate == null) {
 			taskRecords.setCurrentListOfTasks();
-		} else if (query == null && fromDate != null && toDate == null) {
-			taskRecords.setCurrentListOfTasks(fromDate);
-		} else if (query != null && fromDate == null && toDate == null) {
+		} else if (fromDate == null && toDate == null) {
 			taskRecords.setCurrentListOfTasks(query);
-		} else if (query == null && fromDate != null && toDate != null) {
-			taskRecords.setCurrentListOfTasks(fromDate, toDate);
-		} else if (query == null && fromDate != null && toDate == null) {
+		} else if (fromDate != null && toDate == null) {
 			taskRecords.setCurrentListOfTasks(query, fromDate);
-		} else if (query == null && fromDate != null && toDate == null) {
+		} else if (fromDate != null && toDate != null) {
 			taskRecords.setCurrentListOfTasks(query, fromDate, toDate);
 		}
 		return MESSAGE_SUCCESS;
@@ -69,10 +65,10 @@ public class CommandSearch implements Command {
 	public String toString() {
 		String fromDateString = NULL;
 		String toDateString = NULL;
-		if(fromDate != null){
+		if (fromDate != null) {
 			fromDateString = fromDate.toString(DATE_FORMATTER);
 		}
-		if(toDate != null){
+		if (toDate != null) {
 			toDateString = toDate.toString(DATE_FORMATTER);
 		}
 		return query + fromDateString + toDateString;

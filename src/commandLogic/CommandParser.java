@@ -469,9 +469,6 @@ public class CommandParser {
 						startAndEndTime[START_TIME], IMPOSSIBLY_LARGE_DATE);
 			}
 		}
-		if (commandToParse.isEmpty()) {
-			commandToParse = null;
-		}
 		if (relativeType == RelativeType.ALL) {
 			return new CommandSearch(EMPTY_STRING, null, null);
 		}

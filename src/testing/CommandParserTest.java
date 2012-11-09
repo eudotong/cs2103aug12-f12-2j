@@ -122,10 +122,10 @@ public class CommandParserTest {
 		assertEquals("keywordnullnull",actualCommand.toString());
 		//Test cases: only from date
 		actualCommand = COMMAND_PARSER.parseCommand("find 6th november");
-		assertEquals(NULL+START_OF_NOV_6_STRING+NULL,actualCommand.toString());
+		assertEquals(EMPTY_STRING+START_OF_NOV_6_STRING+NULL,actualCommand.toString());
 		//Test cases: only from date and to date
 		actualCommand = COMMAND_PARSER.parseCommand("find 6th november to today");
-		assertEquals(NULL+START_OF_NOV_6_STRING+START_OF_TODAY_STRING,actualCommand.toString());
+		assertEquals(EMPTY_STRING+START_OF_NOV_6_STRING+START_OF_TODAY_STRING,actualCommand.toString());
 		//Test cases: query and from date
 		actualCommand = COMMAND_PARSER.parseCommand("search keyword 6 nov 2012");
 		assertEquals("keyword"+START_OF_NOV_6_STRING+NULL,actualCommand.toString());

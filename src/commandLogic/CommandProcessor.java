@@ -45,7 +45,7 @@ public class CommandProcessor {
 		changeRecord = new ChangeRecord();
 		commandParser = new CommandParser();
 		taskRecords = TaskRecords.getInstance();
-		latestSearch = new CommandSearch(null, null, null);
+		latestSearch = new CommandSearch(EMPTY_STRING, null, null);
 		latestSearch.processCommand(taskRecords);
 	}
 
