@@ -54,7 +54,7 @@ public class CommandEdit implements Command {
 			}
 		}
 		if (newTask.getTaskName() == null
-				|| newTask.getTaskName().length() == 0) {
+				|| newTask.getTaskName().isEmpty()) {
 			newTask.setTaskName(taskToBeReplaced.getTaskName());
 		}
 		if (newTask.getStartTime() == null) {

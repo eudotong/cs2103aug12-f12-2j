@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -28,7 +27,11 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import commandLogic.CommandProcessor;
-
+/**
+ * 
+ * @author A0092052N
+ *
+ */
 public class GUI extends JPanel implements ActionListener {
 	private static final String EMPTY_STRING = "";
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
@@ -41,7 +44,6 @@ public class GUI extends JPanel implements ActionListener {
 	JList<String> jlist;
 	JScrollPane listPane;
 	JTextField textField = new JTextField(32);
-	
 	CommandProcessor commandProcessor;
 	JLabel commandOutputLabel = null;
 	Box verticalBox;
@@ -79,7 +81,6 @@ public class GUI extends JPanel implements ActionListener {
 		layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
 
 		textField.setBackground(new java.awt.Color(220, 219, 219));
-		textField.setUI(new HintFieldUI("Search", true));
 		textField.setBorder(empty);
 		textField.addActionListener(this);
 		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upKey");
@@ -104,7 +105,6 @@ public class GUI extends JPanel implements ActionListener {
 			}
 		});
 
-		//forgroundPanel.add(textField);
 		forgroundPanel.add(textField);
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -121,7 +121,6 @@ public class GUI extends JPanel implements ActionListener {
 		add(forgroundPanel);
 		// add(layeredPane);
 
-		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				textField.requestFocus();
