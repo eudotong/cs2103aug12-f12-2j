@@ -10,6 +10,7 @@ import storage.TaskRecords;
  *         issued command it exists so the command MARK_ALL can be reversed
  */
 public class CommandAddAll implements Command {
+	private static final String EMPTY_STRING = "";
 	private static final boolean IS_REVERSIBLE = true;
 	private static final String MESSAGE_SUCCESS = "Tasks added.";
 	private Task[] tasksToAdd = new Task[0];
@@ -22,7 +23,6 @@ public class CommandAddAll implements Command {
 	 */
 	public CommandAddAll(Task[] tasksToBeAdded) {
 		assert tasksToBeAdded != null : "Null array";
-		// TODO ask Hieu if this assertion can... but like very waste time
 		for (Task task : tasksToBeAdded) {
 			assert task != null : "Task in array is null.";
 		}
@@ -49,5 +49,14 @@ public class CommandAddAll implements Command {
 	@Override
 	public CommandType getCommandType() {
 		return null;
+	}
+
+	// for testing
+	public String toString() {
+		String commandAddAllAsString = EMPTY_STRING;
+		for (Task task : tasksToAdd) {
+			commandAddAllAsString += task;
+		}
+		return commandAddAllAsString;
 	}
 }

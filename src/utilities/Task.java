@@ -106,11 +106,13 @@ public class Task implements Comparable<Task> {
 	 * @return boolean
 	 */
 	public boolean isMatch(String query) {
+		assert (query != null) : "Null String.";
 		return taskName.toLowerCase().contains(query.toLowerCase());
 	}
 
 	/**
 	 * Returns task name.
+	 * 
 	 * @return String
 	 */
 	public String getTaskName() {
@@ -119,6 +121,7 @@ public class Task implements Comparable<Task> {
 
 	/**
 	 * Sets task name to task name specified.
+	 * 
 	 * @param taskName
 	 */
 	public void setTaskName(String taskName) {
@@ -127,6 +130,7 @@ public class Task implements Comparable<Task> {
 
 	/**
 	 * Returns start time.
+	 * 
 	 * @return DateTime
 	 */
 	public DateTime getStartTime() {
@@ -135,6 +139,7 @@ public class Task implements Comparable<Task> {
 
 	/**
 	 * Sets start time to start time specified.
+	 * 
 	 * @param startTime
 	 */
 	public void setStartTime(DateTime startTime) {
@@ -152,6 +157,7 @@ public class Task implements Comparable<Task> {
 
 	/**
 	 * Sets end time to end time specified.
+	 * 
 	 * @param endTime
 	 */
 	public void setEndTime(DateTime endTime) {

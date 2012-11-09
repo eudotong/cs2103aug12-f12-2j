@@ -25,6 +25,7 @@ import utilities.Task;
  *         storing task information.
  */
 public class TaskRecords {
+	private static final int FIRST_VALID_INDEX = 0;
 	private static final String NULL_STRING = "null";
 	private static final String EMPTY_STRING = "";
 	private static final String NEW_LINE = "\r\n";
@@ -42,9 +43,8 @@ public class TaskRecords {
 	private File myFile;
 
 	/**
-	 * Initializes all task records in text
-	 * file to a treeset. Initializes the current list of tasks with today's
-	 * upcoming tasks.
+	 * Initializes all task records in text file to a treeset. Initializes the
+	 * current list of tasks with today's upcoming tasks.
 	 * 
 	 * @throws IOException
 	 */
@@ -84,6 +84,7 @@ public class TaskRecords {
 	 * @throws IOException
 	 */
 	public static TaskRecords getInstance(String fileName) throws IOException {
+		assert (fileName != null) : "Null String.";
 		if (instanceOfTaskRecords == null) {
 			instanceOfTaskRecords = new TaskRecords(fileName);
 		}
@@ -129,18 +130,11 @@ public class TaskRecords {
 	 */
 	public Task getTaskByIndex(int index) {
 		index--; // Change to zero-based indexing
-		if (index < 0 || index >= currentListOfTasks.length) {
+		if (index < FIRST_VALID_INDEX || index >= currentListOfTasks.length) {
 			return null;
 		}
 		return currentListOfTasks[index];
 	}
-
-	// TODO either remove or use
-	/*
-	 * public Task getTaskByName(String taskName) { Task[] taskMatches =
-	 * findMatchesFromSetOfTasks(allTaskRecords, taskName); if
-	 * (taskMatches.length == 0) { return null; } return taskMatches[0]; }
-	 */
 
 	private void rewriteFile() throws IOException {
 		FileWriter myFileWriter = new FileWriter(myFile, false);
@@ -159,6 +153,9 @@ public class TaskRecords {
 	 * @return boolean
 	 */
 	public boolean appendTask(Task taskToBeAdded) {
+		assert taskToBeAdded != null : "Null Task.";
+		assert (taskToBeAdded.getTaskName() == null || !taskToBeAdded
+				.getTaskName().isEmpty()) : "Task name is empty.";
 		logger.log(Level.INFO,
 				"Appending task \"" + taskToBeAdded.getTaskName()
 						+ "\" to task records.");
@@ -172,10 +169,6 @@ public class TaskRecords {
 				myFileWriter.close();
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, "Error: could not write to file.");
-				/*
-				 * allTaskRecords.remove(taskToBeAdded); isSuccessfullyAdded =
-				 * false;
-				 */
 			}
 		}
 		return isSuccessfullyAdded;
@@ -188,6 +181,7 @@ public class TaskRecords {
 	 * @return boolean
 	 */
 	public boolean deleteTask(Task taskToBeDeleted) {
+		assert taskToBeDeleted != null : "Null Task.";
 		logger.log(Level.INFO,
 				"Deleting task \"" + taskToBeDeleted.getTaskName()
 						+ "\" from task records.");
@@ -199,10 +193,6 @@ public class TaskRecords {
 					rewriteFile();
 				} catch (IOException e) {
 					logger.log(Level.SEVERE, "Error: could not write to file.");
-					/*
-					 * isSuccessfullyDeleted = false;
-					 * allTaskRecords.add(taskToBeDeleted);
-					 */
 				}
 			}
 			return isSuccessfullyDeleted;
@@ -216,9 +206,13 @@ public class TaskRecords {
 	 * 
 	 * @param tasksToAdd
 	 */
-	public void addAll(Task[] tasksToAdd) {
+	public void addAll(Task[] tasksToBeAdded) {
 		logger.log(Level.INFO, "Appending a list of tasks to task records.");
-		for (Task task : tasksToAdd) {
+		assert tasksToBeAdded != null : "Null array";
+		for (Task task : tasksToBeAdded) {
+			assert task != null : "Task in array is null.";
+		}
+		for (Task task : tasksToBeAdded) {
 			appendTask(task);
 		}
 	}
@@ -228,9 +222,12 @@ public class TaskRecords {
 	 * 
 	 * @param tasksToDelete
 	 */
-	// TODO ASK HIEU ABOUT IO EXCEPTION
 	public void removeAll(Task[] tasksToDelete) {
 		logger.log(Level.INFO, "Deleting a list of tasks from task records.");
+		assert tasksToDelete != null : "Null array";
+		for (Task task : tasksToDelete) {
+			assert task != null : "Task in array is null.";
+		}
 		ArrayList<Task> tasksSuccessfullyRemoved = new ArrayList<Task>();
 		for (Task task : tasksToDelete) {
 			if (allTaskRecords.remove(task)) {
@@ -241,10 +238,6 @@ public class TaskRecords {
 			rewriteFile();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Error: could not write to file.");
-			/*
-			 * for (Task task : tasksSuccessfullyRemoved) {
-			 * allTaskRecords.add(task); }
-			 */
 		}
 	}
 
@@ -277,6 +270,9 @@ public class TaskRecords {
 				"Replacing task \"" + taskToBeReplaced.getTaskName()
 						+ "\" with \"" + newTask.getTaskName()
 						+ "\"in task records.");
+		assert (taskToBeReplaced != null && newTask != null) : "Null Task.";
+		assert (newTask.getTaskName() == null || !newTask.getTaskName()
+				.isEmpty()) : "Task name is empty.";
 		boolean isSuccessfullyDeleted = allTaskRecords.remove(taskToBeReplaced);
 		boolean isSuccessfullyAdded = false;
 		if (isSuccessfullyDeleted) {
@@ -307,7 +303,7 @@ public class TaskRecords {
 		logger.log(
 				Level.INFO,
 				"Setting current list of tasks to default (null tasks and tasks later than now)");
-		DateTime today = new DateTime();
+		DateTime today = new DateTime().withTimeAtStartOfDay();
 		Task fromTask = new Task(today);
 		ArrayList<Task> upcomingTasks = new ArrayList<Task>();
 		Iterator<Task> taskIterator = allTaskRecords.iterator();
@@ -349,6 +345,10 @@ public class TaskRecords {
 		logger.log(Level.INFO, "Setting current list of tasks matching \""
 				+ query + "\" from " + fromDate.toString(DATE_FORMATTER)
 				+ " to " + toDate.toString(DATE_FORMATTER));
+		assert(fromDate != null && toDate != null) : "Null DateTime.";
+		if (query == null) {
+			query = EMPTY_STRING;
+		}
 		if (fromDate.isAfter(toDate)) {
 			DateTime tempDate = fromDate;
 			fromDate = toDate;
@@ -378,6 +378,10 @@ public class TaskRecords {
 	public void setCurrentListOfTasks(String query, DateTime fromDate) {
 		logger.log(Level.INFO, "Setting current list of tasks matching \""
 				+ query + "\" from " + fromDate.toString(DATE_FORMATTER));
+		assert(fromDate != null) : "Null DateTime.";
+		if (query == null) {
+			query = EMPTY_STRING;
+		}
 		DateTime toDate = fromDate.plusDays(1).toLocalDate()
 				.toDateTimeAtStartOfDay();
 		// dummy tasks to facilitate searching in TreeSet

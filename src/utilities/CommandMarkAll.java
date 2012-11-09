@@ -9,6 +9,7 @@ import storage.TaskRecords;
  *         Functionality for command of type MARK_ALL
  */
 public class CommandMarkAll implements Command {
+	private static final String EMPTY_STRING = "";
 	private static final String MESSAGE_SUCCESS = "Tasks deleted.";
 	private static final boolean IS_REVERSIBLE = true;
 	
@@ -24,7 +25,6 @@ public class CommandMarkAll implements Command {
 	 */
 	public CommandMarkAll(Task[] tasksToDelete) {
 		assert tasksToDelete != null : "Null array";
-		// TODO ask Hieu if this assertion can... but like very waste time
 		for (Task task : tasksToDelete) {
 			assert task != null : "Task in array is null.";
 		}
@@ -55,5 +55,13 @@ public class CommandMarkAll implements Command {
 	public CommandType getCommandType() {
 		return CommandType.MARK_ALL;
 	}
-
+	
+	// for testing
+		public String toString() {
+			String commandMarkAllAsString = EMPTY_STRING;
+			for (Task task : tasksToDelete) {
+				commandMarkAllAsString += task;
+			}
+			return commandMarkAllAsString;
+		}
 }

@@ -34,26 +34,30 @@ import exceptions.StartTimeAfterEndTimeException;
  *         Command object accordingly.
  */
 public class CommandParser {
+	private static final int YEAR_COMPONENT = 2;
+	private static final int DAY_COMPONENT = 1;
+	private static final int MONTH_COMPONENT = 0;
 	private static final int SECOND_GROUP = 1;
-	private static final String COLON = ":";
-	private static final String DOT = ".";
 	private static final int FIRST_VALID_INDEX = 1;
 	private static final int FIRST_GROUP = 0;
 	private static final int START_INDEX = 0;
 	private static final int NEXT_WORD = 1;
-	private static final String KEYWORD_FOR = "for";
-	private static final String KEYWORD_DASH = " - ";
-	private static final String KEYWORD_TO = " to ";
-	private static final String KEYWORD_NOW = "now";
 	private static final int END_TIME = 1;
 	private static final int START_TIME = 0;
 	private static final int NUM_START_AND_END_TIMES = 2;
 	private static final int POSITIVE_NUMBER = 1;
 	private static final int SAME_TIME = 0;
 	private static final int NEGATIVE_NUMBER = -1;
+	private static final int MAX_ITERATIONS = 20;
+	private static final int MILLISEC_DIFF_ALLOWANCE = 120;
+	private static final String COLON = ":";
+	private static final String DOT = ".";
+	private static final String KEYWORD_FOR = "for";
+	private static final String KEYWORD_DASH = " - ";
+	private static final String KEYWORD_TO = " to ";
+	private static final String KEYWORD_NOW = "now";
 	private static final String SLASH = "/";
-	private static final String DASH = "-";
-	private static final int MILLISECOND_DIFFERENCE_ALLOWANCE = 120;
+	private static final String DASH_OR_DOT = "[-|.]";
 	private static final String EMPTY_STRING = "";
 	private static final String MULTIPLE_WHITE_SPACES = "\\s+";
 	private static final String WHITE_SPACE = " ";
@@ -68,12 +72,13 @@ public class CommandParser {
 	private static final String[] LIST_CONFLICTING_DATE_VARIANTS = { "mon",
 			"tues", "wed", "thurs", "fri", "sat", "sun", "jan", "feb", "mar",
 			"apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
-	private static final String[] LIST_GOOD_WORDS = { "monday", "tuesday",
-			"wednesday", "thursday", "friday", "saturday", "sunday", "january",
-			"february", "march", "april", "may", "june", "july", "august",
-			"september", "october", "november", "december", "for", "to", "now",
-			"am", "pm", "day", "days", "hour", "hours", "hr", "hrs", "minute",
-			"min", "minutes", "sec", "second", "seconds", "today", "tomorrow" };
+	private static final String[] LIST_OTHER_DATE_VARIANTS = { "monday",
+			"tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
+			"january", "february", "march", "april", "may", "june", "july",
+			"august", "september", "october", "november", "december", "for",
+			"to", "now", "am", "pm", "day", "days", "hour", "hours", "hr",
+			"hrs", "minute", "min", "minutes", "sec", "second", "seconds",
+			"today", "tomorrow" };
 	private static final String[] LIST_ADD_SYNONYMS = { "add", "insert",
 			"create", "new", "put", "ins" };
 	private static final String[] LIST_MARK_SYNONYMS = { "mark", "delete",
@@ -93,8 +98,8 @@ public class CommandParser {
 	private static final String PATTERN_ITH_NUMBER = "1st|\\d+1st|2nd|\\d+2nd|3rd|\\d+3rd|(\\d+th)";
 	private static final String PATTERN_TIME = "(\\d{1,4}|\\d{1,2}[:|.]\\d{2})(am|pm)";
 	private static final String PATTERN_ALPHANUMERIC_WORD = "\\w*";
-	private static final String PATTERN_TIME_DOT_SEPARATOR = "\\d{1,2}.\\d{2}";
-	private static final String PATTERN_DATE = "(\\d{1,2}[-|/]\\d{1,2}[-|/]\\d{2,4})|\\d{1,2}[-|/]\\d{1,2}";
+	private static final String PATTERN_TIME_DOT_SEPARATOR = "\\d{1,2}[.]\\d{2}";
+	private static final String PATTERN_DATE = "(\\d{1,2}[-|/|.]\\d{1,2}[-|/|.]\\d{2,4})|\\d{1,2}[-|/]\\d{1,2}";
 	private static final String PATTERN_NON_DIGIT = "\\D+";
 	private static final String PATTERN_NUMBER = "\\d+";
 	private static final String PATTERN_ANY_NUMBER_NOT_DATE = "(^| )\\d+($| )";
@@ -104,7 +109,7 @@ public class CommandParser {
 	private HashMap<String, CommandType> commandTypeKeywordsDict;
 	private HashMap<String, CommandType> specialKeywordsDict;
 	private HashMap<String, RelativeType> relativeTimeKeywordsDict;
-	private HashSet<String> goodWordsDict;
+	private HashSet<String> otherDateVariantsDict;
 	private HashSet<String> conflictingVariantsDict;
 	private HashSet<Character> disallowedStartCharsDict;
 
@@ -117,18 +122,23 @@ public class CommandParser {
 		initialiseDictionaries();
 	}
 
+	/*
+	 * Explanation for dictionaries: We need these dictionaries to look for
+	 * keywords. The date parser (Natty) we are using has many constraints. Some
+	 * dictionaries are used to facilitate extension of Natty.
+	 */
 	private void initialiseDictionaries() {
 		commandTypeKeywordsDict = new HashMap<String, CommandType>();
 		specialKeywordsDict = new HashMap<String, CommandType>();
 		relativeTimeKeywordsDict = new HashMap<String, RelativeType>();
-		goodWordsDict = new HashSet<String>();
+		otherDateVariantsDict = new HashSet<String>();
 		conflictingVariantsDict = new HashSet<String>();
 		disallowedStartCharsDict = new HashSet<Character>();
 		for (String entry : LIST_CONFLICTING_DATE_VARIANTS) {
 			conflictingVariantsDict.add(entry);
 		}
-		for (String entry : LIST_GOOD_WORDS) {
-			goodWordsDict.add(entry);
+		for (String entry : LIST_OTHER_DATE_VARIANTS) {
+			otherDateVariantsDict.add(entry);
 		}
 		for (char entry : LIST_DISALLOWED_START_CHARS) {
 			disallowedStartCharsDict.add(entry);
@@ -174,6 +184,7 @@ public class CommandParser {
 	public Command parseCommand(String inputCommand)
 			throws CommandCouldNotBeParsedException,
 			StartTimeAfterEndTimeException {
+		assert (inputCommand != null) : "Null String.";
 		commandToParse = changeAllDatesToSameFormat(inputCommand);
 		try {
 			CommandType commandType = getCommandType();
@@ -186,7 +197,7 @@ public class CommandParser {
 				parsedCommand = parseEdit();
 				break;
 			case MARK:
-				parsedCommand = parseMark(commandToParse);
+				parsedCommand = parseMark();
 				break;
 			case SEARCH:
 				parsedCommand = parseSearch();
@@ -208,17 +219,21 @@ public class CommandParser {
 	}
 
 	private String removeExtraWhiteSpaces(String stringToProcess) {
+		assert (stringToProcess != null) : "Null String.";
 		return stringToProcess.trim().replaceAll(MULTIPLE_WHITE_SPACES,
 				WHITE_SPACE);
 	}
 
+	// Changes all dates and times to a standard format because date parser
+	// cannot parse some formats properly.
 	private String changeAllDatesToSameFormat(String stringToProcess) {
+		assert (stringToProcess != null) : "Null String.";
 		String[] words = stringToProcess.split(WHITE_SPACE);
 		Pattern timePattern = Pattern.compile(PATTERN_TIME_DOT_SEPARATOR);
 		for (String word : words) {
 			if (word.matches(PATTERN_DATE)) {
-				String newDate = convertToMiddleEndian(word.replaceAll(DASH,
-						SLASH));
+				String newDate = convertToMiddleEndian(word.replaceAll(
+						DASH_OR_DOT, SLASH));
 				stringToProcess = stringToProcess.replace(word, newDate);
 			}
 			Matcher patternMatcher = timePattern.matcher(word);
@@ -233,50 +248,62 @@ public class CommandParser {
 		return stringToProcess;
 	}
 
+	// Need this method because date parser only accepts dates in middle-endian
+	// format.
 	private String convertToMiddleEndian(String stringToProcess) {
+		assert (stringToProcess != null) : "Null String.";
 		String[] dateComponents = stringToProcess.split(SLASH);
-		String newDate = dateComponents[1] + SLASH + dateComponents[0];
-		if (dateComponents.length > 2) {
-			newDate += SLASH + dateComponents[2];
+		String newDate = dateComponents[DAY_COMPONENT] + SLASH
+				+ dateComponents[MONTH_COMPONENT];
+		if (dateComponents.length > YEAR_COMPONENT) {
+			newDate += SLASH + dateComponents[YEAR_COMPONENT];
 		}
 		return newDate;
 	}
 
-	private String removeWronglyParsedDates(String dateString) {
+	// Removes words that will be wrongly parsed by date parser (e.g. fries,
+	// CS2103, anything starting with characters defined in
+	// disallowedStartCharsDict)
+	private String removeWronglyParsedWords(String dateString) {
+		assert (dateString != null) : "Null String.";
 		if (dateString.isEmpty()) {
 			return dateString;
 		}
 		String[] components = dateString.split(WHITE_SPACE);
-		for (int compIndex = START_INDEX; compIndex < components.length; compIndex++) {
-			String componentLowerCase = components[compIndex].toLowerCase();
+		for (int currIndex = START_INDEX; currIndex < components.length; currIndex++) {
+			String componentLowerCase = components[currIndex].toLowerCase();
 			for (String dateVariant : LIST_CONFLICTING_DATE_VARIANTS) {
 				if (componentLowerCase.contains(dateVariant)) {
 					if (!componentLowerCase.equals(dateVariant)
-							&& !goodWordsDict.contains(componentLowerCase)) {
-						components[compIndex] = EMPTY_STRING;
+							&& !otherDateVariantsDict
+									.contains(componentLowerCase)) {
+						components[currIndex] = EMPTY_STRING;
 					}
 					break;
 				}
 
 			}
-			if ((disallowedStartCharsDict.contains(componentLowerCase
-					.charAt(START_INDEX))
-					&& !goodWordsDict.contains(componentLowerCase) && !conflictingVariantsDict
-						.contains(componentLowerCase))
-					|| (components[compIndex]
-							.matches(PATTERN_ALPHANUMERIC_WORD)
-							&& !components[compIndex]
-									.matches(PATTERN_NON_DIGIT)
-							&& !components[compIndex].matches(PATTERN_NUMBER)
-							&& !componentLowerCase.matches(PATTERN_TIME) && !components[compIndex]
-								.matches(PATTERN_ITH_NUMBER))) {
-				components[compIndex] = EMPTY_STRING;
+			if (isUnparsable(componentLowerCase)) {
+				components[currIndex] = EMPTY_STRING;
 			}
 		}
 		return rebuildString(components);
 	}
 
+	private boolean isUnparsable(String word) {
+		assert (word != null) : "Null String.";
+		return (disallowedStartCharsDict.contains(word.charAt(START_INDEX))
+				&& !otherDateVariantsDict.contains(word) && !conflictingVariantsDict
+					.contains(word))
+				|| (word.matches(PATTERN_ALPHANUMERIC_WORD)
+						&& !word.matches(PATTERN_NON_DIGIT)
+						&& !word.matches(PATTERN_NUMBER)
+						&& !word.matches(PATTERN_TIME) && !word
+							.matches(PATTERN_ITH_NUMBER));
+	}
+
 	private String rebuildString(String[] stringArray) {
+		assert (stringArray != null) : "Null String Array.";
 		String rebuiltString = EMPTY_STRING;
 		for (String element : stringArray) {
 			rebuiltString += WHITE_SPACE + element;
@@ -284,17 +311,17 @@ public class CommandParser {
 		return rebuiltString;
 	}
 
-	// TODO get rid of the error of parsing substring "wedding", "fries" etc.
 	private DateTime[] getStartAndEndTimesFromCommand() {
 		Parser dateParser = new Parser();
-		String stringToParse = removeWronglyParsedDates(commandToParse);
+		String stringToParse = removeWronglyParsedWords(commandToParse);
 		stringToParse = removeExtraWhiteSpaces(stringToParse);
 		List<DateGroup> dateGroupList = dateParser.parse(stringToParse);
 		DateTime[] startAndEndTime = new DateTime[NUM_START_AND_END_TIMES];
 		if (dateGroupList.isEmpty()) {
 			return startAndEndTime;
 		}
-		while (!dateGroupList.isEmpty()) {
+		int numIterations = START_INDEX; // in case of possible infinite loop
+		while (!dateGroupList.isEmpty() && numIterations < MAX_ITERATIONS) {
 			DateGroup dateGroup = dateGroupList.get(FIRST_GROUP);
 			logger.log(Level.INFO, "Parsing Date: " + dateGroup.getText());
 
@@ -390,23 +417,26 @@ public class CommandParser {
 			commandToParse = commandToParse.replace(dateGroup.getText(),
 					EMPTY_STRING);
 			dateGroupList = dateParser.parse(stringToParse);
+			numIterations++;
 		}
 		return startAndEndTime;
 	}
 
 	private boolean isNow(DateTime dateTimeToCheck) {
+		assert(dateTimeToCheck != null) : "Null DateTime.";
 		long timeNow = new DateTime().getMillis();
 		long timeSpecified = dateTimeToCheck.getMillis();
-		if (Math.abs(timeNow - timeSpecified) <= MILLISECOND_DIFFERENCE_ALLOWANCE) {
+		if (Math.abs(timeNow - timeSpecified) <= MILLISEC_DIFF_ALLOWANCE) {
 			return true;
 		}
 		return false;
 	}
 
 	private boolean isTimeSpecified(DateTime dateTimeToCheck) {
+		assert(dateTimeToCheck != null) : "Null DateTime.";
 		int timeNow = new DateTime().getMillisOfDay();
 		int timeSpecified = dateTimeToCheck.getMillisOfDay();
-		if (Math.abs(timeNow - timeSpecified) <= MILLISECOND_DIFFERENCE_ALLOWANCE) {
+		if (Math.abs(timeNow - timeSpecified) <= MILLISEC_DIFF_ALLOWANCE) {
 			return false;
 		}
 		return true;
@@ -458,14 +488,13 @@ public class CommandParser {
 		return new CommandEdit(taskIndex, newTask);
 	}
 
-	private CommandMark parseMark(String command)
-			throws CommandCouldNotBeParsedException {
+	private CommandMark parseMark() throws CommandCouldNotBeParsedException {
 		logger.log(Level.INFO, "Parsing as mark command.");
 		Pattern anyNumberPattern = Pattern.compile(PATTERN_NUMBER);
-		Matcher patternMatcher = anyNumberPattern.matcher(command);
+		Matcher patternMatcher = anyNumberPattern.matcher(commandToParse);
 		if (patternMatcher.find()) {
 			int taskIndex = Integer.parseInt(patternMatcher.group(FIRST_GROUP));
-			if (taskIndex <= 0) {
+			if (taskIndex < FIRST_VALID_INDEX) {
 				throw new CommandCouldNotBeParsedException();
 			}
 			return new CommandMark(taskIndex);
@@ -496,6 +525,10 @@ public class CommandParser {
 		}
 		if (relativeType == RelativeType.ALL) {
 			return new CommandSearch(EMPTY_STRING, null, null);
+		}
+		if (commandToParse.isEmpty() && startAndEndTime[START_TIME] == null
+				&& startAndEndTime[END_TIME] == null) {
+			commandToParse = null;
 		}
 		return new CommandSearch(commandToParse, startAndEndTime[START_TIME],
 				startAndEndTime[END_TIME]);
