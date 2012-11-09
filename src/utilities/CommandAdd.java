@@ -16,6 +16,10 @@ public class CommandAdd implements Command {
 	private boolean isReversible = true;
 	private Task taskToBeAdded;
 
+	/**
+	 * Initializes a newly created CommandAdd object with parameters specified.
+	 * @param taskToBeAdded
+	 */
 	public CommandAdd(Task taskToBeAdded) {
 		assert taskToBeAdded != null : "Null task.";
 		assert taskToBeAdded.getTaskName() != null : "Task has null name.";

@@ -27,7 +27,6 @@ public class Task implements Comparable<Task> {
 	private static final DateTimeFormatter DATE_FORMATTER_TIME = DateTimeFormat
 			.forPattern("hh:mma");
 	private static final String TASK_FORMAT = "%s|%s|%s";
-	private static final String TASK_NICE_FORMAT = "%s\t|%s";
 
 	private static Logger logger = Logger.getLogger("JIMI");
 
@@ -35,16 +34,25 @@ public class Task implements Comparable<Task> {
 	private DateTime startTime;
 	private DateTime endTime;
 
-	public static void main(String[] args) {
-		Task t = new Task("asd", null, null);
-		t = new Task("B Second Task", new DateTime().minusDays(2), null);
-	}
-
+	/**
+	 * Initializes a newly created Task object with start time specified. Task
+	 * name is set to "". This constructor is used to create dummy tasks to
+	 * facilitate searching.
+	 * 
+	 * @param startTime
+	 */
 	public Task(DateTime startTime) {
 		this.startTime = startTime;
 		taskName = EMPTY_STRING;
 	}
 
+	/**
+	 * Initializes a newly created Task object with parameters specified.
+	 * 
+	 * @param taskName
+	 * @param startTime
+	 * @param endTime
+	 */
 	public Task(String taskName, DateTime startTime, DateTime endTime) {
 		assert (compareNullDatesLast(startTime, endTime) <= SAME_TIME) : "Start time is after end time.";
 		this.startTime = startTime;
@@ -54,6 +62,11 @@ public class Task implements Comparable<Task> {
 				+ ", " + startTime + ", " + endTime);
 	}
 
+	/**
+	 * Returns a task's time in hh:mma format.
+	 * 
+	 * @return String
+	 */
 	public String getTimesAsString() {
 		if (startTime == null) {
 			return EMPTY_STRING;
@@ -86,30 +99,61 @@ public class Task implements Comparable<Task> {
 		return dateToProcess.toString(DATE_FORMATTER_DATE_AND_TIME);
 	}
 
+	/**
+	 * True if task name matches query. False otherwise.
+	 * 
+	 * @param query
+	 * @return boolean
+	 */
 	public boolean isMatch(String query) {
 		return taskName.toLowerCase().contains(query.toLowerCase());
 	}
 
+	/**
+	 * Returns task name.
+	 * @return String
+	 */
 	public String getTaskName() {
 		return taskName;
 	}
 
+	/**
+	 * Sets task name to task name specified.
+	 * @param taskName
+	 */
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}
 
+	/**
+	 * Returns start time.
+	 * @return DateTime
+	 */
 	public DateTime getStartTime() {
 		return startTime;
 	}
 
+	/**
+	 * Sets start time to start time specified.
+	 * @param startTime
+	 */
 	public void setStartTime(DateTime startTime) {
 		this.startTime = startTime;
 	}
 
+	/**
+	 * Returns end time.
+	 * 
+	 * @return DateTime
+	 */
 	public DateTime getEndTime() {
 		return endTime;
 	}
 
+	/**
+	 * Sets end time to end time specified.
+	 * @param endTime
+	 */
 	public void setEndTime(DateTime endTime) {
 		this.endTime = endTime;
 	}

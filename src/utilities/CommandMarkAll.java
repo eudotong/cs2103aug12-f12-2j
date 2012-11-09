@@ -9,16 +9,19 @@ import storage.TaskRecords;
  *         Functionality for command of type MARK_ALL
  */
 public class CommandMarkAll implements Command {
-	private static final String MESSAGE_ERROR_CANNOT_DELETE = "Tasks could not be deleted.";
 	private static final String MESSAGE_SUCCESS = "Tasks deleted.";
-
-	private boolean isReversible = true;
+	private static final boolean IS_REVERSIBLE = true;
+	
 	private Task[] tasksToDelete;
 
 	public CommandMarkAll() {
 		tasksToDelete = null;
 	}
 
+	/**
+	 * Initializes a newly created CommandMarkAll object with parameters specified.
+	 * @param tasksToDelete
+	 */
 	public CommandMarkAll(Task[] tasksToDelete) {
 		assert tasksToDelete != null : "Null array";
 		// TODO ask Hieu if this assertion can... but like very waste time
@@ -34,11 +37,8 @@ public class CommandMarkAll implements Command {
 		if (tasksToDelete == null) {
 			tasksToDelete = taskRecords.getCurrentListOfTasks();
 		}
-		isReversible = taskRecords.removeAll(tasksToDelete);
-		if (isReversible) {
-			return MESSAGE_SUCCESS;
-		}
-		return MESSAGE_ERROR_CANNOT_DELETE;
+		taskRecords.removeAll(tasksToDelete);
+		return MESSAGE_SUCCESS;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class CommandMarkAll implements Command {
 
 	@Override
 	public boolean isReversible() {
-		return isReversible;
+		return IS_REVERSIBLE;
 	}
 
 	@Override
