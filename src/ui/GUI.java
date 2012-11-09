@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -78,8 +77,11 @@ public class GUI extends JPanel implements ActionListener {
 		layeredPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 		layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
 
-		textField.setBackground(new java.awt.Color(220, 219, 219));
-		textField.setUI(new HintFieldUI("Search", true));
+//		field.setUI(new HintFieldUI("Search", true));
+//		field.addActionListener(this);
+//		
+		//textField.setBackground(new java.awt.Color(220, 219, 219));
+		textField.setUI(new HintFieldUI("Type /? for help", true));
 		textField.setBorder(empty);
 		textField.addActionListener(this);
 		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upKey");
@@ -121,8 +123,9 @@ public class GUI extends JPanel implements ActionListener {
 		add(forgroundPanel);
 		// add(layeredPane);
 
-		
+		// PROBLEM HEREE !!
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				textField.requestFocus();
 			}
@@ -217,3 +220,5 @@ public class GUI extends JPanel implements ActionListener {
 		});
 	}
 }
+
+
