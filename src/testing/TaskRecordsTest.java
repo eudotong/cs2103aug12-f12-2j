@@ -1,6 +1,8 @@
 package testing;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ public class TaskRecordsTest {
 		tasksToTest.add(new Task("A First Task", null, null));
 		tasksToTest.add(new Task("B Second Task", TODAY.minusDays(2), null));
 		tasksToTest.add(new Task("C 3rd Task", TODAY.minusDays(1), null));
-		tasksToTest.add(new Task("D FoUrTh Task", TODAY.minusHours(1), null));
+		tasksToTest.add(new Task("D FoUrTh Task", TODAY.minusMinutes(1), null));
 		tasksToTest.add(new Task("e fifth Task", TODAY, null));
 		tasksToTest.add(new Task("f sixth Task", TODAY.plusMinutes(1), null));
 		tasksToTest.add(new Task("G 7th Task", TODAY.plusDays(1), null));
@@ -53,11 +55,6 @@ public class TaskRecordsTest {
 		assertEquals(null, taskRecordsTest.getTaskByIndex(100));
 		// Test case: task index valid
 		assertEquals(tasksToTest.get(2), taskRecordsTest.getTaskByIndex(3));
-	}
-
-	@Test
-	public void testGetTaskByName() {
-		// TODO
 	}
 
 	@Test
@@ -120,7 +117,7 @@ public class TaskRecordsTest {
 		resetCurrentList();
 		assertEquals(tasksToTest.toArray(new Task[0]),
 				taskRecordsTest.getCurrentListOfTasks());
-		//Test case: all matching
+		// Test case: all matching
 		taskRecordsTest.removeAll(tasksToTest.toArray(new Task[0]));
 		resetCurrentList();
 		assertEquals(new Task[0], taskRecordsTest.getCurrentListOfTasks());
@@ -128,32 +125,36 @@ public class TaskRecordsTest {
 
 	@Test
 	public void testSetCurrentListOfTasks() {
-		Task [] expectedList = {tasksToTest.get(0), tasksToTest.get(5), tasksToTest.get(6), tasksToTest.get(7)};
+		Task[] expectedList = { tasksToTest.get(0), tasksToTest.get(3),
+				tasksToTest.get(4), tasksToTest.get(5), tasksToTest.get(6),
+				tasksToTest.get(7) };
 		taskRecordsTest.setCurrentListOfTasks();
 		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
 	}
-	
+
 	@Test
 	public void testSetCurrentListOfTasksString() {
-		Task [] expectedList = {tasksToTest.get(3), tasksToTest.get(4), tasksToTest.get(5), tasksToTest.get(6), tasksToTest.get(7)};
+		Task[] expectedList = { tasksToTest.get(3), tasksToTest.get(4),
+				tasksToTest.get(5), tasksToTest.get(6), tasksToTest.get(7) };
 		taskRecordsTest.setCurrentListOfTasks("th");
 		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
 		taskRecordsTest.setCurrentListOfTasks("Th");
 		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
 		taskRecordsTest.setCurrentListOfTasks("");
-		assertEquals(tasksToTest.toArray(new Task[0]), taskRecordsTest.getCurrentListOfTasks());
+		assertEquals(tasksToTest.toArray(new Task[0]),
+				taskRecordsTest.getCurrentListOfTasks());
 	}
 
 	@Test
 	public void testSetCurrentListOfTasksStringDateTimeDateTime() {
-		Task [] expectedList = {tasksToTest.get(3)};
+		Task[] expectedList = { tasksToTest.get(3) };
 		taskRecordsTest.setCurrentListOfTasks("th", TODAY.minusDays(2), TODAY);
 		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
 	}
 
 	@Test
 	public void testSetCurrentListOfTasksStringDateTime() {
-		Task [] expectedList = {tasksToTest.get(4), tasksToTest.get(5)};
+		Task[] expectedList = { tasksToTest.get(4), tasksToTest.get(5) };
 		taskRecordsTest.setCurrentListOfTasks("th", TODAY);
 		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
 	}
