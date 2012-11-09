@@ -1,6 +1,5 @@
 package testing;
 
-
 import static org.junit.Assert.assertEquals;
 
 import org.joda.time.DateTime;
@@ -16,9 +15,10 @@ import utilities.Command;
 import utilities.CommandType;
 import utilities.Task;
 
-//Note that sometimes comparing dates are tricky! If there is an error tr running it a second time.
+//Note that sometimes comparing dates are tricky! If there is an error try running it a second time.
 public class CommandParserTest {
 	private static final String EMPTY_STRING = "";
+	private static final String RANDOM_STRING = "abcdefghijklmnpqrstuvwxyz";
 	private static final String NULL = "null";
 	private static final DateTime IMPOSSIBLY_LARGE_DATE = new DateTime(
 			Long.MAX_VALUE);
@@ -52,67 +52,70 @@ public class CommandParserTest {
 			StartTimeAfterEndTimeException {
 		getNextMonday();
 		Command actualCommand;
-		Task expectedTask = new Task("name", TODAY, TODAY.plusHours(1));
+		Task expectedTask = new Task(RANDOM_STRING, TODAY, TODAY.plusHours(1));
 		// Add Command
 		// Test cases: "for" keyword
-		actualCommand = COMMAND_PARSER.parseCommand("add now for 1 hour name");
+		actualCommand = COMMAND_PARSER.parseCommand("add " + RANDOM_STRING + " for 1 hour");
 		assertEquals(expectedTask.toString(), actualCommand.toString());
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add name now for 60 minutes");
+		actualCommand = COMMAND_PARSER.parseCommand("add " + RANDOM_STRING + " for 60 minutes");
 		assertEquals(expectedTask.toString(), actualCommand.toString());
-		expectedTask = new Task("name teehee teehee", START_OF_TODAY,
-				START_OF_TODAY.plusHours(2));
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add name teehee teehee today for 2 hrs");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		expectedTask = new Task("something add", NOV_6, NOV_6.plusHours(1));
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add something add 6 nov 2012 10am for 1 hour");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		// Test cases: "to" or "-" keyword
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add 6/11/12 10.00am to 11am something add");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		expectedTask = new Task("name", START_OF_NOV_6, START_OF_TODAY);
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add 6/11/12 to today name");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		// Test cases: only start time
-		expectedTask = new Task("important task man", NOV_6, null);
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add important task man 6/11/12 10:00");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add important task man 6/11/12 10.00");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add important task man 6.11.12 10am");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		// Test cases: start and end time
-		expectedTask = new Task("important task man", NOV_6, NOV_6.plusHours(1)
-				.plusMinutes(30));
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add important task man 6/11/12 10:00 6/11/12 11:30");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		// Test cases: no times
-		expectedTask = new Task("Juney's wedding with fries", null, null);
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add Juney's wedding with fries");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		// Test cases: special date monday
-		expectedTask = new Task("something good", getNextMonday(), null);
-		actualCommand = COMMAND_PARSER
-				.parseCommand("add monday something good");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		expectedTask = new Task("something good", getNextMonday(), null);
-		actualCommand = COMMAND_PARSER.parseCommand("add mon something good");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		expectedTask = new Task("m", getNextMonday(), null);
-		actualCommand = COMMAND_PARSER.parseCommand("add mon m");
-		assertEquals(expectedTask.toString(), actualCommand.toString());
-		actualCommand = COMMAND_PARSER.parseCommand("add monday m");
+		expectedTask = new Task(RANDOM_STRING, START_OF_TODAY, START_OF_TODAY.plusHours(2));
+		actualCommand = COMMAND_PARSER.parseCommand("add "+ RANDOM_STRING + " today for 2 hrs");
+		assertEquals(expectedTask.toString(), actualCommand.toString());	
+		expectedTask = new Task(RANDOM_STRING, NOV_6, NOV_6.plusHours(1));
+		actualCommand = COMMAND_PARSER.parseCommand("add "+RANDOM_STRING+" 6 nov 2012 10am for 1 hour");
 		assertEquals(expectedTask.toString(), actualCommand.toString());
 		
+		// Test cases: "to" or "-" keyword
+		// Test case: normal case
+		actualCommand = COMMAND_PARSER
+				.parseCommand("add 6/11/12 10.00am to 11am " + RANDOM_STRING);
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		actualCommand = COMMAND_PARSER
+				.parseCommand("add 6/11/12 10.00am - 11am " + RANDOM_STRING);
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		// Test case: time not specified
+		expectedTask = new Task(RANDOM_STRING, START_OF_NOV_6, START_OF_TODAY);
+		actualCommand = COMMAND_PARSER
+				.parseCommand("add 6/11/12 to today "+ RANDOM_STRING);
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		// Test case: now keyword
+		expectedTask = new Task(RANDOM_STRING, START_OF_NOV_6, new DateTime());
+		actualCommand = COMMAND_PARSER
+				.parseCommand("add 6/11/12 to now "+ RANDOM_STRING);
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		
+		// Test cases: only start time
+		expectedTask = new Task(RANDOM_STRING, NOV_6, null);
+		actualCommand = COMMAND_PARSER.parseCommand("add " + RANDOM_STRING + " 6/11/12 10:00");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		actualCommand = COMMAND_PARSER.parseCommand("add " +RANDOM_STRING+ " 6/11/12 10.00");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		actualCommand = COMMAND_PARSER.parseCommand("add " +RANDOM_STRING+ " 6.11.12 10am");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		// Test case special dates (monday)
+		expectedTask = new Task(RANDOM_STRING, getNextMonday(), null);
+		actualCommand = COMMAND_PARSER.parseCommand("add " +RANDOM_STRING+ " monday");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		actualCommand = COMMAND_PARSER.parseCommand("add " +RANDOM_STRING+ " mon");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		expectedTask = new Task(RANDOM_STRING+ " m", getNextMonday(), null);
+		actualCommand = COMMAND_PARSER.parseCommand("add " +RANDOM_STRING+ " mon m");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		expectedTask = new Task(RANDOM_STRING, getNextMonday().plusHours(10), null);
+		actualCommand = COMMAND_PARSER.parseCommand("add " +RANDOM_STRING+ " mon 10am");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		
+		// Test cases: start and end time
+		expectedTask = new Task("important task man", NOV_6, NOV_6.plusHours(1).plusMinutes(30));
+		actualCommand = COMMAND_PARSER.parseCommand("add important task man 6/11/12 10:00 6/11/12 11:30");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		
+		// Test cases: no times
+		expectedTask = new Task("Juney's wedding with fries", null, null);
+		actualCommand = COMMAND_PARSER.parseCommand("add Juney's wedding with fries");
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+
 		// Edit Command
 		// Test cases: edit name only
 		expectedTask = new Task("new name", null, null);
