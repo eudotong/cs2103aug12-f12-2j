@@ -116,12 +116,12 @@ public class TaskRecordsTest {
 				new Task("random", null, null) };
 		// Test case: some in array not matching
 		tasksToTest.remove(0);
-		assertTrue(taskRecordsTest.removeAll(tasksToRemoveInvalid));
+		taskRecordsTest.removeAll(tasksToRemoveInvalid);
 		resetCurrentList();
 		assertEquals(tasksToTest.toArray(new Task[0]),
 				taskRecordsTest.getCurrentListOfTasks());
 		//Test case: all matching
-		assertTrue(taskRecordsTest.removeAll(tasksToTest.toArray(new Task[0])));
+		taskRecordsTest.removeAll(tasksToTest.toArray(new Task[0]));
 		resetCurrentList();
 		assertEquals(new Task[0], taskRecordsTest.getCurrentListOfTasks());
 	}
@@ -142,20 +142,6 @@ public class TaskRecordsTest {
 		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
 		taskRecordsTest.setCurrentListOfTasks("");
 		assertEquals(tasksToTest.toArray(new Task[0]), taskRecordsTest.getCurrentListOfTasks());
-	}
-
-	@Test
-	public void testSetCurrentListOfTasksDateTimeDateTime() {
-		Task [] expectedList = {tasksToTest.get(4), tasksToTest.get(5), tasksToTest.get(6)};
-		taskRecordsTest.setCurrentListOfTasks(TODAY, TODAY.plusDays(2));
-		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
-	}
-
-	@Test
-	public void testSetCurrentListOfTasksDateTime() {
-		Task [] expectedList = {tasksToTest.get(4), tasksToTest.get(5)};
-		taskRecordsTest.setCurrentListOfTasks(TODAY);
-		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
 	}
 
 	@Test

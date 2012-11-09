@@ -42,7 +42,7 @@ public class TaskRecords {
 	private File myFile;
 
 	/**
-	 * Default constructor for TaskRecords. Initializes all task records in text
+	 * Initializes all task records in text
 	 * file to a treeset. Initializes the current list of tasks with today's
 	 * upcoming tasks.
 	 * 
@@ -64,6 +64,12 @@ public class TaskRecords {
 		initialiseAllTaskRecords();
 	}
 
+	/**
+	 * Returns instance of TaskRecords.
+	 * 
+	 * @return TaskRecords
+	 * @throws IOException
+	 */
 	public static TaskRecords getInstance() throws IOException {
 		if (instanceOfTaskRecords == null) {
 			instanceOfTaskRecords = new TaskRecords();
@@ -71,6 +77,12 @@ public class TaskRecords {
 		return instanceOfTaskRecords;
 	}
 
+	/**
+	 * Returns instance of TaskRecords.
+	 * 
+	 * @return TaskRecords
+	 * @throws IOException
+	 */
 	public static TaskRecords getInstance(String fileName) throws IOException {
 		if (instanceOfTaskRecords == null) {
 			instanceOfTaskRecords = new TaskRecords(fileName);
@@ -108,6 +120,13 @@ public class TaskRecords {
 		return currentListOfTasks;
 	}
 
+	/**
+	 * Gets task from the currentListOfTask by its index. Null is returned if
+	 * index is invalid.
+	 * 
+	 * @param index
+	 * @return Task
+	 */
 	public Task getTaskByIndex(int index) {
 		index--; // Change to zero-based indexing
 		if (index < 0 || index >= currentListOfTasks.length) {
@@ -192,6 +211,11 @@ public class TaskRecords {
 		}
 	}
 
+	/**
+	 * Adds all tasks in array to the text file.
+	 * 
+	 * @param tasksToAdd
+	 */
 	public void addAll(Task[] tasksToAdd) {
 		logger.log(Level.INFO, "Appending a list of tasks to task records.");
 		for (Task task : tasksToAdd) {
@@ -199,8 +223,13 @@ public class TaskRecords {
 		}
 	}
 
+	/**
+	 * Deleted all tasks in array from the text file.
+	 * 
+	 * @param tasksToDelete
+	 */
 	// TODO ASK HIEU ABOUT IO EXCEPTION
-	public boolean removeAll(Task[] tasksToDelete) {
+	public void removeAll(Task[] tasksToDelete) {
 		logger.log(Level.INFO, "Deleting a list of tasks from task records.");
 		ArrayList<Task> tasksSuccessfullyRemoved = new ArrayList<Task>();
 		for (Task task : tasksToDelete) {
@@ -217,31 +246,13 @@ public class TaskRecords {
 			 * allTaskRecords.add(task); }
 			 */
 		}
-		return true;
 	}
 
-	// TODO DELETE
-	public boolean clearAllOverDueTasks() {
-		Iterator<Task> taskIterator = allTaskRecords.iterator();
-		while (taskIterator.hasNext()) {
-			Task task = taskIterator.next();
-			if (task.getStartTime() != null
-					&& task.getStartTime().isBeforeNow()) {
-				taskIterator.remove();
-			} else if (task.getStartTime().isAfterNow()) {
-				break;
-			}
-		}
-		try {
-			rewriteFile();
-			return true;
-		} catch (IOException e) {
-			logger.log(Level.SEVERE, "Error: could not write to file.");
-			return false;
-		}
-	}
-
-	// This method is for testing only
+	/**
+	 * Clears all tasks in the task records. Method is used for testing.
+	 * 
+	 * @return boolean
+	 */
 	public boolean clearAllTasks() {
 		try {
 			allTaskRecords.clear();
@@ -288,6 +299,10 @@ public class TaskRecords {
 		return (isSuccessfullyAdded && isSuccessfullyDeleted);
 	}
 
+	/**
+	 * Sets current list of tasks to default. The default list contains all
+	 * floating tasks and upcoming tasks.
+	 */
 	public void setCurrentListOfTasks() {
 		logger.log(
 				Level.INFO,
@@ -306,6 +321,11 @@ public class TaskRecords {
 		currentListOfTasks = upcomingTasks.toArray(TASK_ARRAY_TYPE);
 	}
 
+	/**
+	 * Sets the current list of tasks to tasks that match query specified.
+	 * 
+	 * @param query
+	 */
 	public void setCurrentListOfTasks(String query) {
 		logger.log(Level.INFO,
 				"Setting current list of tasks matching query \"" + query
@@ -316,57 +336,19 @@ public class TaskRecords {
 		currentListOfTasks = findMatchesFromSetOfTasks(allTaskRecords, query);
 	}
 
-	public void setCurrentListOfTasks(DateTime fromDate, DateTime toDate)
-			throws IllegalArgumentException {
-		logger.log(
-				Level.INFO,
-				"Setting current list of tasks from "
-						+ fromDate.toString(DATE_FORMATTER) + " to "
-						+ toDate.toString(DATE_FORMATTER));
-		if (fromDate.isAfter(toDate)) {
-			DateTime tempDate = fromDate;
-			fromDate = toDate;
-			toDate = tempDate;
-		}
-		// dummy tasks to facilitate searching in TreeSet
-		Task fromTask = new Task(fromDate);
-		Task toTask = new Task(toDate);
-		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
-				TASK_ARRAY_TYPE);
-	}
-	
-	public void setCurrentListOfTasksTail(DateTime fromDate) {
-		logger.log(
-				Level.INFO,
-				"Setting current list of tasks from "
-						+ fromDate.toString(DATE_FORMATTER));
-		// dummy tasks to facilitate searching in TreeSet
-		Task fromTask = new Task(fromDate);
-		currentListOfTasks = allTaskRecords.tailSet(fromTask).toArray(
-				TASK_ARRAY_TYPE);
-	}
-
-	public void setCurrentListOfTasks(DateTime fromDate) {
-		logger.log(
-				Level.INFO,
-				"Setting current list of tasks from "
-						+ fromDate.toString(DATE_FORMATTER));
-		DateTime toDate = fromDate.plusDays(1).toLocalDate()
-				.toDateTimeAtStartOfDay();
-		// dummy tasks to facilitate searching in TreeSet
-		Task fromTask = new Task(fromDate);
-		Task toTask = new Task(toDate);
-		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
-				TASK_ARRAY_TYPE);
-	}
-
+	/**
+	 * Sets the current list of tasks to tasks that match query, from date and
+	 * to date specified.
+	 * 
+	 * @param query
+	 * @param fromDate
+	 * @param toDate
+	 */
 	public void setCurrentListOfTasks(String query, DateTime fromDate,
 			DateTime toDate) {
-		logger.log(
-				Level.INFO,
-				"Setting current list of tasks matching \"" + query + "\" from "
-						+ fromDate.toString(DATE_FORMATTER) + " to "
-						+ toDate.toString(DATE_FORMATTER));
+		logger.log(Level.INFO, "Setting current list of tasks matching \""
+				+ query + "\" from " + fromDate.toString(DATE_FORMATTER)
+				+ " to " + toDate.toString(DATE_FORMATTER));
 		if (fromDate.isAfter(toDate)) {
 			DateTime tempDate = fromDate;
 			fromDate = toDate;
@@ -377,15 +359,25 @@ public class TaskRecords {
 		Task toTask = new Task(toDate);
 		Set<Task> listOfTasksFromSpecifiedDates = allTaskRecords.subSet(
 				fromTask, toTask);
+		if (query.isEmpty()) {
+			currentListOfTasks = listOfTasksFromSpecifiedDates
+					.toArray(TASK_ARRAY_TYPE);
+			return;
+		}
 		currentListOfTasks = findMatchesFromSetOfTasks(
 				listOfTasksFromSpecifiedDates, query);
 	}
 
+	/**
+	 * Sets the current list of tasks to tasks that match query, from date
+	 * specified.
+	 * 
+	 * @param query
+	 * @param fromDate
+	 */
 	public void setCurrentListOfTasks(String query, DateTime fromDate) {
-		logger.log(
-				Level.INFO,
-				"Setting current list of tasks matching \"" + query + "\" from "
-						+ fromDate.toString(DATE_FORMATTER));
+		logger.log(Level.INFO, "Setting current list of tasks matching \""
+				+ query + "\" from " + fromDate.toString(DATE_FORMATTER));
 		DateTime toDate = fromDate.plusDays(1).toLocalDate()
 				.toDateTimeAtStartOfDay();
 		// dummy tasks to facilitate searching in TreeSet
@@ -393,6 +385,11 @@ public class TaskRecords {
 		Task toTask = new Task(toDate);
 		Set<Task> listOfTasksFromSpecifiedDates = allTaskRecords.subSet(
 				fromTask, toTask);
+		if (query.isEmpty()) {
+			currentListOfTasks = listOfTasksFromSpecifiedDates
+					.toArray(TASK_ARRAY_TYPE);
+			return;
+		}
 		currentListOfTasks = findMatchesFromSetOfTasks(
 				listOfTasksFromSpecifiedDates, query);
 	}

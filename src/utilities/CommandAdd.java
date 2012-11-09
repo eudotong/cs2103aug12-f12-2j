@@ -11,10 +11,15 @@ import storage.TaskRecords;
 public class CommandAdd implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_ADD = "Task could not be added.";
 	private static final String MESSAGE_SUCCESS = "%s was added";
+	
 
 	private boolean isReversible = true;
 	private Task taskToBeAdded;
 
+	/**
+	 * Initializes a newly created CommandAdd object with parameters specified.
+	 * @param taskToBeAdded
+	 */
 	public CommandAdd(Task taskToBeAdded) {
 		assert taskToBeAdded != null : "Null task.";
 		assert taskToBeAdded.getTaskName() != null : "Task has null name.";
