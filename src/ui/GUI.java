@@ -80,8 +80,9 @@ public class GUI extends JPanel implements ActionListener {
 		layeredPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 		layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
 
-		textField.setBackground(new java.awt.Color(220, 219, 219));
-		textField.setBorder(empty);
+		//textField.setBackground(new java.awt.Color(220, 219, 219));
+		//textField.setBorder(empty);
+		textField.setUI(new HintFieldUI("Type /? for help", true));
 		textField.addActionListener(this);
 		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upKey");
 		textField.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "downKey");
@@ -122,6 +123,7 @@ public class GUI extends JPanel implements ActionListener {
 		// add(layeredPane);
 
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				textField.requestFocus();
 			}
