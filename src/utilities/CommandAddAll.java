@@ -23,7 +23,6 @@ public class CommandAddAll implements Command {
 	 */
 	public CommandAddAll(Task[] tasksToBeAdded) {
 		assert tasksToBeAdded != null : "Null array";
-		// TODO ask Hieu if this assertion can... but like very waste time
 		for (Task task : tasksToBeAdded) {
 			assert task != null : "Task in array is null.";
 		}

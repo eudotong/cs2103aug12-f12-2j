@@ -25,7 +25,6 @@ public class CommandMarkAll implements Command {
 	 */
 	public CommandMarkAll(Task[] tasksToDelete) {
 		assert tasksToDelete != null : "Null array";
-		// TODO ask Hieu if this assertion can... but like very waste time
 		for (Task task : tasksToDelete) {
 			assert task != null : "Task in array is null.";
 		}

@@ -184,6 +184,7 @@ public class CommandParser {
 	public Command parseCommand(String inputCommand)
 			throws CommandCouldNotBeParsedException,
 			StartTimeAfterEndTimeException {
+		assert (inputCommand != null) : "Null String.";
 		commandToParse = changeAllDatesToSameFormat(inputCommand);
 		try {
 			CommandType commandType = getCommandType();
@@ -218,6 +219,7 @@ public class CommandParser {
 	}
 
 	private String removeExtraWhiteSpaces(String stringToProcess) {
+		assert (stringToProcess != null) : "Null String.";
 		return stringToProcess.trim().replaceAll(MULTIPLE_WHITE_SPACES,
 				WHITE_SPACE);
 	}
@@ -225,6 +227,7 @@ public class CommandParser {
 	// Changes all dates and times to a standard format because date parser
 	// cannot parse some formats properly.
 	private String changeAllDatesToSameFormat(String stringToProcess) {
+		assert (stringToProcess != null) : "Null String.";
 		String[] words = stringToProcess.split(WHITE_SPACE);
 		Pattern timePattern = Pattern.compile(PATTERN_TIME_DOT_SEPARATOR);
 		for (String word : words) {
@@ -248,6 +251,7 @@ public class CommandParser {
 	// Need this method because date parser only accepts dates in middle-endian
 	// format.
 	private String convertToMiddleEndian(String stringToProcess) {
+		assert (stringToProcess != null) : "Null String.";
 		String[] dateComponents = stringToProcess.split(SLASH);
 		String newDate = dateComponents[DAY_COMPONENT] + SLASH
 				+ dateComponents[MONTH_COMPONENT];
@@ -261,6 +265,7 @@ public class CommandParser {
 	// CS2103, anything starting with characters defined in
 	// disallowedStartCharsDict)
 	private String removeWronglyParsedWords(String dateString) {
+		assert (dateString != null) : "Null String.";
 		if (dateString.isEmpty()) {
 			return dateString;
 		}
@@ -286,6 +291,7 @@ public class CommandParser {
 	}
 
 	private boolean isUnparsable(String word) {
+		assert (word != null) : "Null String.";
 		return (disallowedStartCharsDict.contains(word.charAt(START_INDEX))
 				&& !otherDateVariantsDict.contains(word) && !conflictingVariantsDict
 					.contains(word))
@@ -297,6 +303,7 @@ public class CommandParser {
 	}
 
 	private String rebuildString(String[] stringArray) {
+		assert (stringArray != null) : "Null String Array.";
 		String rebuiltString = EMPTY_STRING;
 		for (String element : stringArray) {
 			rebuiltString += WHITE_SPACE + element;
@@ -416,6 +423,7 @@ public class CommandParser {
 	}
 
 	private boolean isNow(DateTime dateTimeToCheck) {
+		assert(dateTimeToCheck != null) : "Null DateTime.";
 		long timeNow = new DateTime().getMillis();
 		long timeSpecified = dateTimeToCheck.getMillis();
 		if (Math.abs(timeNow - timeSpecified) <= MILLISEC_DIFF_ALLOWANCE) {
@@ -425,6 +433,7 @@ public class CommandParser {
 	}
 
 	private boolean isTimeSpecified(DateTime dateTimeToCheck) {
+		assert(dateTimeToCheck != null) : "Null DateTime.";
 		int timeNow = new DateTime().getMillisOfDay();
 		int timeSpecified = dateTimeToCheck.getMillisOfDay();
 		if (Math.abs(timeNow - timeSpecified) <= MILLISEC_DIFF_ALLOWANCE) {
