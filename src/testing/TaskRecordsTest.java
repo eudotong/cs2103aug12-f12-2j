@@ -145,20 +145,6 @@ public class TaskRecordsTest {
 	}
 
 	@Test
-	public void testSetCurrentListOfTasksDateTimeDateTime() {
-		Task [] expectedList = {tasksToTest.get(4), tasksToTest.get(5), tasksToTest.get(6)};
-		taskRecordsTest.setCurrentListOfTasks(TODAY, TODAY.plusDays(2));
-		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
-	}
-
-	@Test
-	public void testSetCurrentListOfTasksDateTime() {
-		Task [] expectedList = {tasksToTest.get(4), tasksToTest.get(5)};
-		taskRecordsTest.setCurrentListOfTasks(TODAY);
-		assertEquals(expectedList, taskRecordsTest.getCurrentListOfTasks());
-	}
-
-	@Test
 	public void testSetCurrentListOfTasksStringDateTimeDateTime() {
 		Task [] expectedList = {tasksToTest.get(3)};
 		taskRecordsTest.setCurrentListOfTasks("th", TODAY.minusDays(2), TODAY);

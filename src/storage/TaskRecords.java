@@ -220,27 +220,6 @@ public class TaskRecords {
 		return true;
 	}
 
-	// TODO DELETE
-	public boolean clearAllOverDueTasks() {
-		Iterator<Task> taskIterator = allTaskRecords.iterator();
-		while (taskIterator.hasNext()) {
-			Task task = taskIterator.next();
-			if (task.getStartTime() != null
-					&& task.getStartTime().isBeforeNow()) {
-				taskIterator.remove();
-			} else if (task.getStartTime().isAfterNow()) {
-				break;
-			}
-		}
-		try {
-			rewriteFile();
-			return true;
-		} catch (IOException e) {
-			logger.log(Level.SEVERE, "Error: could not write to file.");
-			return false;
-		}
-	}
-
 	// This method is for testing only
 	public boolean clearAllTasks() {
 		try {
@@ -316,50 +295,6 @@ public class TaskRecords {
 		currentListOfTasks = findMatchesFromSetOfTasks(allTaskRecords, query);
 	}
 
-	public void setCurrentListOfTasks(DateTime fromDate, DateTime toDate)
-			throws IllegalArgumentException {
-		logger.log(
-				Level.INFO,
-				"Setting current list of tasks from "
-						+ fromDate.toString(DATE_FORMATTER) + " to "
-						+ toDate.toString(DATE_FORMATTER));
-		if (fromDate.isAfter(toDate)) {
-			DateTime tempDate = fromDate;
-			fromDate = toDate;
-			toDate = tempDate;
-		}
-		// dummy tasks to facilitate searching in TreeSet
-		Task fromTask = new Task(fromDate);
-		Task toTask = new Task(toDate);
-		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
-				TASK_ARRAY_TYPE);
-	}
-	
-	public void setCurrentListOfTasksTail(DateTime fromDate) {
-		logger.log(
-				Level.INFO,
-				"Setting current list of tasks from "
-						+ fromDate.toString(DATE_FORMATTER));
-		// dummy tasks to facilitate searching in TreeSet
-		Task fromTask = new Task(fromDate);
-		currentListOfTasks = allTaskRecords.tailSet(fromTask).toArray(
-				TASK_ARRAY_TYPE);
-	}
-
-	public void setCurrentListOfTasks(DateTime fromDate) {
-		logger.log(
-				Level.INFO,
-				"Setting current list of tasks from "
-						+ fromDate.toString(DATE_FORMATTER));
-		DateTime toDate = fromDate.plusDays(1).toLocalDate()
-				.toDateTimeAtStartOfDay();
-		// dummy tasks to facilitate searching in TreeSet
-		Task fromTask = new Task(fromDate);
-		Task toTask = new Task(toDate);
-		currentListOfTasks = allTaskRecords.subSet(fromTask, toTask).toArray(
-				TASK_ARRAY_TYPE);
-	}
-
 	public void setCurrentListOfTasks(String query, DateTime fromDate,
 			DateTime toDate) {
 		logger.log(
@@ -377,6 +312,10 @@ public class TaskRecords {
 		Task toTask = new Task(toDate);
 		Set<Task> listOfTasksFromSpecifiedDates = allTaskRecords.subSet(
 				fromTask, toTask);
+		if(query.isEmpty()){
+			currentListOfTasks = listOfTasksFromSpecifiedDates.toArray(TASK_ARRAY_TYPE);
+			return;
+		}
 		currentListOfTasks = findMatchesFromSetOfTasks(
 				listOfTasksFromSpecifiedDates, query);
 	}
@@ -393,6 +332,10 @@ public class TaskRecords {
 		Task toTask = new Task(toDate);
 		Set<Task> listOfTasksFromSpecifiedDates = allTaskRecords.subSet(
 				fromTask, toTask);
+		if(query.isEmpty()){
+			currentListOfTasks = listOfTasksFromSpecifiedDates.toArray(TASK_ARRAY_TYPE);
+			return;
+		}
 		currentListOfTasks = findMatchesFromSetOfTasks(
 				listOfTasksFromSpecifiedDates, query);
 	}
