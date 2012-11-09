@@ -24,7 +24,9 @@ public class CommandSearch implements Command {
 	private String query;
 
 	/**
-	 * Initializes a newly created CommandSearch object with parameters specified.
+	 * Initializes a newly created CommandSearch object with parameters
+	 * specified.
+	 * 
 	 * @param query
 	 * @param fromDate
 	 * @param toDate
@@ -41,7 +43,7 @@ public class CommandSearch implements Command {
 
 	public String processCommand(TaskRecords taskRecords) {
 		assert taskRecords != null : "Null task records.";
-		if (query.isEmpty() && fromDate == null && toDate == null) {
+		if (query == null && fromDate == null && toDate == null) {
 			taskRecords.setCurrentListOfTasks();
 		} else if (fromDate == null && toDate == null) {
 			taskRecords.setCurrentListOfTasks(query);

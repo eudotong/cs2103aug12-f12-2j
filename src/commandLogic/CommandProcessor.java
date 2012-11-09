@@ -55,7 +55,7 @@ public class CommandProcessor {
 		changeRecord = new ChangeRecord();
 		commandParser = new CommandParser();
 		taskRecords = TaskRecords.getInstance();
-		latestSearch = new CommandSearch(EMPTY_STRING, null, null);
+		latestSearch = new CommandSearch(null, null, null);
 		latestSearch.processCommand(taskRecords);
 	}
 
@@ -172,14 +172,12 @@ public class CommandProcessor {
 					currentListOfTasks[indexOfTask].getStartTime())) {
 				currentDateIteration = currentListOfTasks[indexOfTask]
 						.getStartTime();
-				String date = currentDateIteration.toString(DATE_FORMATTER_DAY_DATE);
 				String element = FORMAT_HTML_DATEHEADER +currentDateIteration.toString(DATE_FORMATTER_DAY_DATE)+ FORMAT_HTML_DATEHEADER_CLOSE;
 				currentListOfTasksModel.addElement(element);
 			}
 			//System.out.println(currentListOfTasks[indexOfTask].getTimesAsString() + currentListOfTasks[indexOfTask].getTaskName());
 			if (currentListOfTasks[indexOfTask].getTaskName().contains("impt")){
-				String element = FORMAT_HTML_TASK +"<font color=\"#827839\"><b>"+ (indexOfTask + 1) + ". "
-						
+				String element = FORMAT_HTML_TASK +"<font color=\"#827839\"><b>"+ (indexOfTask + 1) + ". "		
 					+ currentListOfTasks[indexOfTask].getTimesAsString()
 					+ currentListOfTasks[indexOfTask].getTaskName()
 					+ "<b/><font/>" + FORMAT_HTML_TASK_CLOSE;

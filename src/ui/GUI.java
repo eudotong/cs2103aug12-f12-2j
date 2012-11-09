@@ -27,7 +27,11 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import commandLogic.CommandProcessor;
-
+/**
+ * 
+ * @author A0092052N
+ *
+ */
 public class GUI extends JPanel implements ActionListener {
 	private static final String EMPTY_STRING = "";
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
@@ -40,7 +44,6 @@ public class GUI extends JPanel implements ActionListener {
 	JList<String> jlist;
 	JScrollPane listPane;
 	JTextField textField = new JTextField(32);
-	
 	CommandProcessor commandProcessor;
 	JLabel commandOutputLabel = null;
 	Box verticalBox;
@@ -77,11 +80,7 @@ public class GUI extends JPanel implements ActionListener {
 		layeredPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 		layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
 
-//		field.setUI(new HintFieldUI("Search", true));
-//		field.addActionListener(this);
-//		
-		//textField.setBackground(new java.awt.Color(220, 219, 219));
-		textField.setUI(new HintFieldUI("Type /? for help", true));
+		textField.setBackground(new java.awt.Color(220, 219, 219));
 		textField.setBorder(empty);
 		textField.addActionListener(this);
 		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upKey");
@@ -106,7 +105,6 @@ public class GUI extends JPanel implements ActionListener {
 			}
 		});
 
-		//forgroundPanel.add(textField);
 		forgroundPanel.add(textField);
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -123,9 +121,7 @@ public class GUI extends JPanel implements ActionListener {
 		add(forgroundPanel);
 		// add(layeredPane);
 
-		// PROBLEM HEREE !!
 		SwingUtilities.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 				textField.requestFocus();
 			}
@@ -220,5 +216,3 @@ public class GUI extends JPanel implements ActionListener {
 		});
 	}
 }
-
-
