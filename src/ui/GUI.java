@@ -27,7 +27,11 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import commandLogic.CommandProcessor;
-
+/**
+ * 
+ * @author A0092052N
+ *
+ */
 public class GUI extends JPanel implements ActionListener {
 	private static final String EMPTY_STRING = "";
 	private static final String BORDER_TITLE = "Jimi - Task Manager";

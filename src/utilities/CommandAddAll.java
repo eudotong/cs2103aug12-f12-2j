@@ -10,6 +10,7 @@ import storage.TaskRecords;
  *         issued command it exists so the command MARK_ALL can be reversed
  */
 public class CommandAddAll implements Command {
+	private static final String EMPTY_STRING = "";
 	private static final boolean IS_REVERSIBLE = true;
 	private static final String MESSAGE_SUCCESS = "Tasks added.";
 	private Task[] tasksToAdd = new Task[0];
@@ -49,5 +50,14 @@ public class CommandAddAll implements Command {
 	@Override
 	public CommandType getCommandType() {
 		return null;
+	}
+
+	// for testing
+	public String toString() {
+		String commandAddAllAsString = EMPTY_STRING;
+		for (Task task : tasksToAdd) {
+			commandAddAllAsString += task;
+		}
+		return commandAddAllAsString;
 	}
 }
