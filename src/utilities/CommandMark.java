@@ -16,12 +16,21 @@ public class CommandMark implements Command {
 	private Task taskToBeDeleted;
 	private int indexOfTaskToBeDeleted;
 
+	/**
+	 * Initializes a newly created CommandMark object with parameters specified.
+	 * 
+	 * @param indexOfTaskToBeDeleted
+	 */
 	public CommandMark(int indexOfTaskToBeDeleted) {
 		assert indexOfTaskToBeDeleted >= 1 : "Not a valid task index";
 		this.indexOfTaskToBeDeleted = indexOfTaskToBeDeleted;
 		taskToBeDeleted = null;
 	}
 
+	/**
+	 * Initializes a newly created CommandMark object with parameters specified.
+	 * @param taskToBeDeleted
+	 */
 	public CommandMark(Task taskToBeDeleted) {
 		assert taskToBeDeleted != null : "Null task.";
 		this.taskToBeDeleted = taskToBeDeleted;
@@ -51,5 +60,9 @@ public class CommandMark implements Command {
 
 	public boolean isReversible() {
 		return isReversible;
+	}
+
+	public String toString() {
+		return Integer.toString(indexOfTaskToBeDeleted);
 	}
 }

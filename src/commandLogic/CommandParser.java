@@ -34,6 +34,7 @@ import exceptions.StartTimeAfterEndTimeException;
  *         Command object accordingly.
  */
 public class CommandParser {
+	private static final int SECOND_GROUP = 1;
 	private static final String COLON = ":";
 	private static final String DOT = ".";
 	private static final int FIRST_VALID_INDEX = 1;
@@ -63,16 +64,16 @@ public class CommandParser {
 			Long.MIN_VALUE);
 
 	private static final char[] LIST_DISALLOWED_START_CHARS = { 'a', 'e', 'p',
-			's', 'd', 'f', 'h', 'l', 'z', 'm' };
+			's', 'd', 'f', 'h', 'l', 'z', 'm', 'g', 't' };
 	private static final String[] LIST_CONFLICTING_DATE_VARIANTS = { "mon",
 			"tues", "wed", "thurs", "fri", "sat", "sun", "jan", "feb", "mar",
 			"apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
-	private static final String[] LIST_CORRECT_DATE_VARIANTS = { "monday",
-			"tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
-			"january", "february", "march", "april", "may", "june", "july",
-			"august", "september", "october", "november", "december" };
-	private static final String[] LIST_DATE_VARIANTS = { "am", "pm", "day",
-			"days", "hour", "hours", "hr", "hrs" };
+	private static final String[] LIST_GOOD_WORDS = { "monday", "tuesday",
+			"wednesday", "thursday", "friday", "saturday", "sunday", "january",
+			"february", "march", "april", "may", "june", "july", "august",
+			"september", "october", "november", "december", "for", "to", "now",
+			"am", "pm", "day", "days", "hour", "hours", "hr", "hrs", "minute",
+			"min", "minutes", "sec", "second", "seconds", "today", "tomorrow" };
 	private static final String[] LIST_ADD_SYNONYMS = { "add", "insert",
 			"create", "new", "put", "ins" };
 	private static final String[] LIST_MARK_SYNONYMS = { "mark", "delete",
@@ -103,13 +104,15 @@ public class CommandParser {
 	private HashMap<String, CommandType> commandTypeKeywordsDict;
 	private HashMap<String, CommandType> specialKeywordsDict;
 	private HashMap<String, RelativeType> relativeTimeKeywordsDict;
-	private HashSet<String> dateVariantsDict;
-	private HashSet<String> correctVariantsDict;
+	private HashSet<String> goodWordsDict;
 	private HashSet<String> conflictingVariantsDict;
 	private HashSet<Character> disallowedStartCharsDict;
 
 	private String commandToParse;
 
+	/**
+	 * Initializes newly created CommandParser object.
+	 */
 	public CommandParser() {
 		initialiseDictionaries();
 	}
@@ -118,21 +121,17 @@ public class CommandParser {
 		commandTypeKeywordsDict = new HashMap<String, CommandType>();
 		specialKeywordsDict = new HashMap<String, CommandType>();
 		relativeTimeKeywordsDict = new HashMap<String, RelativeType>();
-		dateVariantsDict = new HashSet<String>();
-		correctVariantsDict = new HashSet<String>();
+		goodWordsDict = new HashSet<String>();
 		conflictingVariantsDict = new HashSet<String>();
 		disallowedStartCharsDict = new HashSet<Character>();
 		for (String entry : LIST_CONFLICTING_DATE_VARIANTS) {
 			conflictingVariantsDict.add(entry);
 		}
-		for (String entry : LIST_CORRECT_DATE_VARIANTS) {
-			correctVariantsDict.add(entry);
+		for (String entry : LIST_GOOD_WORDS) {
+			goodWordsDict.add(entry);
 		}
 		for (char entry : LIST_DISALLOWED_START_CHARS) {
 			disallowedStartCharsDict.add(entry);
-		}
-		for (String entry : LIST_DATE_VARIANTS) {
-			dateVariantsDict.add(entry);
 		}
 		for (String entry : LIST_ADD_SYNONYMS) {
 			commandTypeKeywordsDict.put(entry, CommandType.ADD);
@@ -164,6 +163,14 @@ public class CommandParser {
 		}
 	}
 
+	/**
+	 * Parses input command and changes it to a appropriate Command object.
+	 * 
+	 * @param inputCommand
+	 * @return Command
+	 * @throws CommandCouldNotBeParsedException
+	 * @throws StartTimeAfterEndTimeException
+	 */
 	public Command parseCommand(String inputCommand)
 			throws CommandCouldNotBeParsedException,
 			StartTimeAfterEndTimeException {
@@ -240,15 +247,13 @@ public class CommandParser {
 			return dateString;
 		}
 		String[] components = dateString.split(WHITE_SPACE);
-		for (String component : components) {
-			String componentLowerCase = component.toLowerCase();
+		for (int compIndex = START_INDEX; compIndex < components.length; compIndex++) {
+			String componentLowerCase = components[compIndex].toLowerCase();
 			for (String dateVariant : LIST_CONFLICTING_DATE_VARIANTS) {
 				if (componentLowerCase.contains(dateVariant)) {
 					if (!componentLowerCase.equals(dateVariant)
-							&& !correctVariantsDict
-									.contains(componentLowerCase)) {
-						dateString = dateString
-								.replace(component, EMPTY_STRING);
+							&& !goodWordsDict.contains(componentLowerCase)) {
+						components[compIndex] = EMPTY_STRING;
 					}
 					break;
 				}
@@ -256,24 +261,34 @@ public class CommandParser {
 			}
 			if ((disallowedStartCharsDict.contains(componentLowerCase
 					.charAt(START_INDEX))
-					&& !dateVariantsDict.contains(componentLowerCase)
-					&& !correctVariantsDict.contains(componentLowerCase) && !conflictingVariantsDict
+					&& !goodWordsDict.contains(componentLowerCase) && !conflictingVariantsDict
 						.contains(componentLowerCase))
-					|| (component.matches(PATTERN_ALPHANUMERIC_WORD)
-							&& !component.matches(PATTERN_NON_DIGIT)
-							&& !component.matches(PATTERN_NUMBER)
-							&& !componentLowerCase.matches(PATTERN_TIME) && !component
+					|| (components[compIndex]
+							.matches(PATTERN_ALPHANUMERIC_WORD)
+							&& !components[compIndex]
+									.matches(PATTERN_NON_DIGIT)
+							&& !components[compIndex].matches(PATTERN_NUMBER)
+							&& !componentLowerCase.matches(PATTERN_TIME) && !components[compIndex]
 								.matches(PATTERN_ITH_NUMBER))) {
-				dateString = dateString.replace(component, EMPTY_STRING);
+				components[compIndex] = EMPTY_STRING;
 			}
 		}
-		return dateString;
+		return rebuildString(components);
+	}
+
+	private String rebuildString(String[] stringArray) {
+		String rebuiltString = EMPTY_STRING;
+		for (String element : stringArray) {
+			rebuiltString += WHITE_SPACE + element;
+		}
+		return rebuiltString;
 	}
 
 	// TODO get rid of the error of parsing substring "wedding", "fries" etc.
 	private DateTime[] getStartAndEndTimesFromCommand() {
 		Parser dateParser = new Parser();
 		String stringToParse = removeWronglyParsedDates(commandToParse);
+		stringToParse = removeExtraWhiteSpaces(stringToParse);
 		List<DateGroup> dateGroupList = dateParser.parse(stringToParse);
 		DateTime[] startAndEndTime = new DateTime[NUM_START_AND_END_TIMES];
 		if (dateGroupList.isEmpty()) {
@@ -282,12 +297,13 @@ public class CommandParser {
 		while (!dateGroupList.isEmpty()) {
 			DateGroup dateGroup = dateGroupList.get(FIRST_GROUP);
 			logger.log(Level.INFO, "Parsing Date: " + dateGroup.getText());
+
 			if ((dateGroup.getText().contains(KEYWORD_TO) | dateGroup.getText()
 					.contains(KEYWORD_DASH)) && dateGroup.getDates().size() > 1) {
 				startAndEndTime[START_TIME] = new DateTime(dateGroup.getDates()
-						.get(0));
+						.get(FIRST_GROUP));
 				startAndEndTime[END_TIME] = new DateTime(dateGroup.getDates()
-						.get(1));
+						.get(SECOND_GROUP));
 				if (!dateGroup.getText().contains(KEYWORD_NOW)) {
 					if (!isTimeSpecified(startAndEndTime[START_TIME])) {
 						startAndEndTime[START_TIME] = startAndEndTime[START_TIME]
@@ -298,17 +314,29 @@ public class CommandParser {
 								.withTimeAtStartOfDay();
 
 					}
-					stringToParse = stringToParse.replace(dateGroup.getText(),
-							EMPTY_STRING);
-					commandToParse = commandToParse.replace(
-							dateGroup.getText(), EMPTY_STRING);
-					return startAndEndTime;
+				} else {
+					if (!isNow(startAndEndTime[START_TIME])
+							&& !isTimeSpecified(startAndEndTime[START_TIME])) {
+						startAndEndTime[START_TIME] = startAndEndTime[START_TIME]
+								.withTimeAtStartOfDay();
+					}
+					if (!isNow(startAndEndTime[END_TIME])
+							&& !isTimeSpecified(startAndEndTime[END_TIME])) {
+						startAndEndTime[END_TIME] = startAndEndTime[END_TIME]
+								.withTimeAtStartOfDay();
+					}
 				}
+				stringToParse = stringToParse.replace(dateGroup.getText(),
+						EMPTY_STRING);
+				commandToParse = commandToParse.replace(dateGroup.getText(),
+						EMPTY_STRING);
+				return startAndEndTime;
 			}
+
 			if (dateGroup.getText().contains(KEYWORD_FOR)
-					&& dateGroup.getDates().size() > 1) {
+					&& !dateGroup.getDates().isEmpty()) {
 				DateTime intervalStart = new DateTime(dateGroup.getDates().get(
-						0));
+						FIRST_GROUP));
 				DateTime intervalEnd = new DateTime(dateGroup.getDates().get(1));
 				long intervalDifference = intervalEnd.getMillis()
 						- intervalStart.getMillis();
@@ -327,10 +355,10 @@ public class CommandParser {
 				commandToParse = commandToParse.replace(dateGroup.getText(),
 						EMPTY_STRING);
 				dateGroupList = dateParser.parse(stringToParse);
-				if (dateGroupList.size() > 0) {
-					dateGroup = dateGroupList.get(0);
+				if (!dateGroupList.isEmpty()) {
+					dateGroup = dateGroupList.get(FIRST_GROUP);
 					startAndEndTime[START_TIME] = new DateTime(dateGroup
-							.getDates().get(0));
+							.getDates().get(FIRST_GROUP));
 					startAndEndTime[END_TIME] = startAndEndTime[START_TIME]
 							.plus(intervalDifference);
 				} else {
@@ -343,18 +371,20 @@ public class CommandParser {
 						EMPTY_STRING);
 				return startAndEndTime;
 			}
+
 			if (startAndEndTime[START_TIME] == null) {
 				startAndEndTime[START_TIME] = new DateTime(dateGroup.getDates()
-						.get(0));
+						.get(FIRST_GROUP));
 				if (!dateGroup.getText().contains(KEYWORD_NOW)
 						&& !isTimeSpecified(startAndEndTime[START_TIME])) {
 					startAndEndTime[START_TIME] = startAndEndTime[START_TIME]
 							.withTimeAtStartOfDay();
 				}
-			} else {
+			} else if (startAndEndTime[END_TIME] == null) {
 				startAndEndTime[END_TIME] = new DateTime(dateGroup.getDates()
 						.get(FIRST_GROUP));
 			}
+
 			stringToParse = stringToParse.replace(dateGroup.getText(),
 					EMPTY_STRING);
 			commandToParse = commandToParse.replace(dateGroup.getText(),
@@ -362,6 +392,15 @@ public class CommandParser {
 			dateGroupList = dateParser.parse(stringToParse);
 		}
 		return startAndEndTime;
+	}
+
+	private boolean isNow(DateTime dateTimeToCheck) {
+		long timeNow = new DateTime().getMillis();
+		long timeSpecified = dateTimeToCheck.getMillis();
+		if (Math.abs(timeNow - timeSpecified) <= MILLISECOND_DIFFERENCE_ALLOWANCE) {
+			return true;
+		}
+		return false;
 	}
 
 	private boolean isTimeSpecified(DateTime dateTimeToCheck) {
@@ -382,7 +421,7 @@ public class CommandParser {
 			throw new StartTimeAfterEndTimeException();
 		}
 		String taskName = removeExtraWhiteSpaces(commandToParse);
-		if (taskName.length() == 0) {
+		if (taskName.isEmpty()) {
 			throw new CommandCouldNotBeParsedException();
 		}
 		return new CommandAdd(new Task(taskName, startAndEndTime[START_TIME],
@@ -403,7 +442,7 @@ public class CommandParser {
 			if (taskIndex < FIRST_VALID_INDEX) {
 				throw new CommandCouldNotBeParsedException();
 			}
-			commandToParse = commandToParse.replaceAll(
+			commandToParse = commandToParse.replaceFirst(
 					PATTERN_ANY_NUMBER_NOT_DATE, EMPTY_STRING);
 		} else {
 			throw new CommandCouldNotBeParsedException();
@@ -425,8 +464,11 @@ public class CommandParser {
 		Pattern anyNumberPattern = Pattern.compile(PATTERN_NUMBER);
 		Matcher patternMatcher = anyNumberPattern.matcher(command);
 		if (patternMatcher.find()) {
-			return new CommandMark(Integer.parseInt(patternMatcher
-					.group(FIRST_GROUP)));
+			int taskIndex = Integer.parseInt(patternMatcher.group(FIRST_GROUP));
+			if (taskIndex <= 0) {
+				throw new CommandCouldNotBeParsedException();
+			}
+			return new CommandMark(taskIndex);
 		}
 		throw new CommandCouldNotBeParsedException();
 	}
@@ -441,13 +483,7 @@ public class CommandParser {
 			throw new StartTimeAfterEndTimeException();
 		}
 		commandToParse = removeExtraWhiteSpaces(commandToParse);
-		if (commandToParse.length() == 0) {
-			commandToParse = null;
-		}
 		RelativeType relativeType = getRelativeKeyword();
-		System.out.println("a" + IMPOSSIBLY_LARGE_DATE);
-		System.out.println("b" + IMPOSSIBLY_SMALL_DATE);
-		System.out.println(new DateTime());
 		if (startAndEndTime[START_TIME] != null) {
 			switch (relativeType) {
 			case BEFORE:

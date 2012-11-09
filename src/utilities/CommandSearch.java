@@ -1,6 +1,8 @@
 package utilities;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import storage.TaskRecords;
 
@@ -11,14 +13,22 @@ import storage.TaskRecords;
  *         Functionality for command of type SEARCH
  */
 public class CommandSearch implements Command {
-	private static final int LENGTH_ZERO = 0;
+	private static final String NULL = "null";
 	private static final boolean IS_REVERSIBLE = false;
 	private static final String MESSAGE_SUCCESS = "Searched.";
+	private static DateTimeFormatter DATE_FORMATTER = DateTimeFormat
+			.forPattern("dd/MM/yyyy HH:mm");
 
 	private DateTime fromDate;
 	private DateTime toDate;
 	private String query;
 
+	/**
+	 * Initializes a newly created CommandSearch object with parameters specified.
+	 * @param query
+	 * @param fromDate
+	 * @param toDate
+	 */
 	public CommandSearch(String query, DateTime fromDate, DateTime toDate) {
 		if (fromDate != null && toDate != null && fromDate.isAfter(toDate)) {
 			this.fromDate = toDate;
@@ -31,17 +41,13 @@ public class CommandSearch implements Command {
 
 	public String processCommand(TaskRecords taskRecords) {
 		assert taskRecords != null : "Null task records.";
-		if (query == null && fromDate == null && toDate == null) {
+		if (query.isEmpty() && fromDate == null && toDate == null) {
 			taskRecords.setCurrentListOfTasks();
-		} else if (query == null && fromDate != null && toDate == null) {
-			taskRecords.setCurrentListOfTasks(fromDate);
-		} else if (query != null && fromDate == null && toDate == null) {
+		} else if (fromDate == null && toDate == null) {
 			taskRecords.setCurrentListOfTasks(query);
-		} else if (query == null && fromDate != null && toDate != null) {
-			taskRecords.setCurrentListOfTasks(fromDate, toDate);
-		} else if (query == null && fromDate != null && toDate == null) {
+		} else if (fromDate != null && toDate == null) {
 			taskRecords.setCurrentListOfTasks(query, fromDate);
-		} else if (query == null && fromDate != null && toDate == null) {
+		} else if (fromDate != null && toDate != null) {
 			taskRecords.setCurrentListOfTasks(query, fromDate, toDate);
 		}
 		return MESSAGE_SUCCESS;
@@ -63,6 +69,14 @@ public class CommandSearch implements Command {
 	}
 
 	public String toString() {
-		return fromDate + " " + toDate + " " + query;
+		String fromDateString = NULL;
+		String toDateString = NULL;
+		if (fromDate != null) {
+			fromDateString = fromDate.toString(DATE_FORMATTER);
+		}
+		if (toDate != null) {
+			toDateString = toDate.toString(DATE_FORMATTER);
+		}
+		return query + fromDateString + toDateString;
 	}
 }

@@ -14,6 +14,12 @@ public class CommandAddAll implements Command {
 	private static final String MESSAGE_SUCCESS = "Tasks added.";
 	private Task[] tasksToAdd = new Task[0];
 
+	/**
+	 * Initializes a newly created CommandAddAll object with parameters
+	 * specified.
+	 * 
+	 * @param tasksToBeAdded
+	 */
 	public CommandAddAll(Task[] tasksToBeAdded) {
 		assert tasksToBeAdded != null : "Null array";
 		// TODO ask Hieu if this assertion can... but like very waste time
