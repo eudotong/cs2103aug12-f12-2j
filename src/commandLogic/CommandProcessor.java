@@ -29,9 +29,13 @@ public class CommandProcessor {
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
 	private static final String MESSAGE_ERROR_UNABLE_TO_UNDO = "There are no commands to undo";
 	private static final String MESSAGE_ERROR_UNABLE_TO_REDO = "There are no commands to redo";
-	private static final DateTimeFormatter DATE_FORMATTER_DAY_DATE = DateTimeFormat
-			.forPattern("E, d MMM");
-
+	private static final DateTimeFormatter DATE_FORMATTER_DAY_DATE = DateTimeFormat.forPattern("E, d MMM");
+	private static final String FORMAT_HTML_DATEHEADER = "<html><head><style> p.padding {padding-left:0.3cm;} <style/><head/><body style=\"width:290px\"><hr align=\"right\" width=\"98%\"><font size=\"5\" face=\"Georgia, Arial\" color=\"maroon\"><p class=\"padding\">";
+	private static final String FORMAT_HTML_DATEHEADER_CLOSE = "</p></font></body></html>";
+	private static final String FORMAT_HTML_TASK_CLOSE = "</body></html>";
+	private static final String FORMAT_HTML_TASK = "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">";
+	//	String element1 = String.format("<html><head><style>p.padding {padding-left:0.3cm;} <style/><head/><body style=\"width:290px\"><hr align=\"right\" width=\"98%\"><font size=\"5\" face=\"Georgia, Arial\" color=\"maroon\"><p class=\"padding\">%s</p></font></body></html>",currentDateIteration.toString(DATE_FORMATTER_DAY_DATE));
+	
 	private static Logger logger = Logger.getLogger("JIMI");
 
 	private ChangeRecord changeRecord;
@@ -168,32 +172,36 @@ public class CommandProcessor {
 					currentListOfTasks[indexOfTask].getStartTime())) {
 				currentDateIteration = currentListOfTasks[indexOfTask]
 						.getStartTime();
-				String element = "<html><head><style>	p.padding {padding-left:0.3cm;} <style/><head/>"
-						+ "<body style=\"width:290px\"><hr align=\"right\" width=\"98%\">"
-						+ "<font size=\"5\" face=\"Georgia, Arial\" color=\"maroon\"><p class=\"padding\">"
-						+ currentDateIteration
-								.toString(DATE_FORMATTER_DAY_DATE)
-						+ "</p></font></body></html>";
+				String date = currentDateIteration.toString(DATE_FORMATTER_DAY_DATE);
+				String element = FORMAT_HTML_DATEHEADER +currentDateIteration.toString(DATE_FORMATTER_DAY_DATE)+ FORMAT_HTML_DATEHEADER_CLOSE;
 				currentListOfTasksModel.addElement(element);
 			}
-			/*
-			 * String element =
-			 * "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">"
-			 * + "<table><tr><td width = \"10\">" + (indexOfTask + 1) +
-			 * ".</td><td width = \"133\">" +
-			 * currentListOfTasks[indexOfTask].getTimesAsString() + "</td><td>"
-			 * + currentListOfTasks[indexOfTask].getTaskName() +
-			 * "</td></tr></table>" + "</body></html>";
-			 */
-			String element = "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">"
-					+ (indexOfTask + 1)
-					+ ". "
+			//System.out.println(currentListOfTasks[indexOfTask].getTimesAsString() + currentListOfTasks[indexOfTask].getTaskName());
+			if (currentListOfTasks[indexOfTask].getTaskName().contains("impt")){
+				String element = FORMAT_HTML_TASK +"<font color=\"#827839\"><b>"+ (indexOfTask + 1) + ". "
+						
 					+ currentListOfTasks[indexOfTask].getTimesAsString()
 					+ currentListOfTasks[indexOfTask].getTaskName()
-					+ "</body></html>";
-			currentListOfTasksModel.addElement(element);
+					+ "<b/><font/>" + FORMAT_HTML_TASK_CLOSE;
+				
+				currentListOfTasksModel.addElement(element);
+			}
+			else{
+				String element = FORMAT_HTML_TASK + (indexOfTask + 1) + ". "
+			
+					+ currentListOfTasks[indexOfTask].getTimesAsString()
+					+ currentListOfTasks[indexOfTask].getTaskName()
+					+ FORMAT_HTML_TASK_CLOSE;
+				currentListOfTasksModel.addElement(element);
+			}
+			
 		}
 		return currentListOfTasksModel;
+	}
+
+	private String printf(String element2, String toBeDisplayed) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private boolean isSameDay(DateTime firstDate, DateTime secondDate) {
