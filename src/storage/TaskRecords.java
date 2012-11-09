@@ -228,7 +228,7 @@ public class TaskRecords {
 	 * 
 	 * @param tasksToDelete
 	 */
-	// TODO ASK HIEU ABOUT IO EXCEPTION
+	// TODO ASK ABOUT IO EXCEPTION
 	public void removeAll(Task[] tasksToDelete) {
 		logger.log(Level.INFO, "Deleting a list of tasks from task records.");
 		ArrayList<Task> tasksSuccessfullyRemoved = new ArrayList<Task>();
