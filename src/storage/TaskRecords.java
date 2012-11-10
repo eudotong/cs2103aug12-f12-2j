@@ -218,7 +218,7 @@ public class TaskRecords {
 	}
 
 	/**
-	 * Deleted all tasks in array from the text file.
+	 * Deletes all tasks in array from the text file.
 	 * 
 	 * @param tasksToDelete
 	 */
