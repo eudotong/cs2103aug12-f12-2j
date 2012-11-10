@@ -25,6 +25,8 @@ import exceptions.StartTimeAfterEndTimeException;
  *
  */
 public class CommandProcessor {
+	private static final String KEYWORD_IMPORTANT = "important";
+	private static final String KEYWORD_IMPT = "impt";
 	private static final int TASK_INDEX_START = 0;
 	private static final int SAME_TIME = 0;
 
@@ -186,7 +188,7 @@ public class CommandProcessor {
 			}
 			// System.out.println(currentListOfTasks[indexOfTask].getTimesAsString()
 			// + currentListOfTasks[indexOfTask].getTaskName());
-			if (currentListOfTasks[indexOfTask].getTaskName().contains("impt")) {
+			if (currentListOfTasks[indexOfTask].getTaskName().contains(KEYWORD_IMPT) || currentListOfTasks[indexOfTask].getTaskName().contains(KEYWORD_IMPORTANT)) {
 				String element = FORMAT_HTML_TASK
 						+ "<font color=\"#827839\"><b>" + (indexOfTask + 1)
 						+ ". "
