@@ -62,7 +62,7 @@ public class Task implements Comparable<Task> {
 	}
 
 	/**
-	 * Returns a task's time in hh:mma format.
+	 * Returns a task's time in hh:mma format. If 2 times then format is hh:mma to hh:mma.
 	 * 
 	 * @return String
 	 */
