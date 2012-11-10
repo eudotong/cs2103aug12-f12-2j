@@ -21,7 +21,7 @@ import exceptions.NothingToUndoException;
 import exceptions.StartTimeAfterEndTimeException;
 /**
  * Main logic of Jimi.
- * @author Amanda
+ * @author A0092052N
  *
  */
 public class CommandProcessor {
