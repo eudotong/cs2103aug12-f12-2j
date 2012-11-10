@@ -25,6 +25,8 @@ import exceptions.StartTimeAfterEndTimeException;
  *
  */
 public class CommandProcessor {
+	private static final String MESSAGE_NO_DATE = "no date";
+	private static final String NULL_STRING = "null";
 	private static final String KEYWORD_IMPORTANT = "important";
 	private static final String KEYWORD_IMPT = "impt";
 	private static final int TASK_INDEX_START = 0;
@@ -108,7 +110,7 @@ public class CommandProcessor {
 				outputMessage = processMarkAll(commandIssued);
 			}
 			changeRecord.add(commandIssued);
-			return outputMessage;
+			return outputMessage.replace(NULL_STRING, MESSAGE_NO_DATE);
 		} catch (CommandCouldNotBeParsedException e) {
 			logger.log(Level.WARNING, "Error: command not recognised");
 			return MESSAGE_ERROR_UNRECOGNISED_COMMAND;

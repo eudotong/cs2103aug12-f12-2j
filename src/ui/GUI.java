@@ -142,17 +142,17 @@ public class GUI extends JPanel implements ActionListener {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		//TODO EC asks.. What is this for?
-		add(Box.createRigidArea(new Dimension(0, 10)));
+		//add(Box.createRigidArea(new Dimension(0, 10)));
 
-		commandOutputLabel = new JLabel(EMPTY_STRING, JLabel.LEFT); 
+		commandOutputLabel = new JLabel(EMPTY_STRING); 
 		commandOutputLabel.setFont(COMMAND_OUTPUT_FONT);
 		commandOutputLabel.setForeground(COMMAND_OUTPUT_FONT_COLOR);
-		//commandOutputLabel.setAlignmentX(Component.LEFT_ALIGNMENT);//TODO Not working
+		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);//TODO Not working
 		commandOutputLabel.setPreferredSize(COMMAND_OUTPUT_LABEL_DIMENSION);
 		add(createControlPanel());
 		add(commandOutputLabel);
 		add(foregroundPanel);
-		// add(layeredPane);
+		add(layeredPane);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -167,8 +167,6 @@ public class GUI extends JPanel implements ActionListener {
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
 			String text = value.toString();
-			// text = HTML_1 + String.valueOf(width) + HTML_2 +
-			// value.toString()+ HTML_3;
 
 			return super.getListCellRendererComponent(list, text, index,
 					isSelected, cellHasFocus);
@@ -201,14 +199,10 @@ public class GUI extends JPanel implements ActionListener {
 		String command = textField.getText();
 
 		String output = commandProcessor.processCommand(command);
-		output = output.replaceAll("null|",""); //TODO TEMP SOLUTION
 		commandOutputLabel.setText(output);
 		tasklist.setModel(commandProcessor.getCurrentListModelOfTasks());
-		// refreshCurrentList(commandProcessor.getCurrentListModelOfTasks());
 
 		textField.setText(EMPTY_STRING);
-		System.out.println("The alignment for commandOutput is " + commandOutputLabel.getHorizontalAlignment());
-
 	}
 
 	/**
