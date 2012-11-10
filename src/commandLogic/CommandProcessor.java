@@ -58,8 +58,6 @@ public class CommandProcessor {
 	 * @throws IOException
 	 */
 	public CommandProcessor() throws IOException {
-		FileHandler fileHandler = new FileHandler("log/app.log", true);
-		logger.addHandler(fileHandler);
 		changeRecord = new ChangeRecord();
 		commandParser = new CommandParser();
 		taskRecords = TaskRecords.getInstance();
