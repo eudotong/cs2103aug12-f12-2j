@@ -19,7 +19,11 @@ import exceptions.CommandCouldNotBeParsedException;
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
 import exceptions.StartTimeAfterEndTimeException;
-
+/**
+ * Main logic of Jimi.
+ * @author Amanda
+ *
+ */
 public class CommandProcessor {
 	private static final int TASK_INDEX_START = 0;
 	private static final int SAME_TIME = 0;
@@ -29,13 +33,15 @@ public class CommandProcessor {
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
 	private static final String MESSAGE_ERROR_UNABLE_TO_UNDO = "There are no commands to undo";
 	private static final String MESSAGE_ERROR_UNABLE_TO_REDO = "There are no commands to redo";
-	private static final DateTimeFormatter DATE_FORMATTER_DAY_DATE = DateTimeFormat.forPattern("E, d MMM");
+	private static final DateTimeFormatter DATE_FORMATTER_DAY_DATE = DateTimeFormat
+			.forPattern("E, d MMM");
 	private static final String FORMAT_HTML_DATEHEADER = "<html><head><style> p.padding {padding-left:0.3cm;} <style/><head/><body style=\"width:290px\"><hr align=\"right\" width=\"98%\"><font size=\"5\" face=\"Georgia, Arial\" color=\"maroon\"><p class=\"padding\">";
 	private static final String FORMAT_HTML_DATEHEADER_CLOSE = "</p></font></body></html>";
 	private static final String FORMAT_HTML_TASK_CLOSE = "</body></html>";
 	private static final String FORMAT_HTML_TASK = "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">";
-	//	String element1 = String.format("<html><head><style>p.padding {padding-left:0.3cm;} <style/><head/><body style=\"width:290px\"><hr align=\"right\" width=\"98%\"><font size=\"5\" face=\"Georgia, Arial\" color=\"maroon\"><p class=\"padding\">%s</p></font></body></html>",currentDateIteration.toString(DATE_FORMATTER_DAY_DATE));
-	
+	// String element1 =
+	// String.format("<html><head><style>p.padding {padding-left:0.3cm;} <style/><head/><body style=\"width:290px\"><hr align=\"right\" width=\"98%\"><font size=\"5\" face=\"Georgia, Arial\" color=\"maroon\"><p class=\"padding\">%s</p></font></body></html>",currentDateIteration.toString(DATE_FORMATTER_DAY_DATE));
+
 	private static Logger logger = Logger.getLogger("JIMI");
 
 	private ChangeRecord changeRecord;
@@ -44,8 +50,8 @@ public class CommandProcessor {
 	private Command latestSearch;
 
 	/**
-	 * Initializes newly created CommandProcessor object. Sets the current list of tasks
-	 * to the default.
+	 * Initializes newly created CommandProcessor object. Sets the current list
+	 * of tasks to the default.
 	 * 
 	 * @throws IOException
 	 */
@@ -172,36 +178,44 @@ public class CommandProcessor {
 					currentListOfTasks[indexOfTask].getStartTime())) {
 				currentDateIteration = currentListOfTasks[indexOfTask]
 						.getStartTime();
-				String element = FORMAT_HTML_DATEHEADER +currentDateIteration.toString(DATE_FORMATTER_DAY_DATE)+ FORMAT_HTML_DATEHEADER_CLOSE;
+				String element = FORMAT_HTML_DATEHEADER
+						+ currentDateIteration
+								.toString(DATE_FORMATTER_DAY_DATE)
+						+ FORMAT_HTML_DATEHEADER_CLOSE;
 				currentListOfTasksModel.addElement(element);
 			}
-			//System.out.println(currentListOfTasks[indexOfTask].getTimesAsString() + currentListOfTasks[indexOfTask].getTaskName());
-			if (currentListOfTasks[indexOfTask].getTaskName().contains("impt")){
-				String element = FORMAT_HTML_TASK +"<font color=\"#827839\"><b>"+ (indexOfTask + 1) + ". "		
-					+ currentListOfTasks[indexOfTask].getTimesAsString()
-					+ currentListOfTasks[indexOfTask].getTaskName()
-					+ "<b/><font/>" + FORMAT_HTML_TASK_CLOSE;
-				
+			// System.out.println(currentListOfTasks[indexOfTask].getTimesAsString()
+			// + currentListOfTasks[indexOfTask].getTaskName());
+			if (currentListOfTasks[indexOfTask].getTaskName().contains("impt")) {
+				String element = FORMAT_HTML_TASK
+						+ "<font color=\"#827839\"><b>" + (indexOfTask + 1)
+						+ ". "
+						+ currentListOfTasks[indexOfTask].getTimesAsString()
+						+ currentListOfTasks[indexOfTask].getTaskName()
+						+ "<b/><font/>" + FORMAT_HTML_TASK_CLOSE;
+
 				currentListOfTasksModel.addElement(element);
-			}
-			else{
+			} else {
 				String element = FORMAT_HTML_TASK + (indexOfTask + 1) + ". "
-			
-					+ currentListOfTasks[indexOfTask].getTimesAsString()
-					+ currentListOfTasks[indexOfTask].getTaskName()
-					+ FORMAT_HTML_TASK_CLOSE;
+
+				+ currentListOfTasks[indexOfTask].getTimesAsString()
+						+ currentListOfTasks[indexOfTask].getTaskName()
+						+ FORMAT_HTML_TASK_CLOSE;
 				currentListOfTasksModel.addElement(element);
 			}
-			
+
 		}
 		return currentListOfTasksModel;
 	}
 
-	private String printf(String element2, String toBeDisplayed) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/**
+	 * Returns true if firstDate and secondDate fall on the same day. Returns
+	 * false otherwise.
+	 * 
+	 * @param firstDate
+	 * @param secondDate
+	 * @return boolean
+	 */
 	private boolean isSameDay(DateTime firstDate, DateTime secondDate) {
 		if (firstDate == secondDate) {
 			return true;
@@ -218,10 +232,18 @@ public class CommandProcessor {
 		return false;
 	}
 
+	/**
+	 * Gets previously issued command from the change record.
+	 * @return String
+	 */
 	public String getPreviouslyIssued() {
 		return changeRecord.getPrevCommand();
 	}
 
+	/**
+	 * Gets later issued command from the change record.
+	 * @return
+	 */
 	public String getLaterIssued() {
 		return changeRecord.getLaterCommand();
 	}

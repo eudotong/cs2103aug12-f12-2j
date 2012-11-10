@@ -3,10 +3,9 @@ package utilities;
 import storage.TaskRecords;
 
 /**
+ * Functionality for command of type EDIT
  * 
  * @author A0088278L
- * 
- *         Functionality for command of type EDIT
  */
 public class CommandEdit implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_EDIT = "Task could not be edited.";
@@ -53,8 +52,7 @@ public class CommandEdit implements Command {
 				return MESSAGE_ERROR_CANNOT_FIND_TASK;
 			}
 		}
-		if (newTask.getTaskName() == null
-				|| newTask.getTaskName().isEmpty()) {
+		if (newTask.getTaskName() == null || newTask.getTaskName().isEmpty()) {
 			newTask.setTaskName(taskToBeReplaced.getTaskName());
 		}
 		if (newTask.getStartTime() == null) {

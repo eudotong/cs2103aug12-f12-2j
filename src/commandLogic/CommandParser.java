@@ -27,11 +27,10 @@ import exceptions.CommandCouldNotBeParsedException;
 import exceptions.StartTimeAfterEndTimeException;
 
 /**
+ * The CommandParser takes in a command as a String and returns a Command object
+ * accordingly
  * 
  * @author A0088278L
- * 
- *         The CommandParser takes in a command as a String and returns a
- *         Command object accordingly.
  */
 public class CommandParser {
 	private static final int YEAR_COMPONENT = 2;
@@ -286,8 +285,8 @@ public class CommandParser {
 
 	private boolean isUnparsable(String word) {
 		assert (word != null) : "Null String.";
-		return (disallowedStartCharsDict.contains(word.charAt(START_INDEX))
-				&& !allDateVariantsDict.contains(word))
+		return (disallowedStartCharsDict.contains(word.charAt(START_INDEX)) && !allDateVariantsDict
+				.contains(word))
 				|| (word.matches(PATTERN_ALPHANUMERIC_WORD)
 						&& !word.matches(PATTERN_NON_DIGIT)
 						&& !word.matches(PATTERN_NUMBER)

@@ -8,10 +8,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 /**
+ * Task class is data structure for a task.
  * 
  * @author A0088278L
- * 
- *         Task class is data structure for a task
  */
 public class Task implements Comparable<Task> {
 	private static final String COLON = ": ";

@@ -7,10 +7,9 @@ import org.joda.time.format.DateTimeFormatter;
 import storage.TaskRecords;
 
 /**
+ * Functionality for command of type SEARCH
  * 
  * @author A0088278L
- * 
- *         Functionality for command of type SEARCH
  */
 public class CommandSearch implements Command {
 	private static final String NULL = "null";
