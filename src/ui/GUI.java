@@ -1,5 +1,5 @@
 package ui;
-
+//TODO Organise the codes in (FRAMES - PANEL - LABELS)
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -38,48 +38,76 @@ import ui.HintFieldUI;
  * 
  */
 public class GUI extends JPanel implements ActionListener {
+	
 	private static final String EMPTY_STRING = "";
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
 	private static final String FRAME_NAME = "Jimi";
-	private static final String HDR_IMG = "images/hdr.jpg";
+	private static final String HDR_IMAGE_SRC = "images/hdr.PNG";
 	private static final long serialVersionUID = 1L;
+	
+	// TODO Set dimensions for GUI
+	private static final int MIN_FRAME_WIDTH = 400;
+	private static final int MIN_FRAME_HEIGHT = 350;
+	private static final int FOREGROUND_PANEL_WIDTH = 400;
+	private static final int FOREGROUND_PANEL_HEIGHT = 50;
+	private static final int HDR_IMAGE_WIDTH = 180;
+	private static final int HDR_IMAGE_HEIGHT = 70;
+	
+	private static final String TASKLIST_FONT_TYPE = "Serif";
+	private static final int TASKLIST_FONT_STYLE = Font.BOLD;
+	private static final int TASKLIST_FONT_SIZE = 12;
+	
+	private static final int COMMAND_OUTPUT_LABEL_WIDTH = 100;
+	private static final int COMMAND_OUTPUT_LABEL_HEIGHT = 10;
+	private static final String COMMAND_OUTPUT_FONT_TYPE = "Courier";
+	private static final int COMMAND_OUTPUT_FONT_STYLE = Font.BOLD;
+	private static final int COMMAND_OUTPUT_FONT_SIZE = 12;
+	private static final Color COMMAND_OUTPUT_FONT_COLOR = Color.red;
+	
+	
+	private static final Dimension MIN_FRAME_DIMENSION = new Dimension(MIN_FRAME_WIDTH,MIN_FRAME_HEIGHT) ;
+	private static final Dimension FOREGROUND_PANEL_DIMENSION = new Dimension(FOREGROUND_PANEL_WIDTH,FOREGROUND_PANEL_HEIGHT) ;
+	private static final Dimension HDR_IMAGE_DIMENSION = new Dimension(HDR_IMAGE_WIDTH, HDR_IMAGE_HEIGHT);
+	private static final Dimension COMMAND_OUTPUT_LABEL_DIMENSION = new Dimension(COMMAND_OUTPUT_LABEL_WIDTH, COMMAND_OUTPUT_LABEL_HEIGHT);
+	
+	private static final Font TASKLIST_FONT = new Font(TASKLIST_FONT_TYPE,TASKLIST_FONT_STYLE,TASKLIST_FONT_SIZE);
+	private static final Font COMMAND_OUTPUT_FONT = new Font(COMMAND_OUTPUT_FONT_TYPE,COMMAND_OUTPUT_FONT_STYLE,COMMAND_OUTPUT_FONT_SIZE);
 	
 	private static Logger logger = Logger.getLogger("JIMI");
 
 	private Border empty = BorderFactory.createEmptyBorder();
-	JList<String> jlist;
+	JList<String> tasklist;
 	JScrollPane listPane;
 	JTextField textField = new JTextField(32);
 	CommandProcessor commandProcessor;
-	JLabel commandOutputLabel = null;
+	JLabel commandOutputLabel;
 	Box verticalBox;
 
 	public GUI(){
+
 		try {
 			commandProcessor = new CommandProcessor();
-			jlist = new JList<String>(
+			tasklist = new JList<String>(
 					commandProcessor.getCurrentListModelOfTasks());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		jlist.setVisibleRowCount(4);
-		Font displayFont = new Font("Serif", Font.BOLD, 14);
-		jlist.setFont(displayFont);
-		listPane = new JScrollPane(jlist);
+		tasklist.setVisibleRowCount(4);
+		tasklist.setFont(TASKLIST_FONT);
+		listPane = new JScrollPane(tasklist);
 		MyCellRenderer cellRenderer = new MyCellRenderer();
-		jlist.setCellRenderer(cellRenderer);
-		jlist.setFixedCellHeight(30);
+		tasklist.setCellRenderer(cellRenderer);
+		tasklist.setFixedCellHeight(30);
 
 		// Create and set up the layered pane.
-		JPanel forgroundPanel = new JPanel(new GridBagLayout());
-		forgroundPanel.setOpaque(false);
-		forgroundPanel.setPreferredSize(new Dimension(400, 50));
+		JPanel foregroundPanel = new JPanel(new GridBagLayout());
+		foregroundPanel.setOpaque(false); 
+		foregroundPanel.setPreferredSize(FOREGROUND_PANEL_DIMENSION);
 
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-		layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
+		layeredPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+		layeredPane.add(foregroundPanel, JLayeredPane.PALETTE_LAYER);
 
 		// textField.setBackground(new java.awt.Color(220, 219, 219));
 		// textField.setBorder(empty);
@@ -97,6 +125,8 @@ public class GUI extends JPanel implements ActionListener {
 				}
 			}
 		});
+		
+		//TODO EC - Not working?
 		textField.getActionMap().put("downKey", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -107,20 +137,21 @@ public class GUI extends JPanel implements ActionListener {
 			}
 		});
 
-		forgroundPanel.add(textField);
+		foregroundPanel.add(textField);
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
+		
+		//TODO EC asks.. What is this for?
 		add(Box.createRigidArea(new Dimension(0, 10)));
 
-		commandOutputLabel = new JLabel(EMPTY_STRING);
-		commandOutputLabel.setFont(new Font("Courier", Font.BOLD, 12));
-		commandOutputLabel.setForeground(Color.red);
-		// commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		commandOutputLabel.setPreferredSize(new Dimension(100, 10));
+		commandOutputLabel = new JLabel(EMPTY_STRING, JLabel.LEFT); 
+		commandOutputLabel.setFont(COMMAND_OUTPUT_FONT);
+		commandOutputLabel.setForeground(COMMAND_OUTPUT_FONT_COLOR);
+		//commandOutputLabel.setAlignmentX(Component.LEFT_ALIGNMENT);//TODO Not working
+		commandOutputLabel.setPreferredSize(COMMAND_OUTPUT_LABEL_DIMENSION);
 		add(createControlPanel());
 		add(commandOutputLabel);
-		add(forgroundPanel);
+		add(foregroundPanel);
 		// add(layeredPane);
 
 		SwingUtilities.invokeLater(new Runnable() {
@@ -149,9 +180,10 @@ public class GUI extends JPanel implements ActionListener {
 	public Component createControlPanel() {
 		JLabel hdrLabel = new JLabel();
 		try{
-			ImageIcon hdr = new ImageIcon(this.getClass().getResource(HDR_IMG));
-			hdrLabel = new JLabel(hdr);
-			hdrLabel.setPreferredSize(new Dimension(180, 70));
+			ImageIcon hdr = new ImageIcon(this.getClass().getResource(HDR_IMAGE_SRC));
+			hdrLabel = new JLabel(hdr); //TODO hdrLabel Dimension
+			hdrLabel.setPreferredSize(HDR_IMAGE_DIMENSION);
+			hdrLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}catch(NullPointerException e){
 			logger.log(Level.WARNING, "Could not load image");
 		}
@@ -169,11 +201,13 @@ public class GUI extends JPanel implements ActionListener {
 		String command = textField.getText();
 
 		String output = commandProcessor.processCommand(command);
+		output = output.replaceAll("null|",""); //TODO TEMP SOLUTION
 		commandOutputLabel.setText(output);
-		jlist.setModel(commandProcessor.getCurrentListModelOfTasks());
+		tasklist.setModel(commandProcessor.getCurrentListModelOfTasks());
 		// refreshCurrentList(commandProcessor.getCurrentListModelOfTasks());
 
 		textField.setText(EMPTY_STRING);
+		System.out.println("The alignment for commandOutput is " + commandOutputLabel.getHorizontalAlignment());
 
 	}
 
@@ -187,6 +221,7 @@ public class GUI extends JPanel implements ActionListener {
 		// Create and set up the window.
 		JFrame frame = new JFrame(FRAME_NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setMinimumSize(MIN_FRAME_DIMENSION);
 
 		// Create and set up the content pane.
 		frame.getContentPane().add(new GUI());

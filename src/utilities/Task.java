@@ -87,6 +87,7 @@ public class Task implements Comparable<Task> {
 	}
 
 	public String toString() {
+		
 		return String.format(TASK_FORMAT, convertDateToString(startTime),
 				convertDateToString(endTime), taskName);
 	}
