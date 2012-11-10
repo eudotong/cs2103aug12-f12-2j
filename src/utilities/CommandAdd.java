@@ -9,7 +9,7 @@ import storage.TaskRecords;
  */
 public class CommandAdd implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_ADD = "Task could not be added.";
-	private static final String MESSAGE_SUCCESS = "%s was added";
+	private static final String MESSAGE_SUCCESS = "Task added: %s";
 
 	private boolean isReversible = true;
 	private Task taskToBeAdded;

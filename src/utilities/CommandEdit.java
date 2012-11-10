@@ -9,7 +9,7 @@ import storage.TaskRecords;
  */
 public class CommandEdit implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_EDIT = "Task could not be edited.";
-	private static final String MESSAGE_SUCCESS = "Replaced with %s";
+	private static final String MESSAGE_SUCCESS = "Task replaced with %s";
 	private static final String MESSAGE_ERROR_CANNOT_FIND_TASK = "Could not find the task specified.";
 
 	private boolean isReversible = true;
