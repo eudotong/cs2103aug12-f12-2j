@@ -9,7 +9,7 @@ import storage.TaskRecords;
  */
 public class CommandMark implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_DELETE = "Task could not be deleted.";
-	private static final String MESSAGE_SUCCESS = "%s was deleted";
+	private static final String MESSAGE_SUCCESS = "Task deleted: %s";
 
 	private boolean isReversible = true;
 	private Task taskToBeDeleted;
