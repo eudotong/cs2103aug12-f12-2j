@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -28,18 +31,20 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import commandLogic.CommandProcessor;
 import ui.HintFieldUI;
+
 /**
  * 
  * @author A0092052N
- *
+ * 
  */
 public class GUI extends JPanel implements ActionListener {
 	private static final String EMPTY_STRING = "";
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
 	private static final String FRAME_NAME = "Jimi";
-	private static final String BACKGROUND_IMG = "images/bg.gif";
-	private static final String HDR_IMG = "images/hdr.png";
+	private static final String HDR_IMG = "images/hdr.jpg";
 	private static final long serialVersionUID = 1L;
+	
+	private static Logger logger = Logger.getLogger("JIMI");
 
 	private Border empty = BorderFactory.createEmptyBorder();
 	JList<String> jlist;
@@ -49,7 +54,7 @@ public class GUI extends JPanel implements ActionListener {
 	JLabel commandOutputLabel = null;
 	Box verticalBox;
 
-	public GUI() {
+	public GUI(){
 		try {
 			commandProcessor = new CommandProcessor();
 			jlist = new JList<String>(
@@ -67,22 +72,17 @@ public class GUI extends JPanel implements ActionListener {
 		jlist.setCellRenderer(cellRenderer);
 		jlist.setFixedCellHeight(30);
 
-		ImageIcon icon = createImageIcon(BACKGROUND_IMG);
-		JLabel bgLabel = new JLabel(icon);
-		bgLabel.setSize(bgLabel.getPreferredSize());
-
 		// Create and set up the layered pane.
 		JPanel forgroundPanel = new JPanel(new GridBagLayout());
 		forgroundPanel.setOpaque(false);
 		forgroundPanel.setPreferredSize(new Dimension(400, 50));
 
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setPreferredSize(bgLabel.getPreferredSize());
 		layeredPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 		layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
 
-		//textField.setBackground(new java.awt.Color(220, 219, 219));
-		//textField.setBorder(empty);
+		// textField.setBackground(new java.awt.Color(220, 219, 219));
+		// textField.setBorder(empty);
 		textField.setUI(new HintFieldUI("Type /? for help", true));
 		textField.addActionListener(this);
 		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upKey");
@@ -147,11 +147,14 @@ public class GUI extends JPanel implements ActionListener {
 	}
 
 	public Component createControlPanel() {
-
-		ImageIcon hdr = createImageIcon(HDR_IMG);
-		JLabel hdrLabel = new JLabel(hdr);
-		hdrLabel.setPreferredSize(new Dimension(180, 70));
-
+		JLabel hdrLabel = new JLabel();
+		try{
+			ImageIcon hdr = new ImageIcon(this.getClass().getResource(HDR_IMG));
+			hdrLabel = new JLabel(hdr);
+			hdrLabel.setPreferredSize(new Dimension(180, 70));
+		}catch(NullPointerException e){
+			logger.log(Level.WARNING, "Could not load image");
+		}
 		verticalBox = Box.createVerticalBox();
 
 		verticalBox.add(hdrLabel);
@@ -160,17 +163,6 @@ public class GUI extends JPanel implements ActionListener {
 		verticalBox.setBorder(BorderFactory.createTitledBorder(BORDER_TITLE));
 		return verticalBox;
 
-	}
-
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = GUI.class.getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
 	}
 
 	public void actionPerformed(ActionEvent evt) {
@@ -210,8 +202,11 @@ public class GUI extends JPanel implements ActionListener {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					FileHandler fileHandler = new FileHandler("app.log", true);
+					logger.addHandler(fileHandler);
+					logger.log(Level.INFO, "Starting GUI");
 					createAndShowGUI();
-				} catch (FileNotFoundException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
