@@ -1,3 +1,9 @@
+/**
+ * Uses Markov Model to generate a pseudo-random character
+ * 
+ * @author A0081241U
+ */
+
 package testing.stringGenerator;
 
 import java.util.HashMap;
