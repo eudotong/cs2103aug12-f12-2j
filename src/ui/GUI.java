@@ -33,6 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import commandLogic.CommandProcessor;
+import ui.HintFieldUI;
 
 public class GUI extends JPanel implements ActionListener {
 	private static final String EMPTY_STRING = "";
