@@ -49,6 +49,7 @@ public class CommandEdit implements Command {
 			taskToBeReplaced = taskRecords
 					.getTaskByIndex(indexOfTaskToBeReplaced);
 			if (taskToBeReplaced == null) {
+				isReversible = false;
 				return MESSAGE_ERROR_CANNOT_FIND_TASK;
 			}
 		}

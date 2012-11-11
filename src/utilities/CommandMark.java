@@ -43,6 +43,7 @@ public class CommandMark implements Command {
 			taskToBeDeleted = taskRecords
 					.getTaskByIndex(indexOfTaskToBeDeleted);
 			if (taskToBeDeleted == null) {
+				isReversible = false;
 				return MESSAGE_ERROR_CANNOT_FIND_TASK;
 			}
 		}
