@@ -19,12 +19,15 @@ import exceptions.CommandCouldNotBeParsedException;
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
 import exceptions.StartTimeAfterEndTimeException;
+
 /**
  * Main logic of Jimi.
+ * 
  * @author A0092052N
- *
+ * 
  */
 public class CommandProcessor {
+	private static final String URGENT = "urgent";
 	private static final int INDEXING_1_BASED = 1;
 	private static final String FORMAT_HTML_FONT_CLOSE = "<b/><font/>";
 	private static final String FORMAT_HTML_FONT = "<font color=\"#827839\"><b>";
@@ -188,18 +191,18 @@ public class CommandProcessor {
 						+ FORMAT_HTML_DATEHEADER_CLOSE;
 				currentListOfTasksModel.addElement(element);
 			}
-			if (currentListOfTasks[indexOfTask].getTaskName().contains(KEYWORD_IMPT) || currentListOfTasks[indexOfTask].getTaskName().contains(KEYWORD_IMPORTANT)) {
-				String element = FORMAT_HTML_TASK
-						+ FORMAT_HTML_FONT + (indexOfTask + INDEXING_1_BASED)
-						+ DOT_SEPARATOR
+			if (containsKeywordImpt(currentListOfTasks[indexOfTask].getTaskName())) {
+				String element = FORMAT_HTML_TASK + FORMAT_HTML_FONT
+						+ (indexOfTask + INDEXING_1_BASED) + DOT_SEPARATOR
 						+ currentListOfTasks[indexOfTask].getTimesAsString()
 						+ currentListOfTasks[indexOfTask].getTaskName()
 						+ FORMAT_HTML_FONT_CLOSE + FORMAT_HTML_TASK_CLOSE;
 
 				currentListOfTasksModel.addElement(element);
 			} else {
-				String element = FORMAT_HTML_TASK + (indexOfTask + INDEXING_1_BASED) + DOT_SEPARATOR
-				+ currentListOfTasks[indexOfTask].getTimesAsString()
+				String element = FORMAT_HTML_TASK
+						+ (indexOfTask + INDEXING_1_BASED) + DOT_SEPARATOR
+						+ currentListOfTasks[indexOfTask].getTimesAsString()
 						+ currentListOfTasks[indexOfTask].getTaskName()
 						+ FORMAT_HTML_TASK_CLOSE;
 				currentListOfTasksModel.addElement(element);
@@ -207,6 +210,12 @@ public class CommandProcessor {
 
 		}
 		return currentListOfTasksModel;
+	}
+
+	private boolean containsKeywordImpt(String stringToCheck) {
+		return (stringToCheck.contains(URGENT)
+				|| stringToCheck.contains(KEYWORD_IMPT) || stringToCheck
+					.contains(KEYWORD_IMPORTANT));
 	}
 
 	/**
@@ -235,6 +244,7 @@ public class CommandProcessor {
 
 	/**
 	 * Gets previously issued command from the change record.
+	 * 
 	 * @return String
 	 */
 	public String getPreviouslyIssued() {
@@ -243,6 +253,7 @@ public class CommandProcessor {
 
 	/**
 	 * Gets later issued command from the change record.
+	 * 
 	 * @return
 	 */
 	public String getLaterIssued() {
