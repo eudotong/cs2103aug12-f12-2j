@@ -3,14 +3,13 @@ package utilities;
 import storage.TaskRecords;
 
 /**
+ * Functionality for command of type EDIT
  * 
  * @author A0088278L
- * 
- *         Functionality for command of type EDIT
  */
 public class CommandEdit implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_EDIT = "Task could not be edited.";
-	private static final String MESSAGE_SUCCESS = "Replaced with %s";
+	private static final String MESSAGE_SUCCESS = "Task replaced with: %s";
 	private static final String MESSAGE_ERROR_CANNOT_FIND_TASK = "Could not find the task specified.";
 
 	private boolean isReversible = true;
@@ -50,11 +49,11 @@ public class CommandEdit implements Command {
 			taskToBeReplaced = taskRecords
 					.getTaskByIndex(indexOfTaskToBeReplaced);
 			if (taskToBeReplaced == null) {
+				isReversible = false;
 				return MESSAGE_ERROR_CANNOT_FIND_TASK;
 			}
 		}
-		if (newTask.getTaskName() == null
-				|| newTask.getTaskName().isEmpty()) {
+		if (newTask.getTaskName() == null || newTask.getTaskName().isEmpty()) {
 			newTask.setTaskName(taskToBeReplaced.getTaskName());
 		}
 		if (newTask.getStartTime() == null) {

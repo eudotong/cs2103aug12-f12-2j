@@ -173,6 +173,9 @@ public class CommandParserTest {
 		// Test cases: search all
 		actualCommand = COMMAND_PARSER.parseCommand("search all");
 		assertEquals(EMPTY_STRING + NULL + NULL, actualCommand.toString());
+		//Test cases: search upcoming
+		actualCommand = COMMAND_PARSER.parseCommand("search upcoming");
+		assertEquals(NULL+NULL+NULL,actualCommand.toString());
 		// Test cases: search before with query
 		actualCommand = COMMAND_PARSER
 				.parseCommand("search keyword before 6/11/2012");
