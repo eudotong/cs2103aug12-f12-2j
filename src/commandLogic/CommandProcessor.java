@@ -25,6 +25,10 @@ import exceptions.StartTimeAfterEndTimeException;
  *
  */
 public class CommandProcessor {
+	private static final int INDEXING_1_BASED = 1;
+	private static final String FORMAT_HTML_FONT_CLOSE = "<b/><font/>";
+	private static final String FORMAT_HTML_FONT = "<font color=\"#827839\"><b>";
+	private static final String DOT_SEPARATOR = ". ";
 	private static final String MESSAGE_NO_DATE = "no date";
 	private static final String NULL_STRING = "null";
 	private static final String KEYWORD_IMPORTANT = "important";
@@ -43,8 +47,6 @@ public class CommandProcessor {
 	private static final String FORMAT_HTML_DATEHEADER_CLOSE = "</p></font></body></html>";
 	private static final String FORMAT_HTML_TASK_CLOSE = "</body></html>";
 	private static final String FORMAT_HTML_TASK = "<html><head><style>	p.padding {padding-left:0.8cm;} <style/><head/><body style=\"width:280px\"><p class=\"padding\">";
-	// String element1 =
-	// String.format("<html><head><style>p.padding {padding-left:0.3cm;} <style/><head/><body style=\"width:290px\"><hr align=\"right\" width=\"98%\"><font size=\"5\" face=\"Georgia, Arial\" color=\"maroon\"><p class=\"padding\">%s</p></font></body></html>",currentDateIteration.toString(DATE_FORMATTER_DAY_DATE));
 
 	private static Logger logger = Logger.getLogger("JIMI");
 
@@ -186,20 +188,17 @@ public class CommandProcessor {
 						+ FORMAT_HTML_DATEHEADER_CLOSE;
 				currentListOfTasksModel.addElement(element);
 			}
-			// System.out.println(currentListOfTasks[indexOfTask].getTimesAsString()
-			// + currentListOfTasks[indexOfTask].getTaskName());
 			if (currentListOfTasks[indexOfTask].getTaskName().contains(KEYWORD_IMPT) || currentListOfTasks[indexOfTask].getTaskName().contains(KEYWORD_IMPORTANT)) {
 				String element = FORMAT_HTML_TASK
-						+ "<font color=\"#827839\"><b>" + (indexOfTask + 1)
-						+ ". "
+						+ FORMAT_HTML_FONT + (indexOfTask + INDEXING_1_BASED)
+						+ DOT_SEPARATOR
 						+ currentListOfTasks[indexOfTask].getTimesAsString()
 						+ currentListOfTasks[indexOfTask].getTaskName()
-						+ "<b/><font/>" + FORMAT_HTML_TASK_CLOSE;
+						+ FORMAT_HTML_FONT_CLOSE + FORMAT_HTML_TASK_CLOSE;
 
 				currentListOfTasksModel.addElement(element);
 			} else {
-				String element = FORMAT_HTML_TASK + (indexOfTask + 1) + ". "
-
+				String element = FORMAT_HTML_TASK + (indexOfTask + INDEXING_1_BASED) + DOT_SEPARATOR
 				+ currentListOfTasks[indexOfTask].getTimesAsString()
 						+ currentListOfTasks[indexOfTask].getTaskName()
 						+ FORMAT_HTML_TASK_CLOSE;
