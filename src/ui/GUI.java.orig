@@ -1,11 +1,5 @@
 package ui;
-
-/**
- * 
- * @author A0092052N
- *       
- */
-
+//TODO Organise the codes in (FRAMES - PANEL - LABELS)
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -15,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -26,67 +23,120 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
+
 import commandLogic.CommandProcessor;
 
+/**
+ * 
+ * @author A0092052N
+ * 
+ */
 public class GUI extends JPanel implements ActionListener {
+	
+	private static final String CTRL_H = "control H";
+	private static final String GET_HELP = "getHelp";
+	private static final String HELP_MESSAGE = "<html>	<u><b>Available Commands</b></u> for more details, please refer to <a href= &#34;&#92;doc&#92;[F12-2j][V0.2].pdf&#34;>Üser Guide</a href><br/><br/><table>" +
+			"<tr><td valign=&#34;baseline&#34;>add &lt;data&gt;</td>" +
+			"<td>Add a task to your existing list of tasks.<br/>Add 'impt' or 'important' to task if important. </li></ul</td></tr>" +
+			"<tr><td>mark &lt;number&gt;</td>" +
+			"<td> Mark task as done when completed.</td></tr>"+
+			"<tr><td>edit &lt;number&gt; &lt;data&gt;</td>" +
+			"<td> Change certain details of a task.</td></tr>" +
+			"<tr><td>search &lt;data&gt;</td>" +
+			"<td> Search tasks by name, date or both. </td></tr>" +
+			"<tr><td>undo</td>" +
+			"<td> Undo task. </td></tr>" +
+			"<tr><td>redo</td>" +
+			"<td> Redo task. </td></tr>" +
+			"</table></html>";
+	private static final String DOWN = "DOWN";
+	private static final String UP = "UP";
+	private static final String UP_KEY = "upKey";
+	private static final String DOWN_KEY = "downKey";
 	private static final String EMPTY_STRING = "";
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
 	private static final String FRAME_NAME = "Jimi";
-	private static final String BACKGROUND_IMG = "images/bg.gif";
-	private static final String HDR_IMG = "images/hdr.png";
+	private static final String HDR_IMAGE_SRC = "images/hdr.PNG";
 	private static final long serialVersionUID = 1L;
+	
+	// TODO Set dimensions for GUI
+	private static final int MIN_FRAME_WIDTH = 400;
+	private static final int MIN_FRAME_HEIGHT = 350;
+	private static final int FOREGROUND_PANEL_WIDTH = 400;
+	private static final int FOREGROUND_PANEL_HEIGHT = 50;
+	private static final int HDR_IMAGE_WIDTH = 180;
+	private static final int HDR_IMAGE_HEIGHT = 70;
+	
+	private static final String TASKLIST_FONT_TYPE = "Serif";
+	private static final int TASKLIST_FONT_STYLE = Font.BOLD;
+	private static final int TASKLIST_FONT_SIZE = 12;
+	
+	private static final int COMMAND_OUTPUT_LABEL_WIDTH = 100;
+	private static final int COMMAND_OUTPUT_LABEL_HEIGHT = 10;
+	private static final String COMMAND_OUTPUT_FONT_TYPE = "Courier";
+	private static final int COMMAND_OUTPUT_FONT_STYLE = Font.BOLD;
+	private static final int COMMAND_OUTPUT_FONT_SIZE = 12;
+	private static final Color COMMAND_OUTPUT_FONT_COLOR = Color.red;
+	
+	
+	private static final Dimension MIN_FRAME_DIMENSION = new Dimension(MIN_FRAME_WIDTH,MIN_FRAME_HEIGHT) ;
+	private static final Dimension FOREGROUND_PANEL_DIMENSION = new Dimension(FOREGROUND_PANEL_WIDTH,FOREGROUND_PANEL_HEIGHT) ;
+	private static final Dimension HDR_IMAGE_DIMENSION = new Dimension(HDR_IMAGE_WIDTH, HDR_IMAGE_HEIGHT);
+	private static final Dimension COMMAND_OUTPUT_LABEL_DIMENSION = new Dimension(COMMAND_OUTPUT_LABEL_WIDTH, COMMAND_OUTPUT_LABEL_HEIGHT);
+	
+	private static final Font TASKLIST_FONT = new Font(TASKLIST_FONT_TYPE,TASKLIST_FONT_STYLE,TASKLIST_FONT_SIZE);
+	private static final Font COMMAND_OUTPUT_FONT = new Font(COMMAND_OUTPUT_FONT_TYPE,COMMAND_OUTPUT_FONT_STYLE,COMMAND_OUTPUT_FONT_SIZE);
+	
+	private static Logger logger = Logger.getLogger("JIMI");
 
-	JList<String> jlist;
+	//private Border empty = BorderFactory.createEmptyBorder();
+	JList<String> tasklist;
 	JScrollPane listPane;
 	JTextField textField = new JTextField(32);
 	CommandProcessor commandProcessor;
-	JLabel cmdOutputLbl = null;
+	JLabel commandOutputLabel;
 	Box verticalBox;
 
-	public GUI() {
+	public GUI(){
+
 		try {
 			commandProcessor = new CommandProcessor();
-			jlist = new JList<String>(
+			tasklist = new JList<String>(
 					commandProcessor.getCurrentListModelOfTasks());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
-		
-		// create jList to display tasks
-		jlist.setVisibleRowCount(4);
-		listPane = new JScrollPane(jlist);
-		MyCellRenderer cellRenderer = new MyCellRenderer();
-		jlist.setCellRenderer(cellRenderer);
-		jlist.setFixedCellHeight(30);
-		
-		// Create and set up the text-field pane.
-		JPanel textInputPane = new JPanel(new GridBagLayout());
-		textInputPane.setOpaque(false);
-		textInputPane.setPreferredSize(new Dimension(400, 50));
-		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-		layeredPane.add(textInputPane, JLayeredPane.PALETTE_LAYER);
+		}
 
-		//textField.setBackground(new java.awt.Color(220, 219, 219));
-		//textField.setBorder(empty);
+		tasklist.setVisibleRowCount(4);
+		tasklist.setFont(TASKLIST_FONT);
+		listPane = new JScrollPane(tasklist);
+		MyCellRenderer cellRenderer = new MyCellRenderer();
+		tasklist.setCellRenderer(cellRenderer);
+		tasklist.setFixedCellHeight(30);
+
+		// Create and set up the layered pane.
+		JPanel foregroundPanel = new JPanel(new GridBagLayout());
+		foregroundPanel.setOpaque(false); 
+		foregroundPanel.setPreferredSize(FOREGROUND_PANEL_DIMENSION);
+
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+		layeredPane.add(foregroundPanel, JLayeredPane.PALETTE_LAYER);
+
+		// textField.setBackground(new java.awt.Color(220, 219, 219));
+		// textField.setBorder(empty);
 		textField.setUI(new HintFieldUI("hold 'ctrl + h' for help", true));
-		
-		
-		// for 'up, down, control+h' key shortcuts
 		textField.addActionListener(this);
-		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upKey");
-		textField.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "downKey");
-		textField.getInputMap().put(KeyStroke.getKeyStroke("control H"), "getHelp");
-		textField.getInputMap().put(KeyStroke.getKeyStroke("control Z"), "undo");
-		textField.getInputMap().put(KeyStroke.getKeyStroke("control Y"), "redo");
-		textField.getActionMap().put("upKey", new AbstractAction() {
+		textField.getInputMap().put(KeyStroke.getKeyStroke(UP), UP_KEY);
+		textField.getInputMap().put(KeyStroke.getKeyStroke(DOWN), DOWN_KEY);
+		textField.getInputMap().put(KeyStroke.getKeyStroke(CTRL_H), GET_HELP);
+		textField.getActionMap().put(UP_KEY, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String previouslyIssuedCommand = commandProcessor
@@ -96,7 +146,9 @@ public class GUI extends JPanel implements ActionListener {
 				}
 			}
 		});
-		textField.getActionMap().put("downKey", new AbstractAction() {
+		
+		//TODO EC - Not working?
+		textField.getActionMap().put(DOWN_KEY, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String laterIssuedCommand = commandProcessor.getLaterIssued();
@@ -105,59 +157,31 @@ public class GUI extends JPanel implements ActionListener {
 				}
 			}
 		});
-		textField.getActionMap().put("undo", new AbstractAction() {
+		textField.getActionMap().put(GET_HELP, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				commandProcessor.processCommand("undo");
+				JOptionPane.showMessageDialog(null, HELP_MESSAGE);	
 				}
 		});
-		textField.getActionMap().put("redo", new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				commandProcessor.processCommand("redo");
-				}
-		});
-		textField.getActionMap().put("getHelp", new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "<html>	<u><b>Available Commands</b></u> for more details, please refer to <a href= &#34;&#92;doc&#92;[F12-2j][V0.2].pdf&#34;>Üser Guide</a href><br/><br/><table>" +
-						"<tr><td valign=&#34;baseline&#34;>add &lt;data&gt;</td>" +
-						"<td>Add a task to your existing list of tasks.<br/>Add 'impt' or 'important' to task if important. </li></ul</td></tr>" +
-						"<tr><td>mark &lt;number&gt;</td>" +
-						"<td> Mark task as done when completed.</td></tr>"+
-						"<tr><td>edit &lt;number&gt; &lt;data&gt;</td>" +
-						"<td> Change certain details of a task.</td></tr>" +
-						"<tr><td>search &lt;data&gt;</td>" +
-						"<td> Search tasks by name, date or both. </td></tr>" +
-						"<tr><td>undo</td>" +
-						"<td> Undo task. </td></tr>" +
-						"<tr><td>redo</td>" +
-						"<td> Redo task. </td></tr>" +
-						
-						"</table></html>"
-						
-						);	
-				}
-		});
-		textInputPane.add(textField);
 
-		
-		// layout alignment
+		foregroundPanel.add(textField);
+
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-		// command output label
-		cmdOutputLbl = new JLabel(EMPTY_STRING);
-		cmdOutputLbl.setFont(new Font("Courier", Font.BOLD, 12));
-		cmdOutputLbl.setForeground(Color.red);
-		cmdOutputLbl.setPreferredSize(new Dimension(100, 10));
+		commandOutputLabel = new JLabel(EMPTY_STRING); 
+		commandOutputLabel.setFont(COMMAND_OUTPUT_FONT);
+		commandOutputLabel.setForeground(COMMAND_OUTPUT_FONT_COLOR);
+		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		commandOutputLabel.setPreferredSize(COMMAND_OUTPUT_LABEL_DIMENSION);
 		add(createControlPanel());
-		add(cmdOutputLbl);
-		add(textInputPane);
-		
+		add(commandOutputLabel);
+		add(foregroundPanel);
+		add(layeredPane);
+
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				jlist.requestFocus();
+				textField.requestFocus();
 			}
 		});
 	}
@@ -167,8 +191,6 @@ public class GUI extends JPanel implements ActionListener {
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
 			String text = value.toString();
-			// text = HTML_1 + String.valueOf(width) + HTML_2 +
-			// value.toString()+ HTML_3;
 
 			return super.getListCellRendererComponent(list, text, index,
 					isSelected, cellHasFocus);
@@ -178,11 +200,15 @@ public class GUI extends JPanel implements ActionListener {
 	}
 
 	public Component createControlPanel() {
-
-		ImageIcon hdr = createImageIcon(HDR_IMG);
-		JLabel hdrLabel = new JLabel(hdr);
-		hdrLabel.setPreferredSize(new Dimension(180, 70));
-
+		JLabel hdrLabel = new JLabel();
+		try{
+			ImageIcon hdr = new ImageIcon(this.getClass().getResource(HDR_IMAGE_SRC));
+			hdrLabel = new JLabel(hdr);
+			hdrLabel.setPreferredSize(HDR_IMAGE_DIMENSION);
+			hdrLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		}catch(NullPointerException e){
+			logger.log(Level.WARNING, "Could not load image");
+		}
 		verticalBox = Box.createVerticalBox();
 
 		verticalBox.add(hdrLabel);
@@ -193,27 +219,14 @@ public class GUI extends JPanel implements ActionListener {
 
 	}
 
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = GUI.class.getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
-	}
-
 	public void actionPerformed(ActionEvent evt) {
 		String command = textField.getText();
 
 		String output = commandProcessor.processCommand(command);
-		cmdOutputLbl.setText(output);
-		jlist.setModel(commandProcessor.getCurrentListModelOfTasks());
-		// refreshCurrentList(commandProcessor.getCurrentListModelOfTasks());
+		commandOutputLabel.setText(output);
+		tasklist.setModel(commandProcessor.getCurrentListModelOfTasks());
 
 		textField.setText(EMPTY_STRING);
-
 	}
 
 	/**
@@ -226,6 +239,7 @@ public class GUI extends JPanel implements ActionListener {
 		// Create and set up the window.
 		JFrame frame = new JFrame(FRAME_NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setMinimumSize(MIN_FRAME_DIMENSION);
 
 		// Create and set up the content pane.
 		frame.getContentPane().add(new GUI());
@@ -241,9 +255,11 @@ public class GUI extends JPanel implements ActionListener {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					FileHandler fileHandler = new FileHandler("app.log", true);
+					logger.addHandler(fileHandler);
+					logger.log(Level.INFO, "Starting GUI");
 					createAndShowGUI();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
