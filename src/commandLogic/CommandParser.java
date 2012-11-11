@@ -223,25 +223,38 @@ public class CommandParser {
 		String[] words = stringToProcess.split(WHITE_SPACE);
 		Pattern timePattern = Pattern.compile(PATTERN_TIME_DOT_SEPARATOR);
 		for (String word : words) {
-			if (word.matches(PATTERN_DATE)) {
-				String newDate = convertToMiddleEndian(word.replaceAll(
-						DASH_OR_DOT, SLASH));
-				stringToProcess = stringToProcess.replace(word, newDate);
-			}
-			Matcher patternMatcher = timePattern.matcher(word);
-			if (patternMatcher.find()) {
-				String matchingGroup = patternMatcher.group(FIRST_GROUP);
-				String newTime = matchingGroup.replace(DOT, COLON);
-				String newWord = word.replace(
-						patternMatcher.group(FIRST_GROUP), newTime);
-				stringToProcess = stringToProcess.replace(word, newWord);
-			}
+			stringToProcess = changeToStandardDateFormat(stringToProcess, word);
+			stringToProcess = changeToStandardTimeFormat(stringToProcess,
+					timePattern, word);
+		}
+		return stringToProcess;
+	}
+
+	private String changeToStandardTimeFormat(String stringToProcess,
+			Pattern timePattern, String word) {
+		Matcher patternMatcher = timePattern.matcher(word);
+		if (patternMatcher.find()) {
+			String matchingGroup = patternMatcher.group(FIRST_GROUP);
+			String newTime = matchingGroup.replace(DOT, COLON);
+			String newWord = word.replace(patternMatcher.group(FIRST_GROUP),
+					newTime);
+			stringToProcess = stringToProcess.replace(word, newWord);
+		}
+		return stringToProcess;
+	}
+
+	private String changeToStandardDateFormat(String stringToProcess,
+			String word) {
+		if (word.matches(PATTERN_DATE)) {
+			String newDate = convertToMiddleEndian(word.replaceAll(DASH_OR_DOT,
+					SLASH));
+			stringToProcess = stringToProcess.replace(word, newDate);
 		}
 		return stringToProcess;
 	}
 
 	// Need this method because date parser only accepts dates in middle-endian
-	// format.
+	// format (i.e. mm-dd-yyyy)
 	private String convertToMiddleEndian(String stringToProcess) {
 		assert (stringToProcess != null) : "Null String.";
 		String[] dateComponents = stringToProcess.split(SLASH);
@@ -254,8 +267,7 @@ public class CommandParser {
 	}
 
 	// Removes words that will be wrongly parsed by date parser (e.g. fries,
-	// CS2103, anything starting with characters defined in
-	// disallowedStartCharsDict)
+	// CS2103 and all words that do not look like date keywords)
 	private String removeWronglyParsedWords(String dateString) {
 		assert (dateString != null) : "Null String.";
 		if (dateString.isEmpty()) {
@@ -276,6 +288,8 @@ public class CommandParser {
 				components[currIndex] = EMPTY_STRING;
 			}
 		}
+		// Need to rebuild the string using the array like this because
+		// replaceFirst() can sometimes wrongly replace words
 		return rebuildString(components);
 	}
 
@@ -299,11 +313,13 @@ public class CommandParser {
 		return rebuiltString;
 	}
 
-	private String removeWordsFromString(String wordsToRemove, String stringToProcess) {
+	private String removeWordsFromString(String wordsToRemove,
+			String stringToProcess) {
 		String newString = stringToProcess;
 		String[] words = wordsToRemove.split(WHITE_SPACE);
 		for (String word : words) {
-			newString = newString.replaceFirst(String.format(PATTERN_EXACT_MATCH, word), WHITE_SPACE);
+			newString = newString.replaceFirst(
+					String.format(PATTERN_EXACT_MATCH, word), WHITE_SPACE);
 		}
 		return removeExtraWhiteSpaces(newString);
 	}
@@ -352,14 +368,10 @@ public class CommandParser {
 								.withTimeAtStartOfDay();
 					}
 				}
-				stringToParse = removeWordsFromString(dateGroup.getText(), stringToParse);
-				commandToParse = removeWordsFromString(dateGroup.getText(), commandToParse);
-				/*
-				 * TODO stringToParse =
-				 * stringToParse.replace(dateGroup.getText(), EMPTY_STRING);
-				 * commandToParse = commandToParse.replace(dateGroup.getText(),
-				 * EMPTY_STRING);
-				 */
+				stringToParse = removeWordsFromString(dateGroup.getText(),
+						stringToParse);
+				commandToParse = removeWordsFromString(dateGroup.getText(),
+						commandToParse);
 				return startAndEndTime;
 			}
 
@@ -367,20 +379,16 @@ public class CommandParser {
 					&& !dateGroup.getDates().isEmpty()) {
 				DateTime intervalStart = new DateTime(dateGroup.getDates().get(
 						FIRST_GROUP));
-				DateTime intervalEnd = new DateTime(dateGroup.getDates().get(1));
+				DateTime intervalEnd = new DateTime(dateGroup.getDates().get(SECOND_GROUP));
 				long intervalDifference = intervalEnd.getMillis()
 						- intervalStart.getMillis();
 				if (startAndEndTime[START_TIME] != null) {
 					startAndEndTime[END_TIME] = startAndEndTime[START_TIME]
 							.plus(intervalDifference);
-					stringToParse = removeWordsFromString(dateGroup.getText(), stringToParse);
-					commandToParse = removeWordsFromString(dateGroup.getText(), commandToParse);
-					/*
-					 * stringToParse =
-					 * stringToParse.replace(dateGroup.getText(), EMPTY_STRING);
-					 * commandToParse = commandToParse.replace(
-					 * dateGroup.getText(), EMPTY_STRING);
-					 */
+					stringToParse = removeWordsFromString(dateGroup.getText(),
+							stringToParse);
+					commandToParse = removeWordsFromString(dateGroup.getText(),
+							commandToParse);
 					return startAndEndTime;
 				}
 				// reparse to see if there is an alternative start time
@@ -399,13 +407,10 @@ public class CommandParser {
 					startAndEndTime[START_TIME] = intervalStart;
 					startAndEndTime[END_TIME] = intervalEnd;
 				}
-				stringToParse = removeWordsFromString(dateGroup.getText(), stringToParse);
-				commandToParse = removeWordsFromString(dateGroup.getText(), commandToParse);
-				/*
-				 * stringToParse = stringToParse.replace(dateGroup.getText(),
-				 * EMPTY_STRING); commandToParse =
-				 * commandToParse.replace(dateGroup.getText(), EMPTY_STRING);
-				 */
+				stringToParse = removeWordsFromString(dateGroup.getText(),
+						stringToParse);
+				commandToParse = removeWordsFromString(dateGroup.getText(),
+						commandToParse);
 				return startAndEndTime;
 			}
 
@@ -421,13 +426,10 @@ public class CommandParser {
 				startAndEndTime[END_TIME] = new DateTime(dateGroup.getDates()
 						.get(FIRST_GROUP));
 			}
-			stringToParse = removeWordsFromString(dateGroup.getText(), stringToParse);
-			commandToParse = removeWordsFromString(dateGroup.getText(), commandToParse);
-			/*
-			 * stringToParse = stringToParse.replace(dateGroup.getText(),
-			 * EMPTY_STRING); commandToParse =
-			 * commandToParse.replace(dateGroup.getText(), EMPTY_STRING);
-			 */
+			stringToParse = removeWordsFromString(dateGroup.getText(),
+					stringToParse);
+			commandToParse = removeWordsFromString(dateGroup.getText(),
+					commandToParse);
 			dateGroupList = dateParser.parse(stringToParse);
 			numIterations++;
 		}
