@@ -80,7 +80,7 @@ public class CommandParser {
 			"to", "now", "am", "pm", "day", "days", "hour", "hours", "hr",
 			"hrs", "minute", "min", "minutes", "sec", "second", "seconds",
 			"today", "tomorrow", "yesterday", "next", "month", "week",
-			"months", "weeks", "from", "last" };
+			"months", "weeks", "from", "last", "year", "years" };
 	private static final String[] LIST_ADD_SYNONYMS = { "add", "insert",
 			"create", "new", "put", "ins" };
 	private static final String[] LIST_MARK_SYNONYMS = { "mark", "delete",
