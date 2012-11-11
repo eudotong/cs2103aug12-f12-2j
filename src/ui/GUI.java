@@ -1,5 +1,11 @@
 package ui;
 
+/**
+ * 
+ * @author A0092052N
+ *       
+ */
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -20,19 +26,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
 import commandLogic.CommandProcessor;
-import ui.HintFieldUI;
-/**
- * 
- * @author A0092052N
- *
- */
+
 public class GUI extends JPanel implements ActionListener {
 	private static final String EMPTY_STRING = "";
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
@@ -41,12 +42,11 @@ public class GUI extends JPanel implements ActionListener {
 	private static final String HDR_IMG = "images/hdr.png";
 	private static final long serialVersionUID = 1L;
 
-	private Border empty = BorderFactory.createEmptyBorder();
 	JList<String> jlist;
 	JScrollPane listPane;
 	JTextField textField = new JTextField(32);
 	CommandProcessor commandProcessor;
-	JLabel commandOutputLabel = null;
+	JLabel cmdOutputLbl = null;
 	Box verticalBox;
 
 	public GUI() {
@@ -57,36 +57,35 @@ public class GUI extends JPanel implements ActionListener {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-
+		}		
+		
+		// create jList to display tasks
 		jlist.setVisibleRowCount(4);
-		Font displayFont = new Font("Serif", Font.BOLD, 14);
-		jlist.setFont(displayFont);
 		listPane = new JScrollPane(jlist);
 		MyCellRenderer cellRenderer = new MyCellRenderer();
 		jlist.setCellRenderer(cellRenderer);
 		jlist.setFixedCellHeight(30);
-
-		ImageIcon icon = createImageIcon(BACKGROUND_IMG);
-		JLabel bgLabel = new JLabel(icon);
-		bgLabel.setSize(bgLabel.getPreferredSize());
-
-		// Create and set up the layered pane.
-		JPanel forgroundPanel = new JPanel(new GridBagLayout());
-		forgroundPanel.setOpaque(false);
-		forgroundPanel.setPreferredSize(new Dimension(400, 50));
-
+		
+		// Create and set up the text-field pane.
+		JPanel textInputPane = new JPanel(new GridBagLayout());
+		textInputPane.setOpaque(false);
+		textInputPane.setPreferredSize(new Dimension(400, 50));
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setPreferredSize(bgLabel.getPreferredSize());
 		layeredPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-		layeredPane.add(forgroundPanel, JLayeredPane.PALETTE_LAYER);
+		layeredPane.add(textInputPane, JLayeredPane.PALETTE_LAYER);
 
 		//textField.setBackground(new java.awt.Color(220, 219, 219));
 		//textField.setBorder(empty);
-		textField.setUI(new HintFieldUI("Type /? for help", true));
+		textField.setUI(new HintFieldUI("hold 'ctrl + h' for help", true));
+		
+		
+		// for 'up, down, control+h' key shortcuts
 		textField.addActionListener(this);
 		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upKey");
 		textField.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "downKey");
+		textField.getInputMap().put(KeyStroke.getKeyStroke("control H"), "getHelp");
+		textField.getInputMap().put(KeyStroke.getKeyStroke("control Z"), "undo");
+		textField.getInputMap().put(KeyStroke.getKeyStroke("control Y"), "redo");
 		textField.getActionMap().put("upKey", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -106,27 +105,59 @@ public class GUI extends JPanel implements ActionListener {
 				}
 			}
 		});
+		textField.getActionMap().put("undo", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				commandProcessor.processCommand("undo");
+				}
+		});
+		textField.getActionMap().put("redo", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				commandProcessor.processCommand("redo");
+				}
+		});
+		textField.getActionMap().put("getHelp", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "<html>	<u><b>Available Commands</b></u> for more details, please refer to <a href= &#34;&#92;doc&#92;[F12-2j][V0.2].pdf&#34;>Üser Guide</a href><br/><br/><table>" +
+						"<tr><td valign=&#34;baseline&#34;>add &lt;data&gt;</td>" +
+						"<td>Add a task to your existing list of tasks.<br/>Add 'impt' or 'important' to task if important. </li></ul</td></tr>" +
+						"<tr><td>mark &lt;number&gt;</td>" +
+						"<td> Mark task as done when completed.</td></tr>"+
+						"<tr><td>edit &lt;number&gt; &lt;data&gt;</td>" +
+						"<td> Change certain details of a task.</td></tr>" +
+						"<tr><td>search &lt;data&gt;</td>" +
+						"<td> Search tasks by name, date or both. </td></tr>" +
+						"<tr><td>undo</td>" +
+						"<td> Undo task. </td></tr>" +
+						"<tr><td>redo</td>" +
+						"<td> Redo task. </td></tr>" +
+						
+						"</table></html>"
+						
+						);	
+				}
+		});
+		textInputPane.add(textField);
 
-		forgroundPanel.add(textField);
-
+		
+		// layout alignment
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-		add(Box.createRigidArea(new Dimension(0, 10)));
-
-		commandOutputLabel = new JLabel(EMPTY_STRING);
-		commandOutputLabel.setFont(new Font("Courier", Font.BOLD, 12));
-		commandOutputLabel.setForeground(Color.red);
-		// commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		commandOutputLabel.setPreferredSize(new Dimension(100, 10));
+		// command output label
+		cmdOutputLbl = new JLabel(EMPTY_STRING);
+		cmdOutputLbl.setFont(new Font("Courier", Font.BOLD, 12));
+		cmdOutputLbl.setForeground(Color.red);
+		cmdOutputLbl.setPreferredSize(new Dimension(100, 10));
 		add(createControlPanel());
-		add(commandOutputLabel);
-		add(forgroundPanel);
-		// add(layeredPane);
-
+		add(cmdOutputLbl);
+		add(textInputPane);
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				textField.requestFocus();
+				jlist.requestFocus();
 			}
 		});
 	}
@@ -177,7 +208,7 @@ public class GUI extends JPanel implements ActionListener {
 		String command = textField.getText();
 
 		String output = commandProcessor.processCommand(command);
-		commandOutputLabel.setText(output);
+		cmdOutputLbl.setText(output);
 		jlist.setModel(commandProcessor.getCurrentListModelOfTasks());
 		// refreshCurrentList(commandProcessor.getCurrentListModelOfTasks());
 

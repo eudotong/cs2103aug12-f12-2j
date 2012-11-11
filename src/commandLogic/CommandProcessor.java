@@ -133,7 +133,7 @@ public class CommandProcessor {
 		return command.processCommand(taskRecords);
 	}
 
-	private String processUndo() {
+	public String processUndo() {
 		try {
 			Command commandToUndo = changeRecord.undo();
 			return commandToUndo.processCommand(taskRecords);
@@ -143,7 +143,7 @@ public class CommandProcessor {
 		}
 	}
 
-	private String processRedo() {
+	public String processRedo() {
 		try {
 			Command commandToRedo = changeRecord.redo();
 			return commandToRedo.processCommand(taskRecords);
