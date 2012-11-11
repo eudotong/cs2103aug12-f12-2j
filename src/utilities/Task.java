@@ -21,10 +21,11 @@ public class Task implements Comparable<Task> {
 	private static final int NEGATIVE_NUMBER = -1;
 	private static final String EMPTY_STRING = "";
 	private static final String NULL_STRING = "null";
-	private static final DateTimeFormatter DATE_FORMATTER_DATE_AND_TIME = DateTimeFormat
+	private static final DateTimeFormatter DATE_FORMATTER_ = DateTimeFormat
 			.forPattern("d/M/yyyy hh:mma");
 	private static final DateTimeFormatter DATE_FORMATTER_TIME = DateTimeFormat
 			.forPattern("hh:mma");
+	private static final DateTimeFormatter DATE_FORMATTER_SHORT_DATE_TIME = DateTimeFormat.forPattern("d/M/YY hh:mma");
 	private static final String TASK_FORMAT = "%s|%s|%s";
 
 	private static Logger logger = Logger.getLogger("JIMI");
@@ -75,7 +76,7 @@ public class Task implements Comparable<Task> {
 		}
 		return String.format(TIME_TO_TIME,
 				startTime.toString(DATE_FORMATTER_TIME),
-				endTime.toString(DATE_FORMATTER_TIME))
+				endTime.toString(DATE_FORMATTER_SHORT_DATE_TIME))
 				+ COLON;
 	}
 
@@ -96,7 +97,7 @@ public class Task implements Comparable<Task> {
 		if (dateToProcess == null) {
 			return NULL_STRING;
 		}
-		return dateToProcess.toString(DATE_FORMATTER_DATE_AND_TIME);
+		return dateToProcess.toString(DATE_FORMATTER_);
 	}
 
 	/**
