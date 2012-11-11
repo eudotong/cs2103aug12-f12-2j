@@ -151,7 +151,7 @@ public class GUI extends JPanel implements ActionListener {
 		commandOutputLabel = new JLabel(EMPTY_STRING); 
 		commandOutputLabel.setFont(COMMAND_OUTPUT_FONT);
 		commandOutputLabel.setForeground(COMMAND_OUTPUT_FONT_COLOR);
-		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);//TODO Not working
+		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		commandOutputLabel.setPreferredSize(COMMAND_OUTPUT_LABEL_DIMENSION);
 		add(createControlPanel());
 		add(commandOutputLabel);
@@ -240,7 +240,6 @@ public class GUI extends JPanel implements ActionListener {
 					logger.log(Level.INFO, "Starting GUI");
 					createAndShowGUI();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
