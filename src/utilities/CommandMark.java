@@ -10,6 +10,7 @@ import storage.TaskRecords;
 public class CommandMark implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_DELETE = "Task could not be deleted.";
 	private static final String MESSAGE_SUCCESS = "Task deleted: %s";
+	private static final String MESSAGE_ERROR_CANNOT_FIND_TASK = "Could not find the task specified.";
 
 	private boolean isReversible = true;
 	private Task taskToBeDeleted;
@@ -41,6 +42,9 @@ public class CommandMark implements Command {
 		if (taskToBeDeleted == null) {
 			taskToBeDeleted = taskRecords
 					.getTaskByIndex(indexOfTaskToBeDeleted);
+			if (taskToBeDeleted == null) {
+				return MESSAGE_ERROR_CANNOT_FIND_TASK;
+			}
 		}
 		boolean isSuccessful = taskRecords.deleteTask(taskToBeDeleted);
 		isReversible = isSuccessful;
