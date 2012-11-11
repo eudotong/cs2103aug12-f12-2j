@@ -12,9 +12,16 @@ import storage.TaskRecords;
  * @author A0088278L
  */
 public class CommandSearch implements Command {
+	private static final String AFTER = "onwards";
+	private static final String BEFORE = "before";
+	private static final DateTime IMPOSSIBLY_LARGE_DATE = new DateTime(
+			Long.MAX_VALUE);
+	private static final DateTime IMPOSSIBLY_SMALL_DATE = new DateTime(
+			Long.MIN_VALUE);
+	private static final String UPCOMING = "Searched upcoming tasks.";
 	private static final String NULL = "null";
 	private static final boolean IS_REVERSIBLE = false;
-	private static final String MESSAGE_SUCCESS = "Searched.";
+	private static final String MESSAGE_SUCCESS = "Searched: %s|%s|%s";
 	private static DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("dd/MM/yyyy HH:mm");
 
@@ -51,7 +58,28 @@ public class CommandSearch implements Command {
 		} else if (fromDate != null && toDate != null) {
 			taskRecords.setCurrentListOfTasks(query, fromDate, toDate);
 		}
-		return MESSAGE_SUCCESS;
+		return getSuccessMessage();
+	}
+	
+	private String getSuccessMessage(){
+		if(query == null){
+			return UPCOMING;
+		}
+		String fromDateString = NULL;
+		String toDateString = NULL;
+		if(fromDate != null){
+			fromDateString = fromDate.toString(DATE_FORMATTER);
+			if(fromDate.equals(IMPOSSIBLY_SMALL_DATE)){
+				fromDateString = BEFORE;
+			}
+		}
+		if(toDate != null){
+			toDateString = toDate.toString(DATE_FORMATTER);
+			if(toDate.equals(IMPOSSIBLY_LARGE_DATE)){
+				toDateString = AFTER;
+			}
+		}
+		return String.format(MESSAGE_SUCCESS, query, fromDateString, toDateString);
 	}
 
 	@Override
@@ -69,6 +97,7 @@ public class CommandSearch implements Command {
 		return IS_REVERSIBLE;
 	}
 
+	//for testing
 	public String toString() {
 		String fromDateString = NULL;
 		String toDateString = NULL;

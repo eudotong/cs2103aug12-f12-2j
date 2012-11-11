@@ -51,7 +51,7 @@ public class CommandParser {
 	private static final int MILLISEC_DIFF_ALLOWANCE = 120;
 	private static final String COLON = ":";
 	private static final String DOT = ".";
-	private static final String KEYWORD_FOR = "for";
+	private static final String KEYWORD_FOR = "for ";
 	private static final String KEYWORD_DASH = " - ";
 	private static final String KEYWORD_TO = " to ";
 	private static final String KEYWORD_NOW = "now";
@@ -67,7 +67,7 @@ public class CommandParser {
 			Long.MIN_VALUE);
 
 	private static final char[] LIST_DISALLOWED_START_CHARS = { 'a', 'e', 'p',
-			's', 'd', 'f', 'h', 'l', 'z', 'm', 'g', 't' };
+			's', 'd', 'f', 'h', 'l', 'z', 'm', 'g', 't', 'o' };
 	private static final String[] LIST_CONFLICTING_DATE_VARIANTS = { "mon",
 			"tues", "wed", "thurs", "fri", "sat", "sun", "jan", "feb", "mar",
 			"apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
@@ -79,7 +79,8 @@ public class CommandParser {
 			"august", "september", "october", "november", "december", "for",
 			"to", "now", "am", "pm", "day", "days", "hour", "hours", "hr",
 			"hrs", "minute", "min", "minutes", "sec", "second", "seconds",
-			"today", "tomorrow" };
+			"today", "tomorrow", "yesterday", "next", "month", "week",
+			"months", "weeks", "from", "last" };
 	private static final String[] LIST_ADD_SYNONYMS = { "add", "insert",
 			"create", "new", "put", "ins" };
 	private static final String[] LIST_MARK_SYNONYMS = { "mark", "delete",
@@ -94,7 +95,7 @@ public class CommandParser {
 	private static final String[] LIST_RELATIVE_TIME_KEYWORDS_BEFORE = {
 			"before", "b4", "bef" };
 	private static final String[] LIST_RELATIVE_TIME_KEYWORDS_AFTER = {
-			"after", "aft" };
+			"after", "aft", "onwards" };
 
 	private static final String PATTERN_ITH_NUMBER = "1st|\\d+1st|2nd|\\d+2nd|3rd|\\d+3rd|(\\d+th)";
 	private static final String PATTERN_TIME = "(\\d{1,4}|\\d{1,2}[:|.]\\d{2})(am|pm)";
