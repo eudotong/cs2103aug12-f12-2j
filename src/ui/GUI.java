@@ -39,6 +39,10 @@ import ui.HintFieldUI;
  */
 public class GUI extends JPanel implements ActionListener {
 	
+	private static final String DOWN = "DOWN";
+	private static final String UP = "UP";
+	private static final String UP_KEY = "upKey";
+	private static final String DOWN_KEY = "downKey";
 	private static final String EMPTY_STRING = "";
 	private static final String BORDER_TITLE = "Jimi - Task Manager";
 	private static final String FRAME_NAME = "Jimi";
@@ -75,7 +79,7 @@ public class GUI extends JPanel implements ActionListener {
 	
 	private static Logger logger = Logger.getLogger("JIMI");
 
-	private Border empty = BorderFactory.createEmptyBorder();
+	//private Border empty = BorderFactory.createEmptyBorder();
 	JList<String> tasklist;
 	JScrollPane listPane;
 	JTextField textField = new JTextField(32);
@@ -113,9 +117,9 @@ public class GUI extends JPanel implements ActionListener {
 		// textField.setBorder(empty);
 		textField.setUI(new HintFieldUI("Type /? for help", true));
 		textField.addActionListener(this);
-		textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upKey");
-		textField.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "downKey");
-		textField.getActionMap().put("upKey", new AbstractAction() {
+		textField.getInputMap().put(KeyStroke.getKeyStroke(UP), UP_KEY);
+		textField.getInputMap().put(KeyStroke.getKeyStroke(DOWN), DOWN_KEY);
+		textField.getActionMap().put(UP_KEY, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String previouslyIssuedCommand = commandProcessor
@@ -127,7 +131,7 @@ public class GUI extends JPanel implements ActionListener {
 		});
 		
 		//TODO EC - Not working?
-		textField.getActionMap().put("downKey", new AbstractAction() {
+		textField.getActionMap().put(DOWN_KEY, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String laterIssuedCommand = commandProcessor.getLaterIssued();
