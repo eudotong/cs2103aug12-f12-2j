@@ -74,6 +74,12 @@ public class Task implements Comparable<Task> {
 		if (endTime == null) {
 			return startTime.toString(DATE_FORMATTER_TIME) + COLON;
 		}
+		if(isSameDay(startTime, endTime)){
+			return String.format(TIME_TO_TIME,
+					startTime.toString(DATE_FORMATTER_TIME),
+					endTime.toString(DATE_FORMATTER_TIME))
+					+ COLON;
+		}
 		return String.format(TIME_TO_TIME,
 				startTime.toString(DATE_FORMATTER_TIME),
 				endTime.toString(DATE_FORMATTER_SHORT_DATE_TIME))
@@ -212,5 +218,21 @@ public class Task implements Comparable<Task> {
 			return NEGATIVE_NUMBER;
 		}
 		return firstDate.compareTo(secondDate);
+	}
+	
+	private boolean isSameDay(DateTime firstDate, DateTime secondDate) {
+		if (firstDate == secondDate) {
+			return true;
+		}
+		if (firstDate == null && secondDate != null || firstDate != null
+				&& secondDate == null) {
+			return false;
+		}
+		firstDate = firstDate.withTimeAtStartOfDay();
+		secondDate = secondDate.withTimeAtStartOfDay();
+		if (firstDate.compareTo(secondDate) == SAME_TIME) {
+			return true;
+		}
+		return false;
 	}
 }
