@@ -66,8 +66,6 @@ public class CommandParser {
 	private static final DateTime IMPOSSIBLY_SMALL_DATE = new DateTime(
 			Long.MIN_VALUE);
 
-	private static final char[] LIST_DISALLOWED_START_CHARS = { 'a', 'e', 'p',
-			's', 'd', 'f', 'h', 'l', 'z', 'm', 'g', 't', 'o' };
 	private static final String[] LIST_CONFLICTING_DATE_VARIANTS = { "mon",
 			"tues", "wed", "thurs", "fri", "sat", "sun", "jan", "feb", "mar",
 			"apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
@@ -102,6 +100,7 @@ public class CommandParser {
 	private static final String PATTERN_ALPHANUMERIC_WORD = "\\w*";
 	private static final String PATTERN_TIME_DOT_SEPARATOR = "\\d{1,2}[.]\\d{2}";
 	private static final String PATTERN_DATE = "(\\d{1,2}[-|/|.]\\d{1,2}[-|/|.]\\d{2,4})|\\d{1,2}[-|/]\\d{1,2}";
+	private static final String PATTERN_ALPHABET_ONLY_WORD = "[a-z]*";
 	private static final String PATTERN_NON_DIGIT = "\\D+";
 	private static final String PATTERN_NUMBER = "\\d+";
 	private static final String PATTERN_ANY_NUMBER_NOT_DATE = "(^| )\\d+($| )";
@@ -112,7 +111,6 @@ public class CommandParser {
 	private HashMap<String, CommandType> specialKeywordsDict;
 	private HashMap<String, RelativeType> relativeTimeKeywordsDict;
 	private HashSet<String> allDateVariantsDict;
-	private HashSet<Character> disallowedStartCharsDict;
 
 	private String commandToParse;
 
@@ -133,12 +131,8 @@ public class CommandParser {
 		specialKeywordsDict = new HashMap<String, CommandType>();
 		relativeTimeKeywordsDict = new HashMap<String, RelativeType>();
 		allDateVariantsDict = new HashSet<String>();
-		disallowedStartCharsDict = new HashSet<Character>();
 		for (String entry : LIST_ALL_DATE_VARIANTS) {
 			allDateVariantsDict.add(entry);
-		}
-		for (char entry : LIST_DISALLOWED_START_CHARS) {
-			disallowedStartCharsDict.add(entry);
 		}
 		for (String entry : LIST_ADD_SYNONYMS) {
 			commandTypeKeywordsDict.put(entry, CommandType.ADD);
@@ -286,7 +280,7 @@ public class CommandParser {
 
 	private boolean isUnparsable(String word) {
 		assert (word != null) : "Null String.";
-		return (disallowedStartCharsDict.contains(word.charAt(START_INDEX)) && !allDateVariantsDict
+		return (word.matches(PATTERN_ALPHABET_ONLY_WORD) && !allDateVariantsDict
 				.contains(word))
 				|| (word.matches(PATTERN_ALPHANUMERIC_WORD)
 						&& !word.matches(PATTERN_NON_DIGIT)
@@ -304,7 +298,16 @@ public class CommandParser {
 		return rebuiltString;
 	}
 
-	private DateTime[] getStartAndEndTimesFromCommand() {
+	private String removeWordsFromString(String wordsToRemove, String stringToProcess) {
+		String newString = stringToProcess;
+		String[] words = wordsToRemove.split(WHITE_SPACE);
+		for (String word : words) {
+			newString = newString.replaceFirst(word, EMPTY_STRING);
+		}
+		return newString;
+	}
+
+	private DateTime[] getAndRemoveStartAndEndTimesFromCommand() {
 		Parser dateParser = new Parser();
 		String stringToParse = removeWronglyParsedWords(commandToParse);
 		stringToParse = removeExtraWhiteSpaces(stringToParse);
@@ -348,10 +351,14 @@ public class CommandParser {
 								.withTimeAtStartOfDay();
 					}
 				}
-				stringToParse = stringToParse.replace(dateGroup.getText(),
-						EMPTY_STRING);
-				commandToParse = commandToParse.replace(dateGroup.getText(),
-						EMPTY_STRING);
+				stringToParse = removeWordsFromString(dateGroup.getText(), stringToParse);
+				commandToParse = removeWordsFromString(dateGroup.getText(), commandToParse);
+				/*
+				 * TODO stringToParse =
+				 * stringToParse.replace(dateGroup.getText(), EMPTY_STRING);
+				 * commandToParse = commandToParse.replace(dateGroup.getText(),
+				 * EMPTY_STRING);
+				 */
 				return startAndEndTime;
 			}
 
@@ -365,10 +372,14 @@ public class CommandParser {
 				if (startAndEndTime[START_TIME] != null) {
 					startAndEndTime[END_TIME] = startAndEndTime[START_TIME]
 							.plus(intervalDifference);
-					stringToParse = stringToParse.replace(dateGroup.getText(),
-							EMPTY_STRING);
-					commandToParse = commandToParse.replace(
-							dateGroup.getText(), EMPTY_STRING);
+					stringToParse = removeWordsFromString(dateGroup.getText(), stringToParse);
+					commandToParse = removeWordsFromString(dateGroup.getText(), commandToParse);
+					/*
+					 * stringToParse =
+					 * stringToParse.replace(dateGroup.getText(), EMPTY_STRING);
+					 * commandToParse = commandToParse.replace(
+					 * dateGroup.getText(), EMPTY_STRING);
+					 */
 					return startAndEndTime;
 				}
 				// reparse to see if there is an alternative start time
@@ -387,10 +398,13 @@ public class CommandParser {
 					startAndEndTime[START_TIME] = intervalStart;
 					startAndEndTime[END_TIME] = intervalEnd;
 				}
-				stringToParse = stringToParse.replace(dateGroup.getText(),
-						EMPTY_STRING);
-				commandToParse = commandToParse.replace(dateGroup.getText(),
-						EMPTY_STRING);
+				stringToParse = removeWordsFromString(dateGroup.getText(), stringToParse);
+				commandToParse = removeWordsFromString(dateGroup.getText(), commandToParse);
+				/*
+				 * stringToParse = stringToParse.replace(dateGroup.getText(),
+				 * EMPTY_STRING); commandToParse =
+				 * commandToParse.replace(dateGroup.getText(), EMPTY_STRING);
+				 */
 				return startAndEndTime;
 			}
 
@@ -406,11 +420,13 @@ public class CommandParser {
 				startAndEndTime[END_TIME] = new DateTime(dateGroup.getDates()
 						.get(FIRST_GROUP));
 			}
-
-			stringToParse = stringToParse.replace(dateGroup.getText(),
-					EMPTY_STRING);
-			commandToParse = commandToParse.replace(dateGroup.getText(),
-					EMPTY_STRING);
+			stringToParse = removeWordsFromString(dateGroup.getText(), stringToParse);
+			commandToParse = removeWordsFromString(dateGroup.getText(), commandToParse);
+			/*
+			 * stringToParse = stringToParse.replace(dateGroup.getText(),
+			 * EMPTY_STRING); commandToParse =
+			 * commandToParse.replace(dateGroup.getText(), EMPTY_STRING);
+			 */
 			dateGroupList = dateParser.parse(stringToParse);
 			numIterations++;
 		}
@@ -440,7 +456,7 @@ public class CommandParser {
 	private CommandAdd parseAdd() throws CommandCouldNotBeParsedException,
 			StartTimeAfterEndTimeException {
 		logger.log(Level.INFO, "Parsing as add command.");
-		DateTime[] startAndEndTime = getStartAndEndTimesFromCommand();
+		DateTime[] startAndEndTime = getAndRemoveStartAndEndTimesFromCommand();
 		if (compareNullDatesLast(startAndEndTime[START_TIME],
 				startAndEndTime[END_TIME]) > SAME_TIME) {
 			throw new StartTimeAfterEndTimeException();
@@ -461,7 +477,7 @@ public class CommandParser {
 		if (taskIndex < FIRST_VALID_INDEX) {
 			throw new CommandCouldNotBeParsedException();
 		}
-		DateTime[] startAndEndTime = getStartAndEndTimesFromCommand();
+		DateTime[] startAndEndTime = getAndRemoveStartAndEndTimesFromCommand();
 		if (compareNullDatesLast(startAndEndTime[START_TIME],
 				startAndEndTime[END_TIME]) > SAME_TIME) {
 			throw new StartTimeAfterEndTimeException();
@@ -498,7 +514,7 @@ public class CommandParser {
 			throws CommandCouldNotBeParsedException,
 			StartTimeAfterEndTimeException {
 		logger.log(Level.INFO, "Parsing as search command.");
-		DateTime[] startAndEndTime = getStartAndEndTimesFromCommand();
+		DateTime[] startAndEndTime = getAndRemoveStartAndEndTimesFromCommand();
 		if (compareNullDatesLast(startAndEndTime[START_TIME],
 				startAndEndTime[END_TIME]) > SAME_TIME) {
 			throw new StartTimeAfterEndTimeException();
