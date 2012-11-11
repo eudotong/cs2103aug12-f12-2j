@@ -88,6 +88,7 @@ public class CommandParser {
 	private static final String[] LIST_SEARCH_SYNONYMS = { "find", "display",
 			"search", "show", "view", "lookup" };
 	private static final String[] LIST_ALL_SYNONYMS = { "all", "everything" };
+	private static final String[] LIST_UPCOMING_SYNONYMS = { "upcoming" };
 	private static final String[] LIST_REDO_SYNONYMS = { "redo" };
 	private static final String[] LIST_UNDO_SYNONYMS = { "undo" };
 	private static final String[] LIST_RELATIVE_TIME_KEYWORDS_BEFORE = {
@@ -162,6 +163,9 @@ public class CommandParser {
 		}
 		for (String entry : LIST_RELATIVE_TIME_KEYWORDS_AFTER) {
 			relativeTimeKeywordsDict.put(entry, RelativeType.AFTER);
+		}
+		for (String entry : LIST_UPCOMING_SYNONYMS) {
+			relativeTimeKeywordsDict.put(entry, RelativeType.UPCOMING);
 		}
 	}
 
@@ -379,7 +383,8 @@ public class CommandParser {
 					&& !dateGroup.getDates().isEmpty()) {
 				DateTime intervalStart = new DateTime(dateGroup.getDates().get(
 						FIRST_GROUP));
-				DateTime intervalEnd = new DateTime(dateGroup.getDates().get(SECOND_GROUP));
+				DateTime intervalEnd = new DateTime(dateGroup.getDates().get(
+						SECOND_GROUP));
 				long intervalDifference = intervalEnd.getMillis()
 						- intervalStart.getMillis();
 				if (startAndEndTime[START_TIME] != null) {
@@ -537,7 +542,7 @@ public class CommandParser {
 		if (relativeType == RelativeType.ALL) {
 			return new CommandSearch(EMPTY_STRING, null, null);
 		}
-		if (commandToParse.isEmpty() && startAndEndTime[START_TIME] == null
+		if (relativeType == RelativeType.UPCOMING && startAndEndTime[START_TIME] == null
 				&& startAndEndTime[END_TIME] == null) {
 			commandToParse = null;
 		}
@@ -562,7 +567,7 @@ public class CommandParser {
 		String[] wordsInCommand = commandToParse.split(WHITE_SPACE);
 		for (String word : wordsInCommand) {
 			if (relativeTimeKeywordsDict.containsKey(word.toLowerCase())) {
-				commandToParse = commandToParse.replace(word, EMPTY_STRING);
+				commandToParse = commandToParse.replaceFirst(word, EMPTY_STRING);
 				commandToParse = removeExtraWhiteSpaces(commandToParse);
 				return relativeTimeKeywordsDict.get(word.toLowerCase());
 			}
@@ -601,5 +606,5 @@ public class CommandParser {
 }
 
 enum RelativeType {
-	BEFORE, AFTER, NOT, ALL;
+	BEFORE, AFTER, NOT, UPCOMING, ALL;
 }

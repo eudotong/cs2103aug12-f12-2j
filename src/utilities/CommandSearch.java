@@ -101,6 +101,10 @@ public class CommandSearch implements Command {
 	public String toString() {
 		String fromDateString = NULL;
 		String toDateString = NULL;
+		String queryString = NULL;
+		if(query != null){
+			queryString = query;
+		}
 		if (fromDate != null) {
 			fromDateString = fromDate.toString(DATE_FORMATTER);
 		}
