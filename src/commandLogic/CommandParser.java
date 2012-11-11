@@ -104,6 +104,7 @@ public class CommandParser {
 	private static final String PATTERN_NON_DIGIT = "\\D+";
 	private static final String PATTERN_NUMBER = "\\d+";
 	private static final String PATTERN_ANY_NUMBER_NOT_DATE = "(^| )\\d+($| )";
+	private static final String PATTERN_EXACT_MATCH = "(^| )%s($| )";
 
 	private static Logger logger = Logger.getLogger("JIMI");
 
@@ -302,9 +303,9 @@ public class CommandParser {
 		String newString = stringToProcess;
 		String[] words = wordsToRemove.split(WHITE_SPACE);
 		for (String word : words) {
-			newString = newString.replaceFirst(word, EMPTY_STRING);
+			newString = newString.replaceFirst(String.format(PATTERN_EXACT_MATCH, word), WHITE_SPACE);
 		}
-		return newString;
+		return removeExtraWhiteSpaces(newString);
 	}
 
 	private DateTime[] getAndRemoveStartAndEndTimesFromCommand() {
