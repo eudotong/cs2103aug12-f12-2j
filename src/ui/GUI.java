@@ -28,9 +28,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
+import javax.swing.JOptionPane;
+
 import commandLogic.CommandProcessor;
-import ui.HintFieldUI;
 
 /**
  * 
@@ -39,6 +39,22 @@ import ui.HintFieldUI;
  */
 public class GUI extends JPanel implements ActionListener {
 	
+	private static final String CTRL_H = "control H";
+	private static final String GET_HELP = "getHelp";
+	private static final String HELP_MESSAGE = "<html>	<u><b>Available Commands</b></u> for more details, please refer to <a href= &#34;&#92;doc&#92;[F12-2j][V0.2].pdf&#34;>Üser Guide</a href><br/><br/><table>" +
+			"<tr><td valign=&#34;baseline&#34;>add &lt;data&gt;</td>" +
+			"<td>Add a task to your existing list of tasks.<br/>Add 'impt' or 'important' to task if important. </li></ul</td></tr>" +
+			"<tr><td>mark &lt;number&gt;</td>" +
+			"<td> Mark task as done when completed.</td></tr>"+
+			"<tr><td>edit &lt;number&gt; &lt;data&gt;</td>" +
+			"<td> Change certain details of a task.</td></tr>" +
+			"<tr><td>search &lt;data&gt;</td>" +
+			"<td> Search tasks by name, date or both. </td></tr>" +
+			"<tr><td>undo</td>" +
+			"<td> Undo task. </td></tr>" +
+			"<tr><td>redo</td>" +
+			"<td> Redo task. </td></tr>" +
+			"</table></html>";
 	private static final String DOWN = "DOWN";
 	private static final String UP = "UP";
 	private static final String UP_KEY = "upKey";
@@ -115,10 +131,11 @@ public class GUI extends JPanel implements ActionListener {
 
 		// textField.setBackground(new java.awt.Color(220, 219, 219));
 		// textField.setBorder(empty);
-		textField.setUI(new HintFieldUI("Type /? for help", true));
+		textField.setUI(new HintFieldUI("hold 'ctrl + h' for help", true));
 		textField.addActionListener(this);
 		textField.getInputMap().put(KeyStroke.getKeyStroke(UP), UP_KEY);
 		textField.getInputMap().put(KeyStroke.getKeyStroke(DOWN), DOWN_KEY);
+		textField.getInputMap().put(KeyStroke.getKeyStroke(CTRL_H), GET_HELP);
 		textField.getActionMap().put(UP_KEY, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -140,13 +157,16 @@ public class GUI extends JPanel implements ActionListener {
 				}
 			}
 		});
+		textField.getActionMap().put(GET_HELP, new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, HELP_MESSAGE);	
+				}
+		});
 
 		foregroundPanel.add(textField);
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		
-		//TODO EC asks.. What is this for?
-		//add(Box.createRigidArea(new Dimension(0, 10)));
 
 		commandOutputLabel = new JLabel(EMPTY_STRING); 
 		commandOutputLabel.setFont(COMMAND_OUTPUT_FONT);
@@ -183,7 +203,7 @@ public class GUI extends JPanel implements ActionListener {
 		JLabel hdrLabel = new JLabel();
 		try{
 			ImageIcon hdr = new ImageIcon(this.getClass().getResource(HDR_IMAGE_SRC));
-			hdrLabel = new JLabel(hdr); //TODO hdrLabel Dimension
+			hdrLabel = new JLabel(hdr);
 			hdrLabel.setPreferredSize(HDR_IMAGE_DIMENSION);
 			hdrLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}catch(NullPointerException e){
