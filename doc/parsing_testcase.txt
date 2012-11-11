@@ -1,0 +1,117 @@
+assume now is 2 nov 12pm
+if no date is specified: null
+if no time is specified: set to 12am
+
+date formats to support:
+-mon, wed, thurs, etc.
+-monday, wednesday, etc.
+-next monday wednesday etc.
+-dd/mm/yyyy, d/m/yyyy, d/m/yy, dd/mm, d/m
+-dd-mm-yyyy, d-m-yyyy, d-m/-y, dd-mm, d-m
+-1 nov, 1 september, 12 december 2012
+-today, tomorrow, yesterday
+-now (date and time will be the current date and time)
+
+time formats to support:
+-1am, 1pm, 1.30pm, 1am 1:30am etc
+-HH:MM, H:MM
+
+=====add command=====
+add fried chicken
+result:: commandadd:task: null|null|fried chicken
+
+add next friday something
+result:: commandadd:task: 9/11/2012 00:00|null|something
+
+add next fri 1pm to 2pm something
+result:: commandadd:task: 9/11/2012 13:00|9/11/2012 14:00|something
+
+add 9 nov 1pm to 2pm something
+result:: commandadd:task: 9/11/2012 13:00|9/11/2012 14:00|something
+
+add 9 nov 2012 1pm for 1 hour something
+result:: commandadd:task: 9/11/2012 13:00|9/11/2012 14:00|something
+
+add something 15/11/2012
+result:: commandadd:task: 15/11/2012 00:00|null|something
+
+add 15/11 something
+result:: commandadd:task: 15/11/2012 00:00|null|something
+
+add something
+result:: commandadd:task: null|null|something
+
+add now to 1pm somthing
+result:: commandadd:task: 2/11/2012 12:00|2/11/2012 13:00|something
+
+add today something
+result:: commandadd:task: 2/11/2012 00:00|null|something
+
+add tomorrow something
+result:: commandadd:task: 3/11/2012 00:00|null|something
+
+add tomorrow 13:00 to 14:00 something
+result:: commandadd:task: 3/11/2012 13:00|3/11/2012 13:00|something
+
+add something today 1pm for 1 hour
+result:: commandadd:task: 2/11/2012 13:00|2/11/2012 14:00|something
+
+
+add 15/11/2012 9pm for 2 hours something
+result:: commandadd:task: 15/11/2012 09:00|2/11/2012 11:00|something
+
+add 15/11 16/11 something
+result:: commandadd:task: 15/11/2012 00:00|16/11/2012 00:00|something
+
+=====edit command======
+edit 1 something
+result:: commandedit:task: null|null|something
+
+edit 1 15/11/2012 16/11/2012
+result:: commandedit:task: 15/11/2012 00:00|16/11/2012 00:00|null
+
+edit 1 wednesday
+result:: commandedit:task: 7/11/2012 00:00||null
+
+edit 1 tuesday 1pm to 2pm something
+commandedit:task: 6/11/2012 13:00|6/11/2012 14:00|something
+
+=====mark command=====
+mark 1
+result:: commandmark:indexOfTaskToBeDeleted:1
+
+=====mark all command=====
+mark all
+result:: commandmarkall
+
+=====undo/redo command=====
+undo
+result:: commandundo
+
+redo
+result:: command redo
+
+=====search command=====
+search something
+result:: commandsearch:fromDate|toDate|query:null|null|something
+
+search today
+result:: commandsearch:fromDate|toDate|query:2/11/2012 00:00|null|null
+
+search 15/11 16/11
+result:: commandsearch:fromDate|toDate|query:15/11/2012 00:00|16/11/2012 00:00|null
+
+search 15 november something
+result:: commandsearch:fromDate|toDate|query:15/11/2012 00:00|null|something
+
+search 15 nov 1am to 2pm something
+result:: commandsearch:fromDate|toDate|query:15/11/2012 01:00|15/11/2012 14:00|something
+
+search next wednesday
+result:: commandsearch:fromDate|toDate|query:14/11/2012 00:00|null|null
+
+search wed something
+result:: commandsearch:fromDate|toDate|query:14/11/2012 00:00|null|something
+
+search wed 1pm to 1.30pm
+result:: commandsearch:fromDate|toDate|query:14/11/2012 13:00|14/11/2012 13:30|something

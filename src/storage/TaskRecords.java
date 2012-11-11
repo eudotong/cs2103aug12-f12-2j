@@ -19,10 +19,10 @@ import org.joda.time.format.DateTimeFormatter;
 import utilities.Task;
 
 /**
- * @author A0088278L
+ * The TaskRecords modifies and accesses the text file that is used for storing
+ * task information
  * 
- *         The TaskRecords modifies and accesses the text file that is used for
- *         storing task information.
+ * @author A0088278L
  */
 public class TaskRecords {
 	private static final int FIRST_VALID_INDEX = 0;
@@ -218,7 +218,7 @@ public class TaskRecords {
 	}
 
 	/**
-	 * Deleted all tasks in array from the text file.
+	 * Deletes all tasks in array from the text file.
 	 * 
 	 * @param tasksToDelete
 	 */
@@ -345,7 +345,7 @@ public class TaskRecords {
 		logger.log(Level.INFO, "Setting current list of tasks matching \""
 				+ query + "\" from " + fromDate.toString(DATE_FORMATTER)
 				+ " to " + toDate.toString(DATE_FORMATTER));
-		assert(fromDate != null && toDate != null) : "Null DateTime.";
+		assert (fromDate != null && toDate != null) : "Null DateTime.";
 		if (query == null) {
 			query = EMPTY_STRING;
 		}
@@ -378,7 +378,7 @@ public class TaskRecords {
 	public void setCurrentListOfTasks(String query, DateTime fromDate) {
 		logger.log(Level.INFO, "Setting current list of tasks matching \""
 				+ query + "\" from " + fromDate.toString(DATE_FORMATTER));
-		assert(fromDate != null) : "Null DateTime.";
+		assert (fromDate != null) : "Null DateTime.";
 		if (query == null) {
 			query = EMPTY_STRING;
 		}

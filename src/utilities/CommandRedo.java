@@ -3,10 +3,9 @@ package utilities;
 import storage.TaskRecords;
 
 /**
+ * Functionality for command of type REDO
  * 
  * @author A0088278L
- * 
- *         Functionality for command of type REDO
  */
 public class CommandRedo implements Command {
 	private static final boolean IS_REVERSIBLE = false;

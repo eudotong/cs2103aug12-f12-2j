@@ -8,12 +8,10 @@ import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
 
 /**
+ * ChangeRecord is used to record previously issued user commands. This
+ * facilitates undo/redo commands. It makes use of two stacks to record changes.
  * 
  * @author A0088278L
- * 
- *         ChangeRecord is used to record previously issued user commands. This
- *         facilitates undo/redo commands. It makes use of two stacks to record
- *         changes.
  */
 public class ChangeRecord {
 	private static final String EMPTY_STRING = "";

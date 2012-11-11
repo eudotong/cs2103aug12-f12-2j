@@ -3,11 +3,10 @@ package utilities;
 import storage.TaskRecords;
 
 /**
+ * Functionality for command of type ADD_ALL. This command is not a user issued
+ * command it exists so the command MARK_ALL can be reversed
  * 
  * @author A0088278L
- * 
- *         Functionality for command of type ADD_ALL. This command is not a user
- *         issued command it exists so the command MARK_ALL can be reversed
  */
 public class CommandAddAll implements Command {
 	private static final String EMPTY_STRING = "";

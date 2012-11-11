@@ -3,21 +3,20 @@ package utilities;
 import storage.TaskRecords;
 
 /**
+ * Functionality for command of type ADD
  * 
  * @author A0088278L
- * 
- *         Functionality for command of type ADD
  */
 public class CommandAdd implements Command {
 	private static final String MESSAGE_ERROR_CANNOT_ADD = "Task could not be added.";
-	private static final String MESSAGE_SUCCESS = "%s was added";
-	
+	private static final String MESSAGE_SUCCESS = "Task added: %s";
 
 	private boolean isReversible = true;
 	private Task taskToBeAdded;
 
 	/**
 	 * Initializes a newly created CommandAdd object with parameters specified.
+	 * 
 	 * @param taskToBeAdded
 	 */
 	public CommandAdd(Task taskToBeAdded) {
@@ -26,6 +25,9 @@ public class CommandAdd implements Command {
 		this.taskToBeAdded = taskToBeAdded;
 	}
 
+	/**
+	 * Returns an appropriate CommandMark object.
+	 */
 	public Command reverseCommand() {
 		return new CommandMark(taskToBeAdded);
 	}

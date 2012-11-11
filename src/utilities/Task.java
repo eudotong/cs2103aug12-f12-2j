@@ -8,10 +8,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 /**
+ * Task class is data structure for a task.
  * 
  * @author A0088278L
- * 
- *         Task class is data structure for a task
  */
 public class Task implements Comparable<Task> {
 	private static final String COLON = ": ";
@@ -22,10 +21,11 @@ public class Task implements Comparable<Task> {
 	private static final int NEGATIVE_NUMBER = -1;
 	private static final String EMPTY_STRING = "";
 	private static final String NULL_STRING = "null";
-	private static final DateTimeFormatter DATE_FORMATTER_DATE_AND_TIME = DateTimeFormat
+	private static final DateTimeFormatter DATE_FORMATTER_ = DateTimeFormat
 			.forPattern("d/M/yyyy hh:mma");
 	private static final DateTimeFormatter DATE_FORMATTER_TIME = DateTimeFormat
 			.forPattern("hh:mma");
+	private static final DateTimeFormatter DATE_FORMATTER_SHORT_DATE_TIME = DateTimeFormat.forPattern("d/M/YY hh:mma");
 	private static final String TASK_FORMAT = "%s|%s|%s";
 
 	private static Logger logger = Logger.getLogger("JIMI");
@@ -63,7 +63,7 @@ public class Task implements Comparable<Task> {
 	}
 
 	/**
-	 * Returns a task's time in hh:mma format.
+	 * Returns a task's time in hh:mma format. If 2 times then format is hh:mma to hh:mma.
 	 * 
 	 * @return String
 	 */
@@ -74,9 +74,15 @@ public class Task implements Comparable<Task> {
 		if (endTime == null) {
 			return startTime.toString(DATE_FORMATTER_TIME) + COLON;
 		}
+		if(isSameDay(startTime, endTime)){
+			return String.format(TIME_TO_TIME,
+					startTime.toString(DATE_FORMATTER_TIME),
+					endTime.toString(DATE_FORMATTER_TIME))
+					+ COLON;
+		}
 		return String.format(TIME_TO_TIME,
 				startTime.toString(DATE_FORMATTER_TIME),
-				endTime.toString(DATE_FORMATTER_TIME))
+				endTime.toString(DATE_FORMATTER_SHORT_DATE_TIME))
 				+ COLON;
 	}
 
@@ -88,6 +94,7 @@ public class Task implements Comparable<Task> {
 	}
 
 	public String toString() {
+		
 		return String.format(TASK_FORMAT, convertDateToString(startTime),
 				convertDateToString(endTime), taskName);
 	}
@@ -96,7 +103,7 @@ public class Task implements Comparable<Task> {
 		if (dateToProcess == null) {
 			return NULL_STRING;
 		}
-		return dateToProcess.toString(DATE_FORMATTER_DATE_AND_TIME);
+		return dateToProcess.toString(DATE_FORMATTER_);
 	}
 
 	/**
@@ -211,5 +218,21 @@ public class Task implements Comparable<Task> {
 			return NEGATIVE_NUMBER;
 		}
 		return firstDate.compareTo(secondDate);
+	}
+	
+	private boolean isSameDay(DateTime firstDate, DateTime secondDate) {
+		if (firstDate == secondDate) {
+			return true;
+		}
+		if (firstDate == null && secondDate != null || firstDate != null
+				&& secondDate == null) {
+			return false;
+		}
+		firstDate = firstDate.withTimeAtStartOfDay();
+		secondDate = secondDate.withTimeAtStartOfDay();
+		if (firstDate.compareTo(secondDate) == SAME_TIME) {
+			return true;
+		}
+		return false;
 	}
 }
