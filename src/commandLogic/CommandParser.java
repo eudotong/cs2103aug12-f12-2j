@@ -95,7 +95,7 @@ public class CommandParser {
 	private static final String[] LIST_RELATIVE_TIME_KEYWORDS_BEFORE = {
 			"before", "b4", "bef" };
 	private static final String[] LIST_RELATIVE_TIME_KEYWORDS_AFTER = {
-			"after", "aft", "onwards" };
+			"after", "aft", "onwards", "later" };
 
 	private static final String PATTERN_ITH_NUMBER = "1st|\\d+1st|2nd|\\d+2nd|3rd|\\d+3rd|(\\d+th)";
 	private static final String PATTERN_TIME = "(\\d{1,4}|\\d{1,2}[:|.]\\d{2})(am|pm)";
