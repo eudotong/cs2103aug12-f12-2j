@@ -78,6 +78,7 @@ public class CommandParser {
 			DateTimeFormat.forPattern("MM/dd").getParser() };
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
 			.append(null, DATE_PARSERS).toFormatter();
+	
 	private static final String[] LIST_CONFLICTING_DATE_VARIANTS = { "mon",
 			"tues", "wed", "thurs", "fri", "sat", "sun", "jan", "feb", "mar",
 			"apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
