@@ -38,8 +38,13 @@ public class CommandParserBruteTest {
 
 	private final static String TEST_COMMAND_TYPE = "add";
 	
-	private static DateTime TEST_DATE_TIME = DATE_FORMATTER.parseDateTime("24/11/2012 10:00");	
-	private final static String TEST_DATE_TIME_STRING = "24th Nov 10am";
+	// Expected task
+	private final static DateTime TEST_START_DATE_TIME = DATE_FORMATTER.parseDateTime("24/11/2012 10:00");	
+	private final static DateTime TEST_END_DATE_TIME = null;
+	
+	// Actual command
+	private final static String TEST_DATE_TIME_STRING = "24th Nov 10am";	
+	private final static String TEST_COMMAND = TEST_COMMAND_TYPE + WHITE_SPACE + TEST_DATE_TIME_STRING + WHITE_SPACE + "%s";
 	
 	public static void main(String args[]){
 		
@@ -52,9 +57,11 @@ public class CommandParserBruteTest {
 				System.out.println("Test length = " + length + "\t Test iteration " + i + " of " + TEST_ITERATIONS);
 				
 				try {
+					
 					randomString = textGenerator.next();
-					expectedTask = new Task(randomString, TEST_DATE_TIME, null);
-					actualCommand = COMMAND_PARSER.parseCommand(TEST_COMMAND_TYPE + WHITE_SPACE + TEST_DATE_TIME_STRING + WHITE_SPACE + randomString);
+					expectedTask = new Task(randomString, TEST_START_DATE_TIME, TEST_END_DATE_TIME);
+					actualCommand = COMMAND_PARSER.parseCommand(String.format(TEST_COMMAND, randomString));
+			
 				} catch (CommandCouldNotBeParsedException e) {
 					e.printStackTrace();
 				} catch (StartTimeAfterEndTimeException e) {

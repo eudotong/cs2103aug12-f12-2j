@@ -99,6 +99,7 @@ public class TextGenerator {
 		}
 		
 		String outputString = stringBuilder.toString().trim();
+
 		return outputString;
 	}
 }
