@@ -112,7 +112,7 @@ public class GUI extends JPanel implements ActionListener {
 	JScrollPane listPane;
 	JTextField textField = new JTextField(32);
 	CommandProcessor commandProcessor;
-	JTextArea commandOutputLabel;
+	JTextArea commandOutputText;
 	Box verticalBox;
 
 	public GUI() {
@@ -121,23 +121,24 @@ public class GUI extends JPanel implements ActionListener {
 			commandProcessor = new CommandProcessor();
 			tasklist = new JList<String>(
 					commandProcessor.getCurrentListModelOfTasks());
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			logger.log(Level.SEVERE, "Error: could not get list of tasks.");
 		}
 
+		// list of tasks
 		tasklist.setVisibleRowCount(TASKLIST_ROW_COUNT);
 		tasklist.setFont(TASKLIST_FONT);
 		listPane = new JScrollPane(tasklist);
 		tasklist.setFixedCellHeight(TASKLIST_CELL_HEIGHT);
 
-		// Create and set up the layered pane.
-		JPanel foregroundPanel = new JPanel(new GridBagLayout());
-		foregroundPanel.setOpaque(false);
-		foregroundPanel.setPreferredSize(FOREGROUND_PANEL_DIMENSION);
+		// Create and set up the panel that contains textfield/input.
+		final JPanel textFieldPanel = new JPanel(new GridBagLayout());
+		textFieldPanel.setOpaque(false);
+		textFieldPanel.setPreferredSize(FOREGROUND_PANEL_DIMENSION);
 
-		// hint in textfield
+		// hint in textfield to display help
 		textField.setUI(new HintFieldUI(HELP_HINT, true));
-		
+
 
 		// key shortcuts for previous command and next commands, and help
 		textField.addActionListener(this);
@@ -146,19 +147,18 @@ public class GUI extends JPanel implements ActionListener {
 		textField.getInputMap().put(KeyStroke.getKeyStroke(CTRL_H), GET_HELP);
 		textField.getActionMap().put(UP_KEY, new AbstractAction() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				String previouslyIssuedCommand = commandProcessor
+			public void actionPerformed(final ActionEvent e) {
+				final String previouslyIssuedCommand = commandProcessor
 						.getPreviouslyIssued();
 				if (!previouslyIssuedCommand.isEmpty()) {
 					textField.setText(previouslyIssuedCommand);
 				}
 			}
 		});
-
 		textField.getActionMap().put(DOWN_KEY, new AbstractAction() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				String laterIssuedCommand = commandProcessor.getLaterIssued();
+			public void actionPerformed(final ActionEvent e) {
+				final String laterIssuedCommand = commandProcessor.getLaterIssued();
 				if (!laterIssuedCommand.isEmpty()) {
 					textField.setText(laterIssuedCommand);
 				}
@@ -166,27 +166,27 @@ public class GUI extends JPanel implements ActionListener {
 		});
 		textField.getActionMap().put(GET_HELP, new AbstractAction() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(final ActionEvent e) {
 				JOptionPane.showMessageDialog(null, HELP_MESSAGE);
 			}
 		});
-		foregroundPanel.add(textField);
+		textFieldPanel.add(textField);
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		// output after processing command
-		commandOutputLabel = new JTextArea(EMPTY_STRING);
-		commandOutputLabel.setFont(COMMAND_OUTPUT_FONT);
-		commandOutputLabel.setForeground(COMMAND_OUTPUT_FONT_COLOR);
-		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		commandOutputLabel.setPreferredSize(COMMAND_OUTPUT_LABEL_DIMENSION);
-		commandOutputLabel.setWrapStyleWord(true);  
-		commandOutputLabel.setLineWrap(true); 
-		commandOutputLabel.setBackground(new java.awt.Color(238, 238, 238));
-		commandOutputLabel.setMargin(new Insets(0,10,0,0));
-		add(createControlPanel());
-		add(commandOutputLabel);
-		add(foregroundPanel);
+		commandOutputText = new JTextArea(EMPTY_STRING);
+		commandOutputText.setFont(COMMAND_OUTPUT_FONT);
+		commandOutputText.setForeground(COMMAND_OUTPUT_FONT_COLOR);
+		commandOutputText.setAlignmentX(Component.CENTER_ALIGNMENT);
+		commandOutputText.setPreferredSize(COMMAND_OUTPUT_LABEL_DIMENSION);
+		commandOutputText.setWrapStyleWord(true);  
+		commandOutputText.setLineWrap(true); 
+		commandOutputText.setBackground(new java.awt.Color(238, 238, 238));
+		commandOutputText.setMargin(new Insets(0,10,0,0));
+		add(createListPanel());
+		add(commandOutputText);
+		add(textFieldPanel);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -196,16 +196,16 @@ public class GUI extends JPanel implements ActionListener {
 		});
 	}
 
-	public Component createControlPanel() {
+	public Component createListPanel() {
 		JLabel hdrLabel = new JLabel();
 		try {
-			// header image
-			ImageIcon hdr = new ImageIcon(this.getClass().getResource(
+			// header image 'Jimi' logo
+			final ImageIcon hdr = new ImageIcon(this.getClass().getResource(
 					HDR_IMAGE_SRC));
 			hdrLabel = new JLabel(hdr);
 			hdrLabel.setPreferredSize(HDR_IMAGE_DIMENSION);
 			hdrLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		} catch (NullPointerException e) {
+		} catch (final NullPointerException e) {
 			logger.log(Level.WARNING, "Could not load image");
 		}
 		verticalBox = Box.createVerticalBox();
@@ -219,10 +219,10 @@ public class GUI extends JPanel implements ActionListener {
 	}
 
 	// process command output for display
-	public void actionPerformed(ActionEvent evt) {
-		String command = textField.getText();
-		String output = commandProcessor.processCommand(command);
-		commandOutputLabel.setText(output);
+	public void actionPerformed(final ActionEvent evt) {
+		final String command = textField.getText();
+		final String output = commandProcessor.processCommand(command);
+		commandOutputText.setText(output);
 		tasklist.setModel(commandProcessor.getCurrentListModelOfTasks());
 
 		textField.setText(EMPTY_STRING);
@@ -236,7 +236,7 @@ public class GUI extends JPanel implements ActionListener {
 	 */
 	private static void createAndShowGUI() throws FileNotFoundException {
 		// Create and set up the window.
-		JFrame frame = new JFrame(FRAME_NAME);
+		final JFrame frame = new JFrame(FRAME_NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setMinimumSize(MIN_FRAME_DIMENSION);
 
@@ -248,17 +248,17 @@ public class GUI extends JPanel implements ActionListener {
 		frame.setVisible(true);
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		// Schedule a job for the event dispatch thread:
 		// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FileHandler fileHandler = new FileHandler(APP_LOG, true);
+					final FileHandler fileHandler = new FileHandler(APP_LOG, true);
 					logger.addHandler(fileHandler);
 					logger.log(Level.INFO, "Starting GUI");
 					createAndShowGUI();
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					e.printStackTrace();
 				}
 			}

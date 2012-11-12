@@ -8,7 +8,7 @@ import java.awt.event.FocusListener;
 import javax.swing.plaf.basic.BasicTextFieldUI;
 import javax.swing.text.JTextComponent;
 /**
- * 
+ *  hint to textfield in GUI.
  * @author A0092052N
  * 
  */
