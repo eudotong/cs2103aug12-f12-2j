@@ -24,11 +24,13 @@ public class CommandParserBruteTest {
 	private static DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 	private static CommandParser COMMAND_PARSER = new CommandParser();
 	private static final String WHITE_SPACE = " ";
+	private static int successCounter = 0;
+	private static int testCounter = 0;
 	
 	private static String randomString;
 	private static Command actualCommand;
 	private static Task expectedTask;
-	
+
 
 	//Test parameters
 	private final static int[] TEST_COMMAND_LENGTH = {30, 50, 70};
@@ -52,7 +54,7 @@ public class CommandParserBruteTest {
 				try {
 					randomString = textGenerator.next();
 					expectedTask = new Task(randomString, TEST_DATE_TIME, null);
-					actualCommand = COMMAND_PARSER.parseCommand(TEST_COMMAND_TYPE + WHITE_SPACE + randomString + WHITE_SPACE + TEST_DATE_TIME_STRING);
+					actualCommand = COMMAND_PARSER.parseCommand(TEST_COMMAND_TYPE + WHITE_SPACE + TEST_DATE_TIME_STRING + WHITE_SPACE + randomString);
 				} catch (CommandCouldNotBeParsedException e) {
 					e.printStackTrace();
 				} catch (StartTimeAfterEndTimeException e) {
@@ -64,11 +66,17 @@ public class CommandParserBruteTest {
 				
 				if (isSuccessful()){
 					System.out.println("\"" + randomString + "\" is successful" );
-				}			
+					
+					successCounter++;
+				}
+				
+				testCounter++;
 				
 			}
 
 		}
+		
+		System.out.println("Success rate = " + successCounter + "/" + testCounter);
 	}
 	
 	private static boolean isSuccessful(){
@@ -84,7 +92,7 @@ public class CommandParserBruteTest {
 		}
 		else {			
 			System.out.println("Expected: " + expected);
-			System.out.println("Actual: " + actual);
+			System.out.println("Actual:   " + actual);
 			result = false;
 		}
 		
