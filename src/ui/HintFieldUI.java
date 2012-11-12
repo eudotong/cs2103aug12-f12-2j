@@ -7,7 +7,11 @@ import java.awt.event.FocusListener;
 
 import javax.swing.plaf.basic.BasicTextFieldUI;
 import javax.swing.text.JTextComponent;
-
+/**
+ * 
+ * @author A0092052N
+ * 
+ */
 
 public class HintFieldUI extends BasicTextFieldUI implements FocusListener {
 
