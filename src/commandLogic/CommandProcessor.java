@@ -16,6 +16,7 @@ import utilities.CommandSearch;
 import utilities.DateComparator;
 import utilities.Task;
 import exceptions.CommandCouldNotBeParsedException;
+import exceptions.IncorrectDateFormatException;
 import exceptions.NothingToRedoException;
 import exceptions.NothingToUndoException;
 import exceptions.StartTimeAfterEndTimeException;
@@ -27,6 +28,7 @@ import exceptions.StartTimeAfterEndTimeException;
  * 
  */
 public class CommandProcessor {
+	private static final String MESSAGE_ERROR_DATE_SPECIFIED_DOES_NOT_EXIST = "Date specified does not exist.";
 	private static final String URGENT = "urgent";
 	private static final int INDEXING_1_BASED = 1;
 	private static final String FORMAT_HTML_FONT_CLOSE = "<b/><font/>";
@@ -121,6 +123,9 @@ public class CommandProcessor {
 		} catch (StartTimeAfterEndTimeException e) {
 			logger.log(Level.WARNING, "Error: start time is after end time.");
 			return MESSAGE_ERROR_START_TIME_AFTER_END_TIME;
+		} catch (IncorrectDateFormatException e){
+			logger.log(Level.WARNING, "Date in wrong format");
+			return MESSAGE_ERROR_DATE_SPECIFIED_DOES_NOT_EXIST;
 		}
 	}
 

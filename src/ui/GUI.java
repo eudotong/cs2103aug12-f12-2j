@@ -44,7 +44,7 @@ public class GUI extends JPanel implements ActionListener {
 	private static final int TASKLIST_ROW_COUNT = 4;
 	private static final String CTRL_H = "control H";
 	private static final String GET_HELP = "getHelp";
-	private static final String HELP_MESSAGE = "<html>	<u><b>Available Commands</b></u> for more details, please refer to <a href= &#34;&#92;doc&#92;[F12-2j][V0.2].pdf&#34;>Üser Guide</a href><br/><br/><table>" +
+	private static final String HELP_MESSAGE = "<html>	<u><b>Available Commands</b></u> for more details, please refer to User Guide<br/><br/><table>" +
 			"<tr><td valign=&#34;baseline&#34;>add &lt;data&gt;</td>" +
 			"<td>Add a task to your existing list of tasks.<br/>Add 'impt' or 'important' to task if important. </li></ul</td></tr>" +
 			"<tr><td>mark &lt;number&gt;</td>" +

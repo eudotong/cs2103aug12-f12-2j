@@ -9,6 +9,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
+import org.joda.time.format.DateTimeParser;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
@@ -25,6 +29,7 @@ import utilities.CommandUndo;
 import utilities.DateComparator;
 import utilities.Task;
 import exceptions.CommandCouldNotBeParsedException;
+import exceptions.IncorrectDateFormatException;
 import exceptions.StartTimeAfterEndTimeException;
 
 /**
@@ -64,7 +69,15 @@ public class CommandParser {
 			Long.MAX_VALUE);
 	private static final DateTime IMPOSSIBLY_SMALL_DATE = new DateTime(
 			Long.MIN_VALUE);
-
+	private static final DateTimeParser[] DATE_PARSERS = {
+			DateTimeFormat.forPattern("dd/MM/yyyy").getParser(),
+			DateTimeFormat.forPattern("d/MM/yyyy").getParser(),
+			DateTimeFormat.forPattern("d/M/yy").getParser(),
+			DateTimeFormat.forPattern("dd/MM/yy").getParser(),
+			DateTimeFormat.forPattern("d/M").getParser(),
+			DateTimeFormat.forPattern("dd/MM").getParser() };
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
+			.append(null, DATE_PARSERS).toFormatter();
 	private static final String[] LIST_CONFLICTING_DATE_VARIANTS = { "mon",
 			"tues", "wed", "thurs", "fri", "sat", "sun", "jan", "feb", "mar",
 			"apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
@@ -175,10 +188,11 @@ public class CommandParser {
 	 * @return Command
 	 * @throws CommandCouldNotBeParsedException
 	 * @throws StartTimeAfterEndTimeException
+	 * @throws IncorrectDateFormatException 
 	 */
 	public Command parseCommand(String inputCommand)
 			throws CommandCouldNotBeParsedException,
-			StartTimeAfterEndTimeException {
+			StartTimeAfterEndTimeException, IncorrectDateFormatException {
 		assert (inputCommand != null) : "Null String.";
 		commandToParse = changeAllDatesToSameFormat(inputCommand);
 		try {
@@ -221,7 +235,7 @@ public class CommandParser {
 
 	// Changes all dates and times to a standard format because date parser
 	// cannot parse some formats properly.
-	private String changeAllDatesToSameFormat(String stringToProcess) {
+	private String changeAllDatesToSameFormat(String stringToProcess) throws IncorrectDateFormatException {
 		assert (stringToProcess != null) : "Null String.";
 		String[] words = stringToProcess.split(WHITE_SPACE);
 		Pattern timePattern = Pattern.compile(PATTERN_TIME_DOT_SEPARATOR);
@@ -247,7 +261,7 @@ public class CommandParser {
 	}
 
 	private String changeToStandardDateFormat(String stringToProcess,
-			String word) {
+			String word) throws IncorrectDateFormatException {
 		if (word.matches(PATTERN_DATE)) {
 			String newDate = convertToMiddleEndian(word.replaceAll(DASH_OR_DOT,
 					SLASH));
@@ -258,7 +272,7 @@ public class CommandParser {
 
 	// Need this method because date parser only accepts dates in middle-endian
 	// format (i.e. mm-dd-yyyy)
-	private String convertToMiddleEndian(String stringToProcess) {
+	private String convertToMiddleEndian(String stringToProcess) throws IncorrectDateFormatException {
 		assert (stringToProcess != null) : "Null String.";
 		String[] dateComponents = stringToProcess.split(SLASH);
 		String newDate = dateComponents[DAY_COMPONENT] + SLASH
@@ -266,7 +280,20 @@ public class CommandParser {
 		if (dateComponents.length > YEAR_COMPONENT) {
 			newDate += SLASH + dateComponents[YEAR_COMPONENT];
 		}
-		return newDate;
+		if (isCorrectDate(newDate)) {
+			return newDate;
+		}
+		throw new IncorrectDateFormatException();
+	}
+
+	private boolean isCorrectDate(String date) {
+		try {
+			DateTime asd = DATE_TIME_FORMATTER.parseDateTime(date);
+			asd.dayOfMonth();
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
 	}
 
 	// Removes words that will be wrongly parsed by date parser (e.g. fries,
@@ -348,8 +375,10 @@ public class CommandParser {
 				startAndEndTime[END_TIME] = new DateTime(dateGroup.getDates()
 						.get(SECOND_GROUP));
 				// if the time is not specified, should set time to 12am
-				boolean isStartTimeSpecified = DateComparator.isSameTimeOfDay(startAndEndTime[START_TIME]);
-				boolean isEndTimeSpecified = DateComparator.isSameTimeOfDay(startAndEndTime[END_TIME]);
+				boolean isStartTimeSpecified = DateComparator
+						.isSameTimeOfDayAsNow(startAndEndTime[START_TIME]);
+				boolean isEndTimeSpecified = DateComparator
+						.isSameTimeOfDayAsNow(startAndEndTime[END_TIME]);
 				if (!dateGroup.getText().contains(KEYWORD_NOW)) {
 					if (!isStartTimeSpecified) {
 						startAndEndTime[START_TIME] = startAndEndTime[START_TIME]
@@ -422,7 +451,8 @@ public class CommandParser {
 				startAndEndTime[START_TIME] = new DateTime(dateGroup.getDates()
 						.get(FIRST_GROUP));
 				if (!dateGroup.getText().contains(KEYWORD_NOW)
-						&& !DateComparator.isSameTimeOfDay(startAndEndTime[START_TIME])) {
+						&& !DateComparator
+								.isSameTimeOfDayAsNow(startAndEndTime[START_TIME])) {
 					startAndEndTime[START_TIME] = startAndEndTime[START_TIME]
 							.withTimeAtStartOfDay();
 				}
@@ -521,7 +551,8 @@ public class CommandParser {
 		if (relativeType == RelativeType.ALL) {
 			return new CommandSearch(EMPTY_STRING, null, null);
 		}
-		if (relativeType == RelativeType.UPCOMING && startAndEndTime[START_TIME] == null
+		if (relativeType == RelativeType.UPCOMING
+				&& startAndEndTime[START_TIME] == null
 				&& startAndEndTime[END_TIME] == null) {
 			commandToParse = null;
 		}
@@ -533,7 +564,8 @@ public class CommandParser {
 		String[] wordsInCommand = commandToParse.split(WHITE_SPACE);
 		for (String word : wordsInCommand) {
 			if (relativeTimeKeywordsDict.containsKey(word.toLowerCase())) {
-				commandToParse = commandToParse.replaceFirst(word, EMPTY_STRING);
+				commandToParse = commandToParse
+						.replaceFirst(word, EMPTY_STRING);
 				commandToParse = removeExtraWhiteSpaces(commandToParse);
 				return relativeTimeKeywordsDict.get(word.toLowerCase());
 			}
