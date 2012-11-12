@@ -1,0 +1,2 @@
+syntax: glob
+bin/commandLogic/CommandParser.class.orig
