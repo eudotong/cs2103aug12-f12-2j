@@ -54,6 +54,8 @@ public class GUI extends JPanel implements ActionListener {
 			"<td> Undo task. </td></tr>" +
 			"<tr><td>redo</td>" +
 			"<td> Redo task. </td></tr>" +
+			"<tr><td>'tab' key </td>" +
+			"<td> Switch between list and textfield. </td></tr>" +
 			"</table></html>";
 	private static final String DOWN = "DOWN";
 	private static final String UP = "UP";
@@ -65,7 +67,6 @@ public class GUI extends JPanel implements ActionListener {
 	private static final String HDR_IMAGE_SRC = "images/hdr.PNG";
 	private static final long serialVersionUID = 1L;
 	
-	// TODO Set dimensions for GUI
 	private static final int MIN_FRAME_WIDTH = 400;
 	private static final int MIN_FRAME_HEIGHT = 350;
 	private static final int FOREGROUND_PANEL_WIDTH = 400;
@@ -95,7 +96,7 @@ public class GUI extends JPanel implements ActionListener {
 	
 	private static Logger logger = Logger.getLogger("JIMI");
 
-	//private Border empty = BorderFactory.createEmptyBorder();
+	// list of tasks
 	JList<String> tasklist;
 	JScrollPane listPane;
 	JTextField textField = new JTextField(32);
@@ -110,28 +111,23 @@ public class GUI extends JPanel implements ActionListener {
 			tasklist = new JList<String>(
 					commandProcessor.getCurrentListModelOfTasks());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error: could not get list of tasks.");
 		}
-
+		
 		tasklist.setVisibleRowCount(4);
 		tasklist.setFont(TASKLIST_FONT);
 		listPane = new JScrollPane(tasklist);
-		MyCellRenderer cellRenderer = new MyCellRenderer();
-		tasklist.setCellRenderer(cellRenderer);
 		tasklist.setFixedCellHeight(30);
 
 		// Create and set up the layered pane.
 		JPanel foregroundPanel = new JPanel(new GridBagLayout());
 		foregroundPanel.setOpaque(false); 
 		foregroundPanel.setPreferredSize(FOREGROUND_PANEL_DIMENSION);
-
-		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-		layeredPane.add(foregroundPanel, JLayeredPane.PALETTE_LAYER);
-
-		// textField.setBackground(new java.awt.Color(220, 219, 219));
-		// textField.setBorder(empty);
+		
+		//hint in textfield
 		textField.setUI(new HintFieldUI("hold 'ctrl + h' for help", true));
+		
+		// key shortcuts for previous command and next commands (like cmd), and help
 		textField.addActionListener(this);
 		textField.getInputMap().put(KeyStroke.getKeyStroke(UP), UP_KEY);
 		textField.getInputMap().put(KeyStroke.getKeyStroke(DOWN), DOWN_KEY);
@@ -147,7 +143,6 @@ public class GUI extends JPanel implements ActionListener {
 			}
 		});
 		
-		//TODO EC - Not working?
 		textField.getActionMap().put(DOWN_KEY, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -163,11 +158,11 @@ public class GUI extends JPanel implements ActionListener {
 				JOptionPane.showMessageDialog(null, HELP_MESSAGE);	
 				}
 		});
-
 		foregroundPanel.add(textField);
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
+		// output after processing command
 		commandOutputLabel = new JLabel(EMPTY_STRING); 
 		commandOutputLabel.setFont(COMMAND_OUTPUT_FONT);
 		commandOutputLabel.setForeground(COMMAND_OUTPUT_FONT_COLOR);
@@ -176,7 +171,6 @@ public class GUI extends JPanel implements ActionListener {
 		add(createControlPanel());
 		add(commandOutputLabel);
 		add(foregroundPanel);
-		add(layeredPane);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -186,22 +180,10 @@ public class GUI extends JPanel implements ActionListener {
 		});
 	}
 
-	class MyCellRenderer extends DefaultListCellRenderer {
-		@Override
-		public Component getListCellRendererComponent(JList list, Object value,
-				int index, boolean isSelected, boolean cellHasFocus) {
-			String text = value.toString();
-
-			return super.getListCellRendererComponent(list, text, index,
-					isSelected, cellHasFocus);
-
-		}
-
-	}
-
 	public Component createControlPanel() {
 		JLabel hdrLabel = new JLabel();
 		try{
+			// header image
 			ImageIcon hdr = new ImageIcon(this.getClass().getResource(HDR_IMAGE_SRC));
 			hdrLabel = new JLabel(hdr);
 			hdrLabel.setPreferredSize(HDR_IMAGE_DIMENSION);
@@ -210,7 +192,6 @@ public class GUI extends JPanel implements ActionListener {
 			logger.log(Level.WARNING, "Could not load image");
 		}
 		verticalBox = Box.createVerticalBox();
-
 		verticalBox.add(hdrLabel);
 		verticalBox.add(listPane);
 		verticalBox.setPreferredSize(new Dimension(180, 250));
@@ -219,6 +200,7 @@ public class GUI extends JPanel implements ActionListener {
 
 	}
 
+	// process command output for display
 	public void actionPerformed(ActionEvent evt) {
 		String command = textField.getText();
 
@@ -229,6 +211,7 @@ public class GUI extends JPanel implements ActionListener {
 		textField.setText(EMPTY_STRING);
 	}
 
+	
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event dispatch thread.

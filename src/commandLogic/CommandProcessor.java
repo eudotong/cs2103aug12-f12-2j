@@ -146,7 +146,7 @@ public class CommandProcessor {
 		return command.processCommand(taskRecords);
 	}
 
-	public String processUndo() {
+	private String processUndo() {
 		try {
 			Command commandToUndo = changeRecord.undo();
 			return commandToUndo.processCommand(taskRecords);
@@ -156,7 +156,7 @@ public class CommandProcessor {
 		}
 	}
 
-	public String processRedo() {
+	private String processRedo() {
 		try {
 			Command commandToRedo = changeRecord.redo();
 			return commandToRedo.processCommand(taskRecords);
@@ -172,6 +172,7 @@ public class CommandProcessor {
 	 * 
 	 * @return DefaultListModel
 	 */
+	
 	// Note that we keep the super long magic strings here because if we
 	// extract, String.format() returns:
 	// java.util.UnknownFormatConversionException
