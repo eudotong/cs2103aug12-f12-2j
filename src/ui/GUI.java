@@ -39,6 +39,7 @@ import commandLogic.CommandProcessor;
  */
 public class GUI extends JPanel implements ActionListener {
 
+	private static final int BG_COLOUR = 238;
 	private static final int VERT_BOX_HEIGHT = 280;
 	private static final int VERT_BOX_WIDTH = 180;
 	private static final String APP_LOG = "app.log";
@@ -183,7 +184,7 @@ public class GUI extends JPanel implements ActionListener {
 		commandOutputText.setPreferredSize(COMMAND_OUTPUT_LABEL_DIMENSION);
 		commandOutputText.setWrapStyleWord(true);  
 		commandOutputText.setLineWrap(true); 
-		commandOutputText.setBackground(new java.awt.Color(238, 238, 238));
+		commandOutputText.setBackground(new java.awt.Color(BG_COLOUR, BG_COLOUR, BG_COLOUR));
 		commandOutputText.setMargin(new Insets(0,10,0,0));
 		commandOutputText.setEditable(false) ;
 		commandOutputText.setUI(new HintFieldUI(TAB_HINT, true));
