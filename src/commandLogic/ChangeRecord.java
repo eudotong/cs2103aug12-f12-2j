@@ -39,7 +39,6 @@ public class ChangeRecord {
 	public void add(String newCommand) {
 		if (!newCommand.isEmpty()) {
 			prevCommandsStack.push(newCommand);
-			laterCommandsStack.clear();
 		}
 	}
 
