@@ -60,9 +60,11 @@ public class CommandParserTest {
 		assertEquals(expectedTask.toString(), actualCommand.toString());
 		actualCommand = COMMAND_PARSER.parseCommand("add " + RANDOM_STRING + " for 60 minutes");
 		assertEquals(expectedTask.toString(), actualCommand.toString());
+		
 		expectedTask = new Task(RANDOM_STRING, START_OF_TODAY, START_OF_TODAY.plusHours(2));
 		actualCommand = COMMAND_PARSER.parseCommand("add "+ RANDOM_STRING + " today for 2 hrs");
-		assertEquals(expectedTask.toString(), actualCommand.toString());	
+		assertEquals(expectedTask.toString(), actualCommand.toString());
+		
 		expectedTask = new Task(RANDOM_STRING, NOV_6, NOV_6.plusHours(1));
 		actualCommand = COMMAND_PARSER.parseCommand("add "+RANDOM_STRING+" 6 nov 2012 10am for 1 hour");
 		assertEquals(expectedTask.toString(), actualCommand.toString());

@@ -365,8 +365,7 @@ public class CommandParser {
 		if (dateGroupList.isEmpty()) {
 			return startAndEndTime;
 		}
-		int numIterations = START_INDEX; // in case of possible infinite loop
-		while (!dateGroupList.isEmpty() && numIterations < MAX_ITERATIONS) {
+		while (!dateGroupList.isEmpty() && (startAndEndTime[START_TIME] == null || startAndEndTime[END_TIME] == null)) {
 			DateGroup dateGroup = dateGroupList.get(FIRST_GROUP);
 			logger.log(Level.INFO, "Parsing Date: " + dateGroup.getText());
 			if ((dateGroup.getText().contains(KEYWORD_TO) || dateGroup
@@ -461,6 +460,12 @@ public class CommandParser {
 			} else if (startAndEndTime[END_TIME] == null) {
 				startAndEndTime[END_TIME] = new DateTime(dateGroup.getDates()
 						.get(FIRST_GROUP));
+				if (!dateGroup.getText().contains(KEYWORD_NOW)
+						&& !DateComparator
+								.isSameTimeOfDayAsNow(startAndEndTime[END_TIME])) {
+					startAndEndTime[END_TIME] = startAndEndTime[END_TIME]
+							.withTimeAtStartOfDay();
+				}
 				if (startAndEndTime[START_TIME]
 						.isAfter(startAndEndTime[END_TIME])) {
 					DateTime swapHelper = startAndEndTime[START_TIME];
@@ -473,7 +478,6 @@ public class CommandParser {
 			commandToParse = removeWordsFromString(dateGroup.getText(),
 					commandToParse);
 			dateGroupList = dateParser.parse(stringToParse);
-			numIterations++;
 		}
 		return startAndEndTime;
 	}
