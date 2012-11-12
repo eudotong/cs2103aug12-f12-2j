@@ -76,7 +76,7 @@ public class TextGenerator {
 	public String next(){
 		
 		char newChar;
-		StringBuilder outputString = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder();
 		
 		// Starts printing
 		for (int i=0; i<numOfChar; i++){
@@ -95,9 +95,10 @@ public class TextGenerator {
 				seedString = seedString.concat(Character.toString(newChar));
 			}
 			
-			outputString.append(newChar);
+			stringBuilder.append(newChar);
 		}
 		
-		return outputString.toString().trim();
+		String outputString = stringBuilder.toString().trim();
+		return outputString;
 	}
 }
