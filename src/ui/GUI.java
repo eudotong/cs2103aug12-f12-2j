@@ -1,5 +1,4 @@
 package ui;
-//TODO Organise the codes in (FRAMES - PANEL - LABELS)
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -17,11 +16,9 @@ import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -39,6 +36,12 @@ import commandLogic.CommandProcessor;
  */
 public class GUI extends JPanel implements ActionListener {
 	
+	private static final int VERT_BOX_HEIGHT = 250;
+	private static final int VERT_BOX_WIDTH = 180;
+	private static final String APP_LOG = "app.log";
+	private static final String HELP_HINT = "hold 'ctrl + h' for help";
+	private static final int TASKLIST_CELL_HEIGHT = 30;
+	private static final int TASKLIST_ROW_COUNT = 4;
 	private static final String CTRL_H = "control H";
 	private static final String GET_HELP = "getHelp";
 	private static final String HELP_MESSAGE = "<html>	<u><b>Available Commands</b></u> for more details, please refer to <a href= &#34;&#92;doc&#92;[F12-2j][V0.2].pdf&#34;>Üser Guide</a href><br/><br/><table>" +
@@ -96,7 +99,6 @@ public class GUI extends JPanel implements ActionListener {
 	
 	private static Logger logger = Logger.getLogger("JIMI");
 
-	// list of tasks
 	JList<String> tasklist;
 	JScrollPane listPane;
 	JTextField textField = new JTextField(32);
@@ -114,10 +116,10 @@ public class GUI extends JPanel implements ActionListener {
 			logger.log(Level.SEVERE, "Error: could not get list of tasks.");
 		}
 		
-		tasklist.setVisibleRowCount(4);
+		tasklist.setVisibleRowCount(TASKLIST_ROW_COUNT);
 		tasklist.setFont(TASKLIST_FONT);
 		listPane = new JScrollPane(tasklist);
-		tasklist.setFixedCellHeight(30);
+		tasklist.setFixedCellHeight(TASKLIST_CELL_HEIGHT);
 
 		// Create and set up the layered pane.
 		JPanel foregroundPanel = new JPanel(new GridBagLayout());
@@ -125,9 +127,9 @@ public class GUI extends JPanel implements ActionListener {
 		foregroundPanel.setPreferredSize(FOREGROUND_PANEL_DIMENSION);
 		
 		//hint in textfield
-		textField.setUI(new HintFieldUI("hold 'ctrl + h' for help", true));
+		textField.setUI(new HintFieldUI(HELP_HINT, true));
 		
-		// key shortcuts for previous command and next commands (like cmd), and help
+		// key shortcuts for previous command and next commands, and help
 		textField.addActionListener(this);
 		textField.getInputMap().put(KeyStroke.getKeyStroke(UP), UP_KEY);
 		textField.getInputMap().put(KeyStroke.getKeyStroke(DOWN), DOWN_KEY);
@@ -194,7 +196,7 @@ public class GUI extends JPanel implements ActionListener {
 		verticalBox = Box.createVerticalBox();
 		verticalBox.add(hdrLabel);
 		verticalBox.add(listPane);
-		verticalBox.setPreferredSize(new Dimension(180, 250));
+		verticalBox.setPreferredSize(new Dimension(VERT_BOX_WIDTH, VERT_BOX_HEIGHT));
 		verticalBox.setBorder(BorderFactory.createTitledBorder(BORDER_TITLE));
 		return verticalBox;
 
@@ -238,7 +240,7 @@ public class GUI extends JPanel implements ActionListener {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FileHandler fileHandler = new FileHandler("app.log", true);
+					FileHandler fileHandler = new FileHandler(APP_LOG, true);
 					logger.addHandler(fileHandler);
 					logger.log(Level.INFO, "Starting GUI");
 					createAndShowGUI();

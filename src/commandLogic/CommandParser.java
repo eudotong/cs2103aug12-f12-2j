@@ -22,6 +22,7 @@ import utilities.CommandRedo;
 import utilities.CommandSearch;
 import utilities.CommandType;
 import utilities.CommandUndo;
+import utilities.DateComparator;
 import utilities.Task;
 import exceptions.CommandCouldNotBeParsedException;
 import exceptions.StartTimeAfterEndTimeException;
@@ -44,11 +45,9 @@ public class CommandParser {
 	private static final int END_TIME = 1;
 	private static final int START_TIME = 0;
 	private static final int NUM_START_AND_END_TIMES = 2;
-	private static final int POSITIVE_NUMBER = 1;
 	private static final int SAME_TIME = 0;
 	private static final int NEGATIVE_NUMBER = -1;
 	private static final int MAX_ITERATIONS = 20;
-	private static final int MILLISEC_DIFF_ALLOWANCE = 120;
 	private static final String COLON = ":";
 	private static final String DOT = ".";
 	private static final String KEYWORD_FOR = "for ";
@@ -349,8 +348,8 @@ public class CommandParser {
 				startAndEndTime[END_TIME] = new DateTime(dateGroup.getDates()
 						.get(SECOND_GROUP));
 				// if the time is not specified, should set time to 12am
-				boolean isStartTimeSpecified = isTimeSpecified(startAndEndTime[START_TIME]);
-				boolean isEndTimeSpecified = isTimeSpecified(startAndEndTime[END_TIME]);
+				boolean isStartTimeSpecified = DateComparator.isSameTimeOfDay(startAndEndTime[START_TIME]);
+				boolean isEndTimeSpecified = DateComparator.isSameTimeOfDay(startAndEndTime[END_TIME]);
 				if (!dateGroup.getText().contains(KEYWORD_NOW)) {
 					if (!isStartTimeSpecified) {
 						startAndEndTime[START_TIME] = startAndEndTime[START_TIME]
@@ -361,12 +360,12 @@ public class CommandParser {
 								.withTimeAtStartOfDay();
 					}
 				} else {
-					if (!isNow(startAndEndTime[START_TIME])
+					if (!DateComparator.isNow(startAndEndTime[START_TIME])
 							&& !isStartTimeSpecified) {
 						startAndEndTime[START_TIME] = startAndEndTime[START_TIME]
 								.withTimeAtStartOfDay();
 					}
-					if (!isNow(startAndEndTime[END_TIME])
+					if (!DateComparator.isNow(startAndEndTime[END_TIME])
 							&& !isEndTimeSpecified) {
 						startAndEndTime[END_TIME] = startAndEndTime[END_TIME]
 								.withTimeAtStartOfDay();
@@ -423,7 +422,7 @@ public class CommandParser {
 				startAndEndTime[START_TIME] = new DateTime(dateGroup.getDates()
 						.get(FIRST_GROUP));
 				if (!dateGroup.getText().contains(KEYWORD_NOW)
-						&& !isTimeSpecified(startAndEndTime[START_TIME])) {
+						&& !DateComparator.isSameTimeOfDay(startAndEndTime[START_TIME])) {
 					startAndEndTime[START_TIME] = startAndEndTime[START_TIME]
 							.withTimeAtStartOfDay();
 				}
@@ -441,31 +440,11 @@ public class CommandParser {
 		return startAndEndTime;
 	}
 
-	private boolean isNow(DateTime dateTimeToCheck) {
-		assert (dateTimeToCheck != null) : "Null DateTime.";
-		long timeNow = new DateTime().getMillis();
-		long timeSpecified = dateTimeToCheck.getMillis();
-		if (Math.abs(timeNow - timeSpecified) <= MILLISEC_DIFF_ALLOWANCE) {
-			return true;
-		}
-		return false;
-	}
-
-	private boolean isTimeSpecified(DateTime dateTimeToCheck) {
-		assert (dateTimeToCheck != null) : "Null DateTime.";
-		int timeNow = new DateTime().getMillisOfDay();
-		int timeSpecified = dateTimeToCheck.getMillisOfDay();
-		if (Math.abs(timeNow - timeSpecified) <= MILLISEC_DIFF_ALLOWANCE) {
-			return false;
-		}
-		return true;
-	}
-
 	private CommandAdd parseAdd() throws CommandCouldNotBeParsedException,
 			StartTimeAfterEndTimeException {
 		logger.log(Level.INFO, "Parsing as add command.");
 		DateTime[] startAndEndTime = getAndRemoveStartAndEndTimesFromCommand();
-		if (compareNullDatesLast(startAndEndTime[START_TIME],
+		if (DateComparator.compareNullDatesLast(startAndEndTime[START_TIME],
 				startAndEndTime[END_TIME]) > SAME_TIME) {
 			throw new StartTimeAfterEndTimeException();
 		}
@@ -486,7 +465,7 @@ public class CommandParser {
 			throw new CommandCouldNotBeParsedException();
 		}
 		DateTime[] startAndEndTime = getAndRemoveStartAndEndTimesFromCommand();
-		if (compareNullDatesLast(startAndEndTime[START_TIME],
+		if (DateComparator.compareNullDatesLast(startAndEndTime[START_TIME],
 				startAndEndTime[END_TIME]) > SAME_TIME) {
 			throw new StartTimeAfterEndTimeException();
 		}
@@ -523,7 +502,7 @@ public class CommandParser {
 			StartTimeAfterEndTimeException {
 		logger.log(Level.INFO, "Parsing as search command.");
 		DateTime[] startAndEndTime = getAndRemoveStartAndEndTimesFromCommand();
-		if (compareNullDatesLast(startAndEndTime[START_TIME],
+		if (DateComparator.compareNullDatesLast(startAndEndTime[START_TIME],
 				startAndEndTime[END_TIME]) > SAME_TIME) {
 			throw new StartTimeAfterEndTimeException();
 		}
@@ -548,19 +527,6 @@ public class CommandParser {
 		}
 		return new CommandSearch(commandToParse, startAndEndTime[START_TIME],
 				startAndEndTime[END_TIME]);
-	}
-
-	private int compareNullDatesLast(DateTime firstDate, DateTime secondDate) {
-		if (firstDate == null && secondDate == null) {
-			return SAME_TIME;
-		}
-		if (firstDate == null && secondDate != null) {
-			return POSITIVE_NUMBER;
-		}
-		if (firstDate != null && secondDate == null) {
-			return NEGATIVE_NUMBER;
-		}
-		return firstDate.compareTo(secondDate);
 	}
 
 	private RelativeType getRelativeKeyword() {
