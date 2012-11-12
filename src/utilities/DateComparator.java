@@ -7,7 +7,15 @@ public class DateComparator {
 	private static final int SAME_TIME = 0;
 	private static final int NEGATIVE_NUMBER = -1;
 	private static final int MILLISEC_DIFF_ALLOWANCE = 120;
-	
+
+	/**
+	 * Returns true if the datetime specified is the current date and time.
+	 * Returns false otherwise. Has some allowance for a small difference in
+	 * time.
+	 * 
+	 * @param dateTimeToCheck
+	 * @return boolean
+	 */
 	public static boolean isNow(DateTime dateTimeToCheck) {
 		assert (dateTimeToCheck != null) : "Null DateTime.";
 		long timeNow = new DateTime().getMillis();
@@ -18,7 +26,15 @@ public class DateComparator {
 		return false;
 	}
 
-	public static boolean isSameTimeOfDay(DateTime dateTimeToCheck) {
+	/**
+	 * Returns true if the time specified is the same time of the day as the
+	 * current time. Returns false otherwise. Has some allowance for a small
+	 * difference in time.
+	 * 
+	 * @param dateTimeToCheck
+	 * @return boolean
+	 */
+	public static boolean isSameTimeOfDayAsNow(DateTime dateTimeToCheck) {
 		assert (dateTimeToCheck != null) : "Null DateTime.";
 		int timeNow = new DateTime().getMillisOfDay();
 		int timeSpecified = dateTimeToCheck.getMillisOfDay();
@@ -27,8 +43,19 @@ public class DateComparator {
 		}
 		return true;
 	}
-	
-	public static int compareNullDatesLast(DateTime firstDate, DateTime secondDate) {
+
+	/**
+	 * A null date is always bigger than any other date. Returns positive number
+	 * if firstDate is greater than secondDate, returns negative number if
+	 * firstDate is smaller than secondDate and returns zero if they are the
+	 * same.
+	 * 
+	 * @param firstDate
+	 * @param secondDate
+	 * @return int
+	 */
+	public static int compareNullDatesLast(DateTime firstDate,
+			DateTime secondDate) {
 		if (firstDate == null && secondDate == null) {
 			return SAME_TIME;
 		}
@@ -40,7 +67,7 @@ public class DateComparator {
 		}
 		return firstDate.compareTo(secondDate);
 	}
-	
+
 	/**
 	 * Returns true if firstDate and secondDate fall on the same day. Returns
 	 * false otherwise.

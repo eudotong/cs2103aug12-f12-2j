@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import commandLogic.CommandParser;
 import exceptions.CommandCouldNotBeParsedException;
+import exceptions.IncorrectDateFormatException;
 import exceptions.StartTimeAfterEndTimeException;
 
 import utilities.Command;
@@ -49,7 +50,7 @@ public class CommandParserTest {
 
 	@Test
 	public void testParseCommand() throws CommandCouldNotBeParsedException,
-			StartTimeAfterEndTimeException {
+			StartTimeAfterEndTimeException, IncorrectDateFormatException {
 		getNextMonday();
 		Command actualCommand;
 		Task expectedTask = new Task(RANDOM_STRING, TODAY, TODAY.plusHours(1));
