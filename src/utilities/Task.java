@@ -54,7 +54,7 @@ public class Task implements Comparable<Task> {
 	 * @param endTime
 	 */
 	public Task(String taskName, DateTime startTime, DateTime endTime) {
-		assert (compareNullDatesLast(startTime, endTime) <= SAME_TIME) : "Start time is after end time.";
+		assert (DateComparator.compareNullDatesLast(startTime, endTime) <= SAME_TIME) : "Start time is after end time.";
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.taskName = changeToValidName(taskName);
@@ -74,7 +74,7 @@ public class Task implements Comparable<Task> {
 		if (endTime == null) {
 			return startTime.toString(DATE_FORMATTER_TIME) + COLON;
 		}
-		if(isSameDay(startTime, endTime)){
+		if(DateComparator.isSameDay(startTime, endTime)){
 			return String.format(TIME_TO_TIME,
 					startTime.toString(DATE_FORMATTER_TIME),
 					endTime.toString(DATE_FORMATTER_TIME))
@@ -205,34 +205,5 @@ public class Task implements Comparable<Task> {
 			return POSITIVE_NUMBER;
 		}
 		return firstDate.compareTo(secondDate);
-	}
-
-	private int compareNullDatesLast(DateTime firstDate, DateTime secondDate) {
-		if (firstDate == null && secondDate == null) {
-			return SAME_TIME;
-		}
-		if (firstDate == null && secondDate != null) {
-			return POSITIVE_NUMBER;
-		}
-		if (firstDate != null && secondDate == null) {
-			return NEGATIVE_NUMBER;
-		}
-		return firstDate.compareTo(secondDate);
-	}
-	
-	private boolean isSameDay(DateTime firstDate, DateTime secondDate) {
-		if (firstDate == secondDate) {
-			return true;
-		}
-		if (firstDate == null && secondDate != null || firstDate != null
-				&& secondDate == null) {
-			return false;
-		}
-		firstDate = firstDate.withTimeAtStartOfDay();
-		secondDate = secondDate.withTimeAtStartOfDay();
-		if (firstDate.compareTo(secondDate) == SAME_TIME) {
-			return true;
-		}
-		return false;
 	}
 }

@@ -111,6 +111,6 @@ public class CommandSearch implements Command {
 		if (toDate != null) {
 			toDateString = toDate.toString(DATE_FORMATTER);
 		}
-		return query + fromDateString + toDateString;
+		return queryString + fromDateString + toDateString;
 	}
 }

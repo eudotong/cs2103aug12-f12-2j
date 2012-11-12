@@ -1,7 +1,6 @@
 package commandLogic;
 
 import java.io.IOException;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +13,7 @@ import org.joda.time.format.DateTimeFormatter;
 import storage.TaskRecords;
 import utilities.Command;
 import utilities.CommandSearch;
+import utilities.DateComparator;
 import utilities.Task;
 import exceptions.CommandCouldNotBeParsedException;
 import exceptions.NothingToRedoException;
@@ -37,7 +37,6 @@ public class CommandProcessor {
 	private static final String KEYWORD_IMPORTANT = "important";
 	private static final String KEYWORD_IMPT = "impt";
 	private static final int TASK_INDEX_START = 0;
-	private static final int SAME_TIME = 0;
 
 	private static final String MESSAGE_ERROR_START_TIME_AFTER_END_TIME = "Error: Start date/time is after end date/time.";
 	private static final String EMPTY_STRING = "";
@@ -182,7 +181,7 @@ public class CommandProcessor {
 		DateTime currentDateIteration = null;
 		DefaultListModel<String> currentListOfTasksModel = new DefaultListModel<String>();
 		for (int indexOfTask = TASK_INDEX_START; indexOfTask < currentListOfTasks.length; indexOfTask++) {
-			if (!isSameDay(currentDateIteration,
+			if (!DateComparator.isSameDay(currentDateIteration,
 					currentListOfTasks[indexOfTask].getStartTime())) {
 				currentDateIteration = currentListOfTasks[indexOfTask]
 						.getStartTime();
@@ -217,30 +216,6 @@ public class CommandProcessor {
 		return (stringToCheck.contains(URGENT)
 				|| stringToCheck.contains(KEYWORD_IMPT) || stringToCheck
 					.contains(KEYWORD_IMPORTANT));
-	}
-
-	/**
-	 * Returns true if firstDate and secondDate fall on the same day. Returns
-	 * false otherwise.
-	 * 
-	 * @param firstDate
-	 * @param secondDate
-	 * @return boolean
-	 */
-	private boolean isSameDay(DateTime firstDate, DateTime secondDate) {
-		if (firstDate == secondDate) {
-			return true;
-		}
-		if (firstDate == null && secondDate != null || firstDate != null
-				&& secondDate == null) {
-			return false;
-		}
-		firstDate = firstDate.withTimeAtStartOfDay();
-		secondDate = secondDate.withTimeAtStartOfDay();
-		if (firstDate.compareTo(secondDate) == SAME_TIME) {
-			return true;
-		}
-		return false;
 	}
 
 	/**
