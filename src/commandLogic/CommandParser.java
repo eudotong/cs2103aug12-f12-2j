@@ -70,12 +70,12 @@ public class CommandParser {
 	private static final DateTime IMPOSSIBLY_SMALL_DATE = new DateTime(
 			Long.MIN_VALUE);
 	private static final DateTimeParser[] DATE_PARSERS = {
-			DateTimeFormat.forPattern("dd/MM/yyyy").getParser(),
-			DateTimeFormat.forPattern("d/MM/yyyy").getParser(),
-			DateTimeFormat.forPattern("d/M/yy").getParser(),
-			DateTimeFormat.forPattern("dd/MM/yy").getParser(),
-			DateTimeFormat.forPattern("d/M").getParser(),
-			DateTimeFormat.forPattern("dd/MM").getParser() };
+			DateTimeFormat.forPattern("MM/dd/yyyy").getParser(),
+			DateTimeFormat.forPattern("MM/d/yyyy").getParser(),
+			DateTimeFormat.forPattern("M/d/yy").getParser(),
+			DateTimeFormat.forPattern("MM/dd/yy").getParser(),
+			DateTimeFormat.forPattern("M/d").getParser(),
+			DateTimeFormat.forPattern("MM/dd").getParser() };
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
 			.append(null, DATE_PARSERS).toFormatter();
 	private static final String[] LIST_CONFLICTING_DATE_VARIANTS = { "mon",
@@ -188,7 +188,7 @@ public class CommandParser {
 	 * @return Command
 	 * @throws CommandCouldNotBeParsedException
 	 * @throws StartTimeAfterEndTimeException
-	 * @throws IncorrectDateFormatException 
+	 * @throws IncorrectDateFormatException
 	 */
 	public Command parseCommand(String inputCommand)
 			throws CommandCouldNotBeParsedException,
@@ -235,7 +235,8 @@ public class CommandParser {
 
 	// Changes all dates and times to a standard format because date parser
 	// cannot parse some formats properly.
-	private String changeAllDatesToSameFormat(String stringToProcess) throws IncorrectDateFormatException {
+	private String changeAllDatesToSameFormat(String stringToProcess)
+			throws IncorrectDateFormatException {
 		assert (stringToProcess != null) : "Null String.";
 		String[] words = stringToProcess.split(WHITE_SPACE);
 		Pattern timePattern = Pattern.compile(PATTERN_TIME_DOT_SEPARATOR);
@@ -272,7 +273,8 @@ public class CommandParser {
 
 	// Need this method because date parser only accepts dates in middle-endian
 	// format (i.e. mm-dd-yyyy)
-	private String convertToMiddleEndian(String stringToProcess) throws IncorrectDateFormatException {
+	private String convertToMiddleEndian(String stringToProcess)
+			throws IncorrectDateFormatException {
 		assert (stringToProcess != null) : "Null String.";
 		String[] dateComponents = stringToProcess.split(SLASH);
 		String newDate = dateComponents[DAY_COMPONENT] + SLASH
@@ -459,6 +461,12 @@ public class CommandParser {
 			} else if (startAndEndTime[END_TIME] == null) {
 				startAndEndTime[END_TIME] = new DateTime(dateGroup.getDates()
 						.get(FIRST_GROUP));
+				if (startAndEndTime[START_TIME]
+						.isAfter(startAndEndTime[END_TIME])) {
+					DateTime swapHelper = startAndEndTime[START_TIME];
+					startAndEndTime[START_TIME] = startAndEndTime[END_TIME];
+					startAndEndTime[END_TIME] = swapHelper;
+				}
 			}
 			stringToParse = removeWordsFromString(dateGroup.getText(),
 					stringToParse);
