@@ -44,7 +44,6 @@ public class GUI extends JPanel implements ActionListener {
 	private static final int VERT_BOX_WIDTH = 180;
 	private static final String APP_LOG = "app.log";
 	private static final String HELP_HINT = "hold 'ctrl + h' here for help";
-	private static final String TAB_HINT = "m	  		Use 'tab' to transverse between list and input-box.";
 	private static final int TASKLIST_CELL_HEIGHT = 30;
 	private static final int TASKLIST_ROW_COUNT = 4;
 	private static final String CTRL_H = "control H";
@@ -178,6 +177,7 @@ public class GUI extends JPanel implements ActionListener {
 
 		// output after processing command
 		commandOutputText = new JTextArea(EMPTY_STRING);
+		commandOutputText.setEnabled(false);
 		commandOutputText.setFont(COMMAND_OUTPUT_FONT);
 		commandOutputText.setForeground(COMMAND_OUTPUT_FONT_COLOR);
 		commandOutputText.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -187,7 +187,7 @@ public class GUI extends JPanel implements ActionListener {
 		commandOutputText.setBackground(new java.awt.Color(BG_COLOUR, BG_COLOUR, BG_COLOUR));
 		commandOutputText.setMargin(new Insets(0,10,0,0));
 		commandOutputText.setEditable(false) ;
-		commandOutputText.setUI(new HintFieldUI(TAB_HINT, true));
+		commandOutputText.setDisabledTextColor(COMMAND_OUTPUT_FONT_COLOR);
 		
 		add(createListPanel());
 		add(commandOutputText);
