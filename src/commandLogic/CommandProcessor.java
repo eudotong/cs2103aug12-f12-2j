@@ -28,20 +28,20 @@ import exceptions.StartTimeAfterEndTimeException;
  * 
  */
 public class CommandProcessor {
-	private static final String MESSAGE_COMMAND_TOO_LONG = "Command is too long. Max 150 characters.";
-	private static final int COMMAND_MAX_LENGTH = 150;
-	private static final String MESSAGE_ERROR_DATE_SPECIFIED_DOES_NOT_EXIST = "Date specified does not exist.";
+	private static final int COMMAND_MAX_LENGTH = 100;
 	private static final String URGENT = "urgent";
 	private static final int INDEXING_1_BASED = 1;
 	private static final String FORMAT_HTML_FONT_CLOSE = "<b/><font/>";
 	private static final String FORMAT_HTML_FONT = "<font color=\"#827839\"><b>";
 	private static final String DOT_SEPARATOR = ". ";
-	private static final String MESSAGE_NO_DATE = "no date";
 	private static final String NULL_STRING = "null";
 	private static final String KEYWORD_IMPORTANT = "important";
 	private static final String KEYWORD_IMPT = "impt";
 	private static final int TASK_INDEX_START = 0;
 
+	private static final String MESSAGE_NO_DATE = "no date";
+	private static final String MESSAGE_COMMAND_TOO_LONG = "Command is too long. Max 100 characters.";
+	private static final String MESSAGE_ERROR_DATE_SPECIFIED_DOES_NOT_EXIST = "Date specified does not exist.";
 	private static final String MESSAGE_ERROR_START_TIME_AFTER_END_TIME = "Error: Start date/time is after end date/time.";
 	private static final String EMPTY_STRING = "";
 	private static final String MESSAGE_ERROR_UNRECOGNISED_COMMAND = "Command not recognised.";
