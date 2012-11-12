@@ -112,7 +112,7 @@ public class CommandParser {
 	private static final String PATTERN_TIME = "(\\d{1,4}|\\d{1,2}[:|.]\\d{2})(am|pm)";
 	private static final String PATTERN_ALPHANUMERIC_WORD = "\\w*";
 	private static final String PATTERN_TIME_DOT_SEPARATOR = "\\d{1,2}[.]\\d{2}";
-	private static final String PATTERN_DATE = "(\\d{1,2}[-|/|.]\\d{1,2}[-|/|.]\\d{2,4})|\\d{1,2}[-|/]\\d{1,2}";
+	private static final String PATTERN_DATE = "(\\d+[-|/|.]\\d+[-|/|.]\\d+)|\\d+[-|/]\\d+";
 	private static final String PATTERN_ALPHABET_ONLY_WORD = "[a-z]*";
 	private static final String PATTERN_NON_DIGIT = "\\D+";
 	private static final String PATTERN_NUMBER = "\\d+";
@@ -290,8 +290,7 @@ public class CommandParser {
 
 	private boolean isCorrectDate(String date) {
 		try {
-			DateTime asd = DATE_TIME_FORMATTER.parseDateTime(date);
-			asd.dayOfMonth();
+			DATE_TIME_FORMATTER.parseDateTime(date);
 			return true;
 		} catch (IllegalArgumentException e) {
 			return false;

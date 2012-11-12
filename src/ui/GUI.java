@@ -1,4 +1,5 @@
 package ui;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -35,7 +36,7 @@ import commandLogic.CommandProcessor;
  * 
  */
 public class GUI extends JPanel implements ActionListener {
-	
+
 	private static final int VERT_BOX_HEIGHT = 250;
 	private static final int VERT_BOX_WIDTH = 180;
 	private static final String APP_LOG = "app.log";
@@ -44,22 +45,22 @@ public class GUI extends JPanel implements ActionListener {
 	private static final int TASKLIST_ROW_COUNT = 4;
 	private static final String CTRL_H = "control H";
 	private static final String GET_HELP = "getHelp";
-	private static final String HELP_MESSAGE = "<html>	<u><b>Available Commands</b></u> for more details, please refer to User Guide<br/><br/><table>" +
-			"<tr><td valign=&#34;baseline&#34;>add &lt;data&gt;</td>" +
-			"<td>Add a task to your existing list of tasks.<br/>Add 'impt' or 'important' to task if important. </li></ul</td></tr>" +
-			"<tr><td>mark &lt;number&gt;</td>" +
-			"<td> Mark task as done when completed.</td></tr>"+
-			"<tr><td>edit &lt;number&gt; &lt;data&gt;</td>" +
-			"<td> Change certain details of a task.</td></tr>" +
-			"<tr><td>search &lt;data&gt;</td>" +
-			"<td> Search tasks by name, date or both. </td></tr>" +
-			"<tr><td>undo</td>" +
-			"<td> Undo task. </td></tr>" +
-			"<tr><td>redo</td>" +
-			"<td> Redo task. </td></tr>" +
-			"<tr><td>'tab' key </td>" +
-			"<td> Switch between list and textfield. </td></tr>" +
-			"</table></html>";
+	private static final String HELP_MESSAGE = "<html>	<u><b>Available Commands</b></u> for more details, please refer to User Guide<br/><br/><table>"
+			+ "<tr><td valign=&#34;baseline&#34;>add &lt;task details (name, start time, end time)&gt</td>"
+			+ "<td>Add a task to your existing list of tasks.<br/>Add 'impt' or 'important' to task if important. </li></ul</td></tr>"
+			+ "<tr><td>mark &lt;index of task&gt;</td>"
+			+ "<td> Mark task as done when completed.</td></tr>"
+			+ "<tr><td>edit &lt;index of task&gt; &lt;details to edit&gt;</td>"
+			+ "<td> Change certain details of a task.</td></tr>"
+			+ "<tr><td>search &lt;query&gt;<br>search all<br>search upcoming<br>search before/after &lt;date&gt</td>"
+			+ "<td> Search tasks by name, date or both. Can search<br>for all or upcoming tasks and also tasks that<br>occur before/after a specific date.</td></tr>"
+			+ "<tr><td>undo</td>"
+			+ "<td> Undo task. </td></tr>"
+			+ "<tr><td>redo</td>"
+			+ "<td> Redo task. </td></tr>"
+			+ "<tr><td>'tab' key </td>"
+			+ "<td> Switch between list and textfield. </td></tr>"
+			+ "</table></html>";
 	private static final String DOWN = "DOWN";
 	private static final String UP = "UP";
 	private static final String UP_KEY = "upKey";
@@ -69,34 +70,40 @@ public class GUI extends JPanel implements ActionListener {
 	private static final String FRAME_NAME = "Jimi";
 	private static final String HDR_IMAGE_SRC = "images/hdr.PNG";
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final int MIN_FRAME_WIDTH = 400;
 	private static final int MIN_FRAME_HEIGHT = 350;
 	private static final int FOREGROUND_PANEL_WIDTH = 400;
 	private static final int FOREGROUND_PANEL_HEIGHT = 50;
 	private static final int HDR_IMAGE_WIDTH = 180;
 	private static final int HDR_IMAGE_HEIGHT = 70;
-	
+
 	private static final String TASKLIST_FONT_TYPE = "Serif";
 	private static final int TASKLIST_FONT_STYLE = Font.BOLD;
 	private static final int TASKLIST_FONT_SIZE = 12;
-	
+
 	private static final int COMMAND_OUTPUT_LABEL_WIDTH = 100;
 	private static final int COMMAND_OUTPUT_LABEL_HEIGHT = 10;
 	private static final String COMMAND_OUTPUT_FONT_TYPE = "Courier";
 	private static final int COMMAND_OUTPUT_FONT_STYLE = Font.BOLD;
 	private static final int COMMAND_OUTPUT_FONT_SIZE = 12;
 	private static final Color COMMAND_OUTPUT_FONT_COLOR = Color.red;
-	
-	
-	private static final Dimension MIN_FRAME_DIMENSION = new Dimension(MIN_FRAME_WIDTH,MIN_FRAME_HEIGHT) ;
-	private static final Dimension FOREGROUND_PANEL_DIMENSION = new Dimension(FOREGROUND_PANEL_WIDTH,FOREGROUND_PANEL_HEIGHT) ;
-	private static final Dimension HDR_IMAGE_DIMENSION = new Dimension(HDR_IMAGE_WIDTH, HDR_IMAGE_HEIGHT);
-	private static final Dimension COMMAND_OUTPUT_LABEL_DIMENSION = new Dimension(COMMAND_OUTPUT_LABEL_WIDTH, COMMAND_OUTPUT_LABEL_HEIGHT);
-	
-	private static final Font TASKLIST_FONT = new Font(TASKLIST_FONT_TYPE,TASKLIST_FONT_STYLE,TASKLIST_FONT_SIZE);
-	private static final Font COMMAND_OUTPUT_FONT = new Font(COMMAND_OUTPUT_FONT_TYPE,COMMAND_OUTPUT_FONT_STYLE,COMMAND_OUTPUT_FONT_SIZE);
-	
+
+	private static final Dimension MIN_FRAME_DIMENSION = new Dimension(
+			MIN_FRAME_WIDTH, MIN_FRAME_HEIGHT);
+	private static final Dimension FOREGROUND_PANEL_DIMENSION = new Dimension(
+			FOREGROUND_PANEL_WIDTH, FOREGROUND_PANEL_HEIGHT);
+	private static final Dimension HDR_IMAGE_DIMENSION = new Dimension(
+			HDR_IMAGE_WIDTH, HDR_IMAGE_HEIGHT);
+	private static final Dimension COMMAND_OUTPUT_LABEL_DIMENSION = new Dimension(
+			COMMAND_OUTPUT_LABEL_WIDTH, COMMAND_OUTPUT_LABEL_HEIGHT);
+
+	private static final Font TASKLIST_FONT = new Font(TASKLIST_FONT_TYPE,
+			TASKLIST_FONT_STYLE, TASKLIST_FONT_SIZE);
+	private static final Font COMMAND_OUTPUT_FONT = new Font(
+			COMMAND_OUTPUT_FONT_TYPE, COMMAND_OUTPUT_FONT_STYLE,
+			COMMAND_OUTPUT_FONT_SIZE);
+
 	private static Logger logger = Logger.getLogger("JIMI");
 
 	JList<String> tasklist;
@@ -106,7 +113,7 @@ public class GUI extends JPanel implements ActionListener {
 	JLabel commandOutputLabel;
 	Box verticalBox;
 
-	public GUI(){
+	public GUI() {
 
 		try {
 			commandProcessor = new CommandProcessor();
@@ -115,7 +122,7 @@ public class GUI extends JPanel implements ActionListener {
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Error: could not get list of tasks.");
 		}
-		
+
 		tasklist.setVisibleRowCount(TASKLIST_ROW_COUNT);
 		tasklist.setFont(TASKLIST_FONT);
 		listPane = new JScrollPane(tasklist);
@@ -123,12 +130,12 @@ public class GUI extends JPanel implements ActionListener {
 
 		// Create and set up the layered pane.
 		JPanel foregroundPanel = new JPanel(new GridBagLayout());
-		foregroundPanel.setOpaque(false); 
+		foregroundPanel.setOpaque(false);
 		foregroundPanel.setPreferredSize(FOREGROUND_PANEL_DIMENSION);
-		
-		//hint in textfield
+
+		// hint in textfield
 		textField.setUI(new HintFieldUI(HELP_HINT, true));
-		
+
 		// key shortcuts for previous command and next commands, and help
 		textField.addActionListener(this);
 		textField.getInputMap().put(KeyStroke.getKeyStroke(UP), UP_KEY);
@@ -144,7 +151,7 @@ public class GUI extends JPanel implements ActionListener {
 				}
 			}
 		});
-		
+
 		textField.getActionMap().put(DOWN_KEY, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -157,15 +164,15 @@ public class GUI extends JPanel implements ActionListener {
 		textField.getActionMap().put(GET_HELP, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, HELP_MESSAGE);	
-				}
+				JOptionPane.showMessageDialog(null, HELP_MESSAGE);
+			}
 		});
 		foregroundPanel.add(textField);
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		// output after processing command
-		commandOutputLabel = new JLabel(EMPTY_STRING); 
+		commandOutputLabel = new JLabel(EMPTY_STRING);
 		commandOutputLabel.setFont(COMMAND_OUTPUT_FONT);
 		commandOutputLabel.setForeground(COMMAND_OUTPUT_FONT_COLOR);
 		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -184,19 +191,21 @@ public class GUI extends JPanel implements ActionListener {
 
 	public Component createControlPanel() {
 		JLabel hdrLabel = new JLabel();
-		try{
+		try {
 			// header image
-			ImageIcon hdr = new ImageIcon(this.getClass().getResource(HDR_IMAGE_SRC));
+			ImageIcon hdr = new ImageIcon(this.getClass().getResource(
+					HDR_IMAGE_SRC));
 			hdrLabel = new JLabel(hdr);
 			hdrLabel.setPreferredSize(HDR_IMAGE_DIMENSION);
 			hdrLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		}catch(NullPointerException e){
+		} catch (NullPointerException e) {
 			logger.log(Level.WARNING, "Could not load image");
 		}
 		verticalBox = Box.createVerticalBox();
 		verticalBox.add(hdrLabel);
 		verticalBox.add(listPane);
-		verticalBox.setPreferredSize(new Dimension(VERT_BOX_WIDTH, VERT_BOX_HEIGHT));
+		verticalBox.setPreferredSize(new Dimension(VERT_BOX_WIDTH,
+				VERT_BOX_HEIGHT));
 		verticalBox.setBorder(BorderFactory.createTitledBorder(BORDER_TITLE));
 		return verticalBox;
 
@@ -213,7 +222,6 @@ public class GUI extends JPanel implements ActionListener {
 		textField.setText(EMPTY_STRING);
 	}
 
-	
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event dispatch thread.
