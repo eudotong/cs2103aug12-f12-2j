@@ -1,3 +1,9 @@
+/**
+ * TextGenerator generates a pseudo-random string
+ * 
+ * @author A0081241U
+ */
+
 package testing.stringGenerator;
 import java.io.BufferedReader;
 import java.io.File;
@@ -92,6 +98,6 @@ public class TextGenerator {
 			outputString.append(newChar);
 		}
 		
-		return outputString.toString();
+		return outputString.toString().trim();
 	}
 }
