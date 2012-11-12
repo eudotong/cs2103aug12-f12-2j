@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -23,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
@@ -37,7 +39,7 @@ import commandLogic.CommandProcessor;
  */
 public class GUI extends JPanel implements ActionListener {
 
-	private static final int VERT_BOX_HEIGHT = 250;
+	private static final int VERT_BOX_HEIGHT = 280;
 	private static final int VERT_BOX_WIDTH = 180;
 	private static final String APP_LOG = "app.log";
 	private static final String HELP_HINT = "hold 'ctrl + h' for help";
@@ -82,8 +84,8 @@ public class GUI extends JPanel implements ActionListener {
 	private static final int TASKLIST_FONT_STYLE = Font.BOLD;
 	private static final int TASKLIST_FONT_SIZE = 12;
 
-	private static final int COMMAND_OUTPUT_LABEL_WIDTH = 100;
-	private static final int COMMAND_OUTPUT_LABEL_HEIGHT = 10;
+	private static final int COMMAND_OUTPUT_LABEL_WIDTH = 90;
+	private static final int COMMAND_OUTPUT_LABEL_HEIGHT = 30;
 	private static final String COMMAND_OUTPUT_FONT_TYPE = "Courier";
 	private static final int COMMAND_OUTPUT_FONT_STYLE = Font.BOLD;
 	private static final int COMMAND_OUTPUT_FONT_SIZE = 12;
@@ -110,7 +112,7 @@ public class GUI extends JPanel implements ActionListener {
 	JScrollPane listPane;
 	JTextField textField = new JTextField(32);
 	CommandProcessor commandProcessor;
-	JLabel commandOutputLabel;
+	JTextArea commandOutputLabel;
 	Box verticalBox;
 
 	public GUI() {
@@ -173,11 +175,15 @@ public class GUI extends JPanel implements ActionListener {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		// output after processing command
-		commandOutputLabel = new JLabel(EMPTY_STRING);
+		commandOutputLabel = new JTextArea(EMPTY_STRING);
 		commandOutputLabel.setFont(COMMAND_OUTPUT_FONT);
 		commandOutputLabel.setForeground(COMMAND_OUTPUT_FONT_COLOR);
 		commandOutputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		commandOutputLabel.setPreferredSize(COMMAND_OUTPUT_LABEL_DIMENSION);
+		commandOutputLabel.setWrapStyleWord(true);  
+		commandOutputLabel.setLineWrap(true); 
+		commandOutputLabel.setBackground(new java.awt.Color(238, 238, 238));
+		commandOutputLabel.setMargin(new Insets(0,10,0,0));
 		add(createControlPanel());
 		add(commandOutputLabel);
 		add(foregroundPanel);
