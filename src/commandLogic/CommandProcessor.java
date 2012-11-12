@@ -28,6 +28,8 @@ import exceptions.StartTimeAfterEndTimeException;
  * 
  */
 public class CommandProcessor {
+	private static final String MESSAGE_COMMAND_TOO_LONG = "Command is too long. Max 150 characters.";
+	private static final int COMMAND_MAX_LENGTH = 150;
 	private static final String MESSAGE_ERROR_DATE_SPECIFIED_DOES_NOT_EXIST = "Date specified does not exist.";
 	private static final String URGENT = "urgent";
 	private static final int INDEXING_1_BASED = 1;
@@ -85,6 +87,9 @@ public class CommandProcessor {
 					+ "\" was issued.");
 			changeRecord.add(command);
 			String outputMessage = EMPTY_STRING;
+			if(command.length() > COMMAND_MAX_LENGTH){
+				return MESSAGE_COMMAND_TOO_LONG;
+			}
 			Command commandIssued = commandParser.parseCommand(command);
 			switch (commandIssued.getCommandType()) {
 			case ADD:

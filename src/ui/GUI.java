@@ -135,6 +135,7 @@ public class GUI extends JPanel implements ActionListener {
 
 		// hint in textfield
 		textField.setUI(new HintFieldUI(HELP_HINT, true));
+		
 
 		// key shortcuts for previous command and next commands, and help
 		textField.addActionListener(this);
@@ -214,7 +215,6 @@ public class GUI extends JPanel implements ActionListener {
 	// process command output for display
 	public void actionPerformed(ActionEvent evt) {
 		String command = textField.getText();
-
 		String output = commandProcessor.processCommand(command);
 		commandOutputLabel.setText(output);
 		tasklist.setModel(commandProcessor.getCurrentListModelOfTasks());
